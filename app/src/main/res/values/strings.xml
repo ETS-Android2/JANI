@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">JANI</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_plan">Plan</string>
+    <string name="title_dashboard">Profile</string>
+    <string name="title_notifications">Create</string>
+</resources>
