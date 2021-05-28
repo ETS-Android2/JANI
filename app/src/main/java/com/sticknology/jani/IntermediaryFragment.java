@@ -54,6 +54,7 @@ public class IntermediaryFragment extends Fragment {
             viewPager2.setAdapter(calendarPager);
             new TabLayoutMediator(tabLayout, viewPager2, (tab, position) ->
                     tab.setText(titlesCalendar[position])).attach();
+            viewPager2.setUserInputEnabled(false);
         } else if(test.equals("PLAN")) {
             planPager = new PlanPager(this);
             viewPager2.setAdapter(planPager);

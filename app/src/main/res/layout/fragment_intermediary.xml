@@ -17,4 +17,8 @@
         android:id="@+id/inter_pager2"
         android:layout_weight="1"/>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="56dp"/>
+
 </LinearLayout>
