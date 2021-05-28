@@ -7,25 +7,45 @@
 
     <fragment
         android:id="@+id/navigation_calendar"
-        android:name="com.sticknology.jani.ui.calendar.CalendarFragment"
+        android:name="com.sticknology.jani.IntermediaryFragment"
         android:label="@string/title_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_intermediary" >
+        <argument
+            android:name="Category"
+            app:argType="string"
+            android:defaultValue="CALENDAR" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_plan"
-        android:name="com.sticknology.jani.ui.plan.PlanFragment"
+        android:name="com.sticknology.jani.IntermediaryFragment"
         android:label="@string/title_plan"
-        tools:layout="@layout/fragment_plan"/>
+        tools:layout="@layout/fragment_intermediary">
+        <argument
+            android:name="Category"
+            app:argType="string"
+            android:defaultValue="PLAN" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.sticknology.jani.ui.profile.ProfileFragment"
+        android:name="com.sticknology.jani.IntermediaryFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_intermediary" >
+        <argument
+            android:name="Category"
+            app:argType="string"
+            android:defaultValue="PROFILE" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_create"
-        android:name="com.sticknology.jani.ui.create.CreateFragment"
+        android:name="com.sticknology.jani.IntermediaryFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_create" />
+        tools:layout="@layout/fragment_intermediary" >
+        <argument
+            android:name="Category"
+            app:argType="string"
+            android:defaultValue="CREATE" />
+    </fragment>
 </navigation>

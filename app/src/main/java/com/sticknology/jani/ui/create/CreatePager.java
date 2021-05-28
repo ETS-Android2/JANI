@@ -3,9 +3,6 @@ package com.sticknology.jani.ui.create;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.sticknology.jani.ui.plan.OverviewFragment;
-import com.sticknology.jani.ui.plan.PastFragment;
-
 public class CreatePager extends FragmentStateAdapter {
 
     private static final int NUM_PAGES = 2;
