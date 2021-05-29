@@ -39,7 +39,6 @@ public class IntermediaryFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
-        
         Bundle test3 = getArguments();
         test = test3.getString("Category");
         System.err.println(test);

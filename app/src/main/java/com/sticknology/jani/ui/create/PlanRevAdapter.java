@@ -1,4 +1,4 @@
-package com.sticknology.jani.ui.plan;
+package com.sticknology.jani.ui.create;
 
 import android.content.Context;
 import android.view.LayoutInflater;

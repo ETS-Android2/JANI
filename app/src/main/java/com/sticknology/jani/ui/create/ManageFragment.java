@@ -1,12 +1,13 @@
 package com.sticknology.jani.ui.create;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.TrainingPlan;
-import com.sticknology.jani.ui.plan.PlanRevAdapter;
+import com.sticknology.jani.ui.create.planCreation.PlanCreationActivity;
 
 import java.util.ArrayList;
 
@@ -35,10 +36,20 @@ public class ManageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView revTrainingPlans = (RecyclerView) getView().findViewById(R.id.rev_manage);
-        mTrainingPlans = TrainingPlan.createContactsList(20);
+        mTrainingPlans = TrainingPlan.createContactsList(6);
         PlanRevAdapter planRevAdapter = new PlanRevAdapter(mTrainingPlans);
         revTrainingPlans.setAdapter(planRevAdapter);
         revTrainingPlans.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        Button newButton = getView().findViewById(R.id.button_new_plan_manage);
+        newButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent newPlanActivity = new Intent(getActivity().getApplicationContext(), PlanCreationActivity.class);
+                startActivity(newPlanActivity);
+            }
+        });
     }
 
     @Override
