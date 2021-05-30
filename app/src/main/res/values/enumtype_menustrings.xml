@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="runtype_array">
+        <item>Workout</item>
+        <item>Recovery</item>
+        <item>Long Run</item>
+        <item>Training</item>
+        <item>Easy</item>
+        <item>Hybrid</item>
+        <item>Race</item>
+        <item>Time Trial</item>
+    </string-array>
+</resources>
