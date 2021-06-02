@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class TrainingWeek {
 
     private final ArrayList<TrainingDay> mTrainingDays;
-    private final Types.TrainingWeekTypeEnum mType;
+    private final String mType;
     private final String mDescriptor;
-    private final int mStartDay;
+    private final String mStartDay;
 
-    public TrainingWeek(ArrayList<TrainingDay> trainingDays, Types.TrainingWeekTypeEnum type,
-                        String descriptor, int startDay){
+    public TrainingWeek(ArrayList<TrainingDay> trainingDays, String type,
+                        String descriptor, String startDay){
 
         mTrainingDays = trainingDays;
         mType = type;
@@ -18,24 +18,11 @@ public class TrainingWeek {
         mStartDay = startDay;
     }
 
-    public ArrayList<TrainingWeek> createTrainingWeekList(ArrayList<TrainingDay>[] trainingDays,
-                                                          Types.TrainingWeekTypeEnum[] types,
-                                                          String[] descriptors, int[] startDays){
-
-        ArrayList<TrainingWeek> trainingWeekArrayList = new ArrayList<TrainingWeek>();
-
-        for(int i = 0; i < descriptors.length; i++){
-            trainingWeekArrayList.add(new TrainingWeek(trainingDays[i], types[i], descriptors[i], startDays[i]));
-        }
-
-        return trainingWeekArrayList;
-    }
-
     public ArrayList<TrainingDay> getTrainingWeekDays(){
         return mTrainingDays;
     }
 
-    public Types.TrainingWeekTypeEnum getTrainingWeekType(){
+    public String getTrainingWeekType(){
         return mType;
     }
 
@@ -43,7 +30,7 @@ public class TrainingWeek {
         return mDescriptor;
     }
 
-    public int getTrainingWeekStartDay(){
+    public String getTrainingWeekStartDay(){
         return mStartDay;
     }
 }

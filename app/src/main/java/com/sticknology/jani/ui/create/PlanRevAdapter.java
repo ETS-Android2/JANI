@@ -10,11 +10,10 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.TrainingPlan;
 
 import java.util.List;
 
-public class PlanRevAdapter extends RecyclerView.Adapter<PlanRevAdapter.ViewHolder> {
+/*public class PlanRevAdapter extends RecyclerView.Adapter<PlanRevAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
@@ -75,4 +74,4 @@ public class PlanRevAdapter extends RecyclerView.Adapter<PlanRevAdapter.ViewHold
     public int getItemCount() {
         return mTrainingPlans.size();
     }
-}
+}*/

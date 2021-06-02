@@ -19,7 +19,7 @@ public class PlanCreationPager extends FragmentStateAdapter {
         if(tabset == PlanCreationActivity.TABSET.VIEW && position == 0){
             return EditOverviewFragment.newInstance("");
         } else if(tabset == PlanCreationActivity.TABSET.VIEW && position == 1){
-            return EditWeekByWeekFragment.newInstance("");
+            return WByWFragment.newInstance("");
         } else if(tabset == PlanCreationActivity.TABSET.TEMPLATES && position == 0){
             return RunTemplateFragment.newInstance("");
         } else if(tabset == PlanCreationActivity.TABSET.TEMPLATES && position == 1){

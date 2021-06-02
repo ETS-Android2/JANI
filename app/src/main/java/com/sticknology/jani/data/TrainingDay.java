@@ -9,8 +9,7 @@ public class TrainingDay {
     private final String mType;
     private final String mDescriptor;
 
-    public TrainingDay(ArrayList<Run> runs, ArrayList<Workout> workouts,
-                       String type, String descriptor){
+    public TrainingDay(ArrayList<Run> runs, ArrayList<Workout> workouts, String type, String descriptor){
 
         mRuns = runs;
         mWorkouts = workouts;

@@ -18,4 +18,12 @@
         <item>VO2 Max</item>
         <item>Threshold</item>
     </string-array>
+    <string-array name="daytype_array">
+        <item>Easy</item>
+        <item>Recovery</item>
+        <item>Workout</item>
+        <item>Long Distance</item>
+        <item>Cross Training</item>
+        <item>Off Day</item>
+    </string-array>
 </resources>

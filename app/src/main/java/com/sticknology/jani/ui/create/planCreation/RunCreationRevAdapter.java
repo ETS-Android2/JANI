@@ -7,19 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.Interval;
-import com.sticknology.jani.data.TrainingPlan;
-import com.sticknology.jani.ui.create.PlanRevAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RunCreationRevAdapter extends RecyclerView.Adapter<RunCreationRevAdapter.ViewHolder> {
@@ -40,9 +36,9 @@ public class RunCreationRevAdapter extends RecyclerView.Adapter<RunCreationRevAd
         }
     }
 
-    private List<TrainingPlan> mIntervals;
+    private List<Interval> mIntervals;
 
-    public RunCreationRevAdapter(List<TrainingPlan> intervalList) {
+    public RunCreationRevAdapter(List<Interval> intervalList) {
         mIntervals = intervalList;
     }
 

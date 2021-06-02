@@ -4,24 +4,44 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
+import com.sticknology.jani.data.ListCreation;
+import com.sticknology.jani.data.Run;
 import com.sticknology.jani.data.TrainingDay;
+import com.sticknology.jani.data.TrainingWeek;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
+        public Spinner mDayTypeSpinner;
+        public Context mContext;
+        public RecyclerView mInternalRecyclerView;
+        public TextView mDayName;
+        public Button mNewItemButton;
+
         public ViewHolder(View itemView){
 
             super(itemView);
+            mDayTypeSpinner = itemView.findViewById(R.id.wbyw_rev_spinner_daytype);
+            mContext = itemView.getContext();
+            mInternalRecyclerView = itemView.findViewById(R.id.wbyw_rev_rev);
+            mDayName = itemView.findViewById(R.id.wbyw_rev_text_dayname);
+            mNewItemButton = itemView.findViewById(R.id.wbyw_rev_newitem);
         }
     }
 
@@ -48,11 +68,63 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
+        Spinner dayType = holder.mDayTypeSpinner;
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(holder.mContext,
+                R.array.daytype_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dayType.setAdapter(adapter);
+
+        //Create RecyclerView for displaying currently added runs/workouts
+        RecyclerView revDay = (RecyclerView) holder.mInternalRecyclerView;
+        ArrayList<Run> runs = mTrainingDayList.get(position).getTrainingDayRuns();
+        WByWRunRevAdapter wByWRunRevAdapter = new WByWRunRevAdapter(runs);
+        revDay.setAdapter(wByWRunRevAdapter);
+        revDay.setLayoutManager(new LinearLayoutManager(holder.mContext));
+
+        System.out.println("THIS IS POSITION:  " + position);
+        TextView dayName = holder.mDayName;
+
+        //Sets the correct day for each rev item
+        switch (position){
+            case 0:{
+                dayName.setText("Monday");
+                break;
+            } case 1:{
+                dayName.setText("Tuesday");
+                break;
+            } case 2:{
+                dayName.setText("Wednesday");
+                break;
+            } case 3:{
+                dayName.setText("Thursday");
+                break;
+            } case 4:{
+                dayName.setText("Friday");
+                break;
+            } case 5:{
+                dayName.setText("Saturday");
+                break;
+            } case 6:{
+                dayName.setText("Sunday");
+                break;
+            } default:{
+                dayName.setText("Something Broke");
+            }
+        }
+
+        //Sets listener for the button to add an item
+        Button newItemButton = holder.mNewItemButton;
+        newItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mTrainingDayList.size();
     }
-
 }

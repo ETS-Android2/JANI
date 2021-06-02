@@ -7,14 +7,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
+import com.sticknology.jani.data.ListCreation;
+import com.sticknology.jani.data.TrainingDay;
+import com.sticknology.jani.data.TrainingWeek;
 
-public class EditWeekByWeekFragment extends Fragment {
+import java.util.ArrayList;
 
-    public static EditWeekByWeekFragment newInstance(String text) {
+public class WByWFragment extends Fragment {
 
-        EditWeekByWeekFragment f = new EditWeekByWeekFragment();
+    public ArrayList<TrainingDay> mTrainingDayList;
+
+    public static WByWFragment newInstance(String text) {
+
+        WByWFragment f = new WByWFragment();
         Bundle b = new Bundle();
         b.putString("msg", text);
 
@@ -33,7 +42,7 @@ public class EditWeekByWeekFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button newButton = getView().findViewById(R.id.button_wbyw);
+        /*Button newButton = getView().findViewById(R.id.button_wbyw);
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +56,14 @@ public class EditWeekByWeekFragment extends Fragment {
                         .addToBackStack(null)
                         .commit();
             }
-        });
+        });*/
+
+        //Create RecyclerView for Displaying Days in Week
+        RecyclerView revDay = (RecyclerView) getView().findViewById(R.id.pc_rev_dayholder);
+        TrainingWeek newTrainingWeek = new ListCreation().createEmptyTrainingWeek();
+        mTrainingDayList = newTrainingWeek.getTrainingWeekDays();
+        WeekByWeekRevAdapter weekByWeekRevAdapter = new WeekByWeekRevAdapter(mTrainingDayList);
+        revDay.setAdapter(weekByWeekRevAdapter);
+        revDay.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
 }

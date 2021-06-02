@@ -17,7 +17,6 @@ import com.sticknology.jani.R;
 import com.sticknology.jani.data.Interval;
 import com.sticknology.jani.data.ListCreation;
 import com.sticknology.jani.data.Run;
-import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.dataProcessing.InterpretRun;
 import com.sticknology.jani.dataProcessing.StandardReadWrite;
 
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 
 public class RunCreationFragment extends Fragment {
 
-    ArrayList<TrainingPlan> mTrainingPlans;
+    ArrayList<Interval> mIntervalList;
     public static RunCreationRevAdapter mAdapter;
     public static Run mSavedRun;
 
@@ -58,8 +57,8 @@ public class RunCreationFragment extends Fragment {
 
         //Create RecyclerView for Adding New Intervals
         RecyclerView revRunCreationInterval = (RecyclerView) getView().findViewById(R.id.rc_rev_interval);
-        mTrainingPlans = TrainingPlan.createContactsList(1);
-        RunCreationRevAdapter runCreationRevAdapter = new RunCreationRevAdapter(mTrainingPlans);
+        mIntervalList = new ListCreation().createEmptyInterval();
+        RunCreationRevAdapter runCreationRevAdapter = new RunCreationRevAdapter(mIntervalList);
         revRunCreationInterval.setAdapter(runCreationRevAdapter);
         revRunCreationInterval.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -72,8 +71,8 @@ public class RunCreationFragment extends Fragment {
             public void onClick(View view) {
 
                 int curSize = runCreationRevAdapter.getItemCount();
-                ArrayList<TrainingPlan> newItems = TrainingPlan.createContactsList(1);
-                mTrainingPlans.addAll(newItems);
+                ArrayList<Interval> newItems = new ListCreation().createEmptyInterval();
+                mIntervalList.addAll(newItems);
                 runCreationRevAdapter.notifyItemRangeInserted(curSize, newItems.size());
             }
         });

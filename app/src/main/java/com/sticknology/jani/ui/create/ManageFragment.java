@@ -14,14 +14,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.ui.create.planCreation.PlanCreationActivity;
 
 import java.util.ArrayList;
 
 public class ManageFragment extends Fragment {
 
-    ArrayList<TrainingPlan> mTrainingPlans;
+    //TODO: Reimplement recycler view for having multiple training plans
+
+    //ArrayList<TrainingPlan> mTrainingPlans;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,12 +36,12 @@ public class ManageFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView revTrainingPlans = (RecyclerView) getView().findViewById(R.id.rev_manage);
+        /*RecyclerView revTrainingPlans = (RecyclerView) getView().findViewById(R.id.rev_manage);
         mTrainingPlans = TrainingPlan.createContactsList(6);
         PlanRevAdapter planRevAdapter = new PlanRevAdapter(mTrainingPlans);
         revTrainingPlans.setAdapter(planRevAdapter);
         revTrainingPlans.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
+        */
         Button newButton = getView().findViewById(R.id.button_new_plan_manage);
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
