@@ -18,18 +18,6 @@ public class Interval {
         mEffort = effort;
     }
 
-    public ArrayList<Interval> createIntervalList(String[] distances, String[] paces, String[] times,
-                                                  String[] efforts){
-
-        ArrayList<Interval> intervalArrayList = new ArrayList<Interval>();
-
-        for(int i = 0; i < distances.length; i++){
-            intervalArrayList.add(new Interval(distances[i], paces[i], times[i], efforts[i]));
-        }
-
-        return intervalArrayList;
-    }
-
     public String getIntervalDistance(){
         return mDistance;
     }

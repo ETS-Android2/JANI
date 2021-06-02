@@ -69,9 +69,17 @@
         android:id="@+id/ll_bottom_runcreation">
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Please Dont Break"
+            android:text="Cancel"
+            android:id="@+id/rc_button_cancel"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Save Run and Add"
             android:id="@+id/rc_button_save"/>
 
     </LinearLayout>

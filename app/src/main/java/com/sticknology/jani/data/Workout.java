@@ -4,27 +4,20 @@ import java.util.ArrayList;
 
 public class Workout {
 
-    private final Types.WorkoutTypeEnum mType;
+    private final String mName;
+    private final String mType;
     private final String mDescriptor;
 
-    public Workout(Types.WorkoutTypeEnum type, String descriptor){
+    public Workout(String name, String type, String descriptor){
 
+        mName = name;
         mType = type;
         mDescriptor = descriptor;
     }
 
-    public ArrayList<Workout> createWorkoutList(Types.WorkoutTypeEnum[] types, String[] descriptors) {
+    public String getWorkoutName(){return mName;}
 
-            ArrayList<Workout> workoutArrayList = new ArrayList<Workout>();
-
-            for (int i = 0; i < types.length; i++) {
-                workoutArrayList.add(new Workout(types[i], descriptors[i]));
-            }
-
-            return workoutArrayList;
-    }
-
-    public Types.WorkoutTypeEnum getWorkoutType(){
+    public String getWorkoutType(){
         return mType;
     }
 

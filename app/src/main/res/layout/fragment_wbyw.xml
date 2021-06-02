@@ -6,12 +6,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/wbyw_layout">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/pc_recycler_dayholder"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/button_wbyw"
-        android:text="Create New Plan"/>
+        android:text="Add Run"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

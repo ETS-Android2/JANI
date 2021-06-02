@@ -12,16 +12,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-public class ReadWriteRun {
-    public void writeRunToText(String name, String description, String[] distance, String[] time,
-                               int[] efforts, String[] pace, Context context) {
+public class StandardReadWrite {
+
+    public void writeText(String content, String filename, Context context) {
 
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("run_save1.txt", Context.MODE_PRIVATE));
-            outputStreamWriter.write(name + "|" + description + "\n");
-            for(int i = 0; i < distance.length; i++){
-                outputStreamWriter.write(distance[i] + "|" + time[i] + "|" + pace[i] + "|" + efforts[i] + "\n");
-            }
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
+            outputStreamWriter.append(content);
             outputStreamWriter.close();
         }
         catch (IOException e) {
@@ -29,11 +26,12 @@ public class ReadWriteRun {
         }
     }
 
-    public Run readRunToObject(Context context){
-        Run ret = null;
+    public String readFileToString(String filename, Context context){
+
+        String ret = "";
 
         try {
-            InputStream inputStream = context.openFileInput("run_save1.txt");
+            InputStream inputStream = context.openFileInput(filename);
 
             if ( inputStream != null ) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -46,7 +44,7 @@ public class ReadWriteRun {
                 }
 
                 inputStream.close();
-                ret = null;
+                ret = stringBuilder.toString();
             }
         }
         catch (FileNotFoundException e) {

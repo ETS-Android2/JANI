@@ -14,8 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
+import com.sticknology.jani.data.Interval;
+import com.sticknology.jani.data.ListCreation;
+import com.sticknology.jani.data.Run;
 import com.sticknology.jani.data.TrainingPlan;
-import com.sticknology.jani.dataProcessing.ReadWriteRun;
+import com.sticknology.jani.dataProcessing.InterpretRun;
+import com.sticknology.jani.dataProcessing.StandardReadWrite;
 
 import java.util.ArrayList;
 
@@ -23,12 +27,14 @@ public class RunCreationFragment extends Fragment {
 
     ArrayList<TrainingPlan> mTrainingPlans;
     public static RunCreationRevAdapter mAdapter;
+    public static Run mSavedRun;
 
     private String[] mDistance;
     private String[] mPace;
     private String[] mTime;
-    private int[] mEfforts;
+    private String[] mEfforts;
     private String mName;
+    private String mType;
     private String mDescription;
 
     @Override
@@ -72,6 +78,16 @@ public class RunCreationFragment extends Fragment {
             }
         });
 
+        //Setting up Cancel Button Listener
+        //TODO: Add full functionality here
+        Button cancelButton = getView().findViewById(R.id.rc_button_cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         //Setting Up Save Button Listener
         Button saveButton = getView().findViewById(R.id.rc_button_save);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -85,10 +101,14 @@ public class RunCreationFragment extends Fragment {
                 mName = nameEditText.getText().toString();
                 EditText descriptionEditText = getView().findViewById(R.id.run_descript_edit);
                 mDescription = descriptionEditText.getText().toString();
+                Spinner typeSpinner = getView().findViewById(R.id.spinner_runtype);
+                mType = typeSpinner.getSelectedItem().toString();
+
+
                 mDistance = new String[currLength];
                 mPace = new String[currLength];
                 mTime = new String[currLength];
-                mEfforts = new int[currLength];
+                mEfforts = new String[currLength];
 
 
                 for(int i = 0; i < currLength; i++){
@@ -101,11 +121,16 @@ public class RunCreationFragment extends Fragment {
                     EditText distanceEditText = mChild.findViewById(R.id.rc_rev_distance);
                     mDistance[i] = distanceEditText.getText().toString();
                     Spinner effortSpinner = mChild.findViewById(R.id.spinner_rc_intervalrev);
-                    mEfforts[i] = effortSpinner.getSelectedItemPosition();
+                    mEfforts[i] = effortSpinner.getSelectedItem().toString();
                 }
 
-                ReadWriteRun readWriteRun = new ReadWriteRun();
-                readWriteRun.writeRunToText(mName, mDescription, mDistance, mTime, mEfforts, mPace, getContext());
+                ListCreation listCreation = new ListCreation();
+                ArrayList<Interval> intervalArrayList = listCreation.createIntervalList(mDistance, mPace, mTime, mEfforts);
+
+                mSavedRun = new Run(intervalArrayList, mName, mDescription, mType);
+                String runString = new InterpretRun().getStringRun(mSavedRun);
+                StandardReadWrite standardReadWrite = new StandardReadWrite();
+                standardReadWrite.writeText(runString, "test.txt", getContext());
             }
         });
 

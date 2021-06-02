@@ -6,30 +6,16 @@ public class TrainingDay {
 
     private final ArrayList<Run> mRuns;
     private final ArrayList<Workout> mWorkouts;
-    private final Types.TrainingDayTypeEnum mType;
+    private final String mType;
     private final String mDescriptor;
 
     public TrainingDay(ArrayList<Run> runs, ArrayList<Workout> workouts,
-                       Types.TrainingDayTypeEnum type, String descriptor){
+                       String type, String descriptor){
 
         mRuns = runs;
         mWorkouts = workouts;
         mType = type;
         mDescriptor = descriptor;
-    }
-
-    public ArrayList<TrainingDay> createTrainingDayList(ArrayList<Run>[] runs,
-                                                        ArrayList<Workout>[] workouts,
-                                                        Types.TrainingDayTypeEnum[] types,
-                                                        String[] descriptors){
-
-        ArrayList<TrainingDay> trainingDayArrayList = new ArrayList<TrainingDay>();
-
-        for(int i = 0; i < types.length; i++){
-            trainingDayArrayList.add(new TrainingDay(runs[i], workouts[i], types[i], descriptors[i]));
-        }
-
-        return trainingDayArrayList;
     }
 
     public ArrayList<Run> getTrainingDayRuns(){
@@ -40,7 +26,7 @@ public class TrainingDay {
         return mWorkouts;
     }
 
-    public Types.TrainingDayTypeEnum getTrainingDayType(){
+    public String getTrainingDayType(){
         return mType;
     }
 

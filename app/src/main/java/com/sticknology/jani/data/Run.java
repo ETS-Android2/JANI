@@ -5,37 +5,29 @@ import java.util.ArrayList;
 public class Run {
 
     private final ArrayList<Interval> mIntervals;
+    private final String mName;
     private final String mDescriptor;
-    private final Types.RunTypeEnum mType;
+    private final String mType;
 
-    public Run(ArrayList<Interval> intervals, String descriptor, Types.RunTypeEnum type){
+    public Run(ArrayList<Interval> intervals, String name, String descriptor, String type){
 
         mIntervals = intervals;
-        mType = type;
+        mName = name;
         mDescriptor = descriptor;
-    }
-
-    public ArrayList<Run> createRunList(ArrayList<Interval>[] intervals, String[] descriptors,
-                                             Types.RunTypeEnum[] types){
-
-        ArrayList<Run> runArrayList = new ArrayList<Run>();
-
-        for(int i = 0; i < descriptors.length; i++){
-            runArrayList.add(new Run(intervals[i], descriptors[i], types[i]));
-        }
-
-        return runArrayList;
+        mType = type;
     }
 
     public ArrayList<Interval> getRunIntervals(){
         return mIntervals;
     }
 
+    public String getRunName(){return mName;}
+
     public String getRunType(){
         return mDescriptor;
     }
 
-    public Types.RunTypeEnum getRunDescriptor(){
+    public String getRunDescriptor(){
         return mType;
     }
 }
