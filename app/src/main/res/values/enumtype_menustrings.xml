@@ -10,4 +10,12 @@
         <item>Race</item>
         <item>Time Trial</item>
     </string-array>
+    <string-array name="intervaltype_array">
+        <item>Recovery</item>
+        <item>Easy</item>
+        <item>Endurance</item>
+        <item>Tempo</item>
+        <item>VO2 Max</item>
+        <item>Threshold</item>
+    </string-array>
 </resources>

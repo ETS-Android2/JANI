@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public class Interval {
 
-    private final Float mDistance;
+    private final String mDistance;
     private final String mPace;
     private final String mTime;
-    private final Types.IntervalEffortEnum mEffort;
+    private final String mEffort;
 
-    public Interval(Float distance, String pace, String time, Types.IntervalEffortEnum effort){
+    //Setter for instance construction
+    public Interval(String distance, String pace, String time, String effort){
 
         mDistance = distance;
         mPace = pace;
@@ -17,8 +18,8 @@ public class Interval {
         mEffort = effort;
     }
 
-    public ArrayList<Interval> createIntervalList(Float[] distances, String[] paces, String[] times,
-                                                  Types.IntervalEffortEnum[] efforts){
+    public ArrayList<Interval> createIntervalList(String[] distances, String[] paces, String[] times,
+                                                  String[] efforts){
 
         ArrayList<Interval> intervalArrayList = new ArrayList<Interval>();
 
@@ -29,7 +30,7 @@ public class Interval {
         return intervalArrayList;
     }
 
-    public Float getIntervalDistance(){
+    public String getIntervalDistance(){
         return mDistance;
     }
 
@@ -41,7 +42,7 @@ public class Interval {
         return mTime;
     }
 
-    public Types.IntervalEffortEnum getIntervalEffort(){
+    public String getIntervalEffort(){
         return mEffort;
     }
 }
