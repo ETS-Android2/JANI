@@ -12,13 +12,10 @@ import com.sticknology.jani.R;
 
 public class OverviewFragment extends Fragment {
 
-    //TODO: Figure out why navigating to this crashes
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_overview, container, false);
+        View v = inflater.inflate(R.layout.fragment_overview_plan, container, false);
 
-        TextView tv = (TextView) v.findViewById(R.id.textView1);
-        tv.setText(getArguments().getString("msg"));
         return v;
     }
 
