@@ -1,5 +1,6 @@
 package com.sticknology.jani.ui.create.planCreation;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sticknology.jani.MainActivity;
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.ListCreation;
 import com.sticknology.jani.data.Run;
@@ -112,12 +114,19 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
             }
         }
 
-        //Sets listener for the button to add an item
+        //Sets listener for the button to add a run
         Button newItemButton = holder.mNewItemButton;
         newItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
+                PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.TEMPLATES;
 
+                PlanCreateInterFragment planCreateInterFragment = new PlanCreateInterFragment();
+                planCreationActivity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, planCreateInterFragment, null)
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });
