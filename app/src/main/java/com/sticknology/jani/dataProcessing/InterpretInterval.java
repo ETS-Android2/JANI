@@ -11,12 +11,12 @@ public class InterpretInterval {
         String pace = interval.getIntervalPace();
         String effort = interval.getIntervalEffort();
 
-        return distance + "|" + time + "|" + pace + "|" + effort;
+        return distance + "&!&" + time + "&!&" + pace + "&!&" + effort;
     }
 
     public Interval getIntervalObject(String input){
 
-        String[] comp = input.split("|");
+        String[] comp = input.split("(&!&)");
         String distance = comp[0];
         String time = comp[1];
         String pace = comp[2];

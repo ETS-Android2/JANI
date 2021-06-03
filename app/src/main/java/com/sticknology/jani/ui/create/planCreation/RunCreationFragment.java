@@ -129,7 +129,7 @@ public class RunCreationFragment extends Fragment {
                 mSavedRun = new Run(intervalArrayList, mName, mDescription, mType);
                 String runString = new InterpretRun().getStringRun(mSavedRun);
                 StandardReadWrite standardReadWrite = new StandardReadWrite();
-                standardReadWrite.writeText(runString, "test.txt", getContext());
+                standardReadWrite.appendText(runString, "test.txt", getContext());
             }
         });
 

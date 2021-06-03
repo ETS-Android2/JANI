@@ -14,7 +14,9 @@ import java.io.OutputStreamWriter;
 
 public class StandardReadWrite {
 
-    public void writeText(String content, String filename, Context context) {
+    public void appendText(String content, String filename, Context context) {
+
+        System.out.println("Tried to write");
 
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_APPEND));

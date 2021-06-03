@@ -1,6 +1,5 @@
 package com.sticknology.jani.ui.create.planCreation;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +70,7 @@ public class WorkoutCreationFragment extends Fragment {
                     InterpretWorkout interpretWorkout = new InterpretWorkout();
                     String workoutString = interpretWorkout.getStringWorkout(workout);
                     workoutString = workoutString.replace("\n", " ");
-                    standardReadWrite.writeText(workoutString,"workout_templates.txt", getContext());
+                    standardReadWrite.appendText(workoutString,"workout_templates.txt", getContext());
                 }
             }
         });

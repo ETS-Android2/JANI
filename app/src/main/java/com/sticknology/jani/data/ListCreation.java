@@ -55,6 +55,7 @@ public class ListCreation {
         return workoutArrayList;
     }
 
+    //TODO: Remove default string values and go back to empty strings
     public ArrayList<Workout> createEmptyWorkoutList(){
         ArrayList<Workout> workoutArrayList = new ArrayList<Workout>();
         workoutArrayList.add(new Workout("", "", ""));

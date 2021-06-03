@@ -7,9 +7,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
+import com.sticknology.jani.data.ListCreation;
+import com.sticknology.jani.data.Workout;
+import com.sticknology.jani.dataProcessing.InterpretWorkout;
 import com.sticknology.jani.ui.create.ManageFragment;
+
+import java.util.ArrayList;
 
 public class WorkoutTemplateFragment extends Fragment {
 
@@ -47,5 +54,17 @@ public class WorkoutTemplateFragment extends Fragment {
                         .commit();
             }
         });
+
+        //Get List of Workout Templates
+        System.out.println("Got in here");
+        InterpretWorkout interpretWorkout = new InterpretWorkout();
+        ArrayList<Workout> workoutList = interpretWorkout.getWorkoutTemplates(getContext());
+
+        //Sets up recyclerview displaying list of workout template items
+        RecyclerView templateRecyclerView = getView().findViewById(R.id.wc_rev_wov);
+        //ArrayList<Workout> workoutList = new ListCreation().createEmptyWorkoutList();
+        WorkoutTemplateAdapter workoutTemplateAdapter = new WorkoutTemplateAdapter(workoutList);
+        templateRecyclerView.setAdapter(workoutTemplateAdapter);
+        templateRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 }

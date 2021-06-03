@@ -17,7 +17,7 @@ public class InterpretRun {
 
         InterpretInterval interpretInterval = new InterpretInterval();
 
-        String build = name + "|" + description + "|" + type + "\n";
+        String build = name + "&!&" + description + "&!&" + type + "\n";
 
         for(int i = 0; i < intervalList.size(); i++){
 
@@ -31,7 +31,7 @@ public class InterpretRun {
 
         String[] buildArray = runString.split("\n");
 
-        String[] identifier = buildArray[0].split("|");
+        String[] identifier = buildArray[0].split("(&!&)");
         String name = identifier[0];
         String descriptor = identifier[1];
         String type = identifier[2];
@@ -42,7 +42,7 @@ public class InterpretRun {
         String[] effortArray = new String[buildArray.length-1];
 
         for (int i = 1; i < buildArray.length; i++) {
-            String[] intervalArray = buildArray[i].split("|");
+            String[] intervalArray = buildArray[i].split("(&!&)");
             distanceArray[i] = intervalArray[0];
             paceArray[i] = intervalArray[1];
             timeArray[i] = intervalArray[2];
