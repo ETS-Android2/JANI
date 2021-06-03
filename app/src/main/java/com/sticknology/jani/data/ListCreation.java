@@ -96,4 +96,17 @@ public class ListCreation {
         return trainingWeek;
     }
 
+    public ArrayList<TrainingWeek> createEmptyTrainingWeekList(){
+        ArrayList<TrainingWeek> trainingWeekArrayList = new ArrayList<TrainingWeek>();
+        trainingWeekArrayList.add(createEmptyTrainingWeek());
+        return trainingWeekArrayList;
+    }
+
+    public TrainingPlan createEmptyTrainingPlan(){
+        ArrayList<TrainingWeek> trainingWeekArrayList = createEmptyTrainingWeekList();
+        TrainingPlan trainingPlan = new TrainingPlan(trainingWeekArrayList, "", "", "",
+                "", "");
+        return trainingPlan;
+    }
+
 }

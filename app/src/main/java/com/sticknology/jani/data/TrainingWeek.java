@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class TrainingWeek {
 
     private final ArrayList<TrainingDay> mTrainingDays;
-    private final String mType;
-    private final String mDescriptor;
-    private final String mStartDay;
+    private String mType;
+    private String mDescriptor;
+    private String mStartDay;
 
     public TrainingWeek(ArrayList<TrainingDay> trainingDays, String type,
                         String descriptor, String startDay){
@@ -18,19 +18,20 @@ public class TrainingWeek {
         mStartDay = startDay;
     }
 
+    //Only Getters and Setters Below Here
     public ArrayList<TrainingDay> getTrainingWeekDays(){
         return mTrainingDays;
     }
 
-    public String getTrainingWeekType(){
-        return mType;
-    }
+    public String getTrainingWeekType(){return mType;}
 
-    public String getTrainingWeekDescriptor(){
-        return mDescriptor;
-    }
+    public void setTrainingWeekType(String type){mType = type;}
 
-    public String getTrainingWeekStartDay(){
-        return mStartDay;
-    }
+    public String getTrainingWeekDescriptor(){return mDescriptor;}
+
+    public void setTrainingWeekDescriptor(String descriptor){mDescriptor = descriptor;}
+
+    public String getTrainingWeekStartDay(){return mStartDay;}
+
+    public void setTrainingWeekStartDay(String startDay){mStartDay = startDay;}
 }

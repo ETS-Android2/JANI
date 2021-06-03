@@ -8,6 +8,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.sticknology.jani.R;
+import com.sticknology.jani.data.ListCreation;
+import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.ui.calendar.CalendarPager;
 import com.sticknology.jani.ui.create.CreatePager;
 import com.sticknology.jani.ui.plan.PlanPager;
@@ -18,14 +20,16 @@ public class PlanCreationActivity extends AppCompatActivity {
     protected enum TABSET {VIEW, TEMPLATES}
     protected static TABSET currentTabSet = TABSET.VIEW;
 
-    protected static ViewPager2 viewPager2PCA;
-    protected static TabLayout tabLayoutPCA;
+    public static TrainingPlan mTrainingPlan;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plancreation);
+
+        mTrainingPlan = new ListCreation().createEmptyTrainingPlan();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -35,6 +39,4 @@ public class PlanCreationActivity extends AppCompatActivity {
         }
 
     }
-
-
 }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class TrainingDay {
 
-    private final ArrayList<Run> mRuns;
-    private final ArrayList<Workout> mWorkouts;
-    private final String mType;
-    private final String mDescriptor;
+    private ArrayList<Run> mRuns;
+    private ArrayList<Workout> mWorkouts;
+    private String mType;
+    private String mDescriptor;
 
     public TrainingDay(ArrayList<Run> runs, ArrayList<Workout> workouts, String type, String descriptor){
 
@@ -17,19 +17,26 @@ public class TrainingDay {
         mDescriptor = descriptor;
     }
 
-    public ArrayList<Run> getTrainingDayRuns(){
-        return mRuns;
-    }
+    //Add/Remove for Run List
+    public void removeRun(int pos){mRuns.remove(pos);}
 
-    public ArrayList<Workout> getTrainingDayWorkouts(){
-        return mWorkouts;
-    }
+    public void addRun(Run run){mRuns.add(run);}
 
-    public String getTrainingDayType(){
-        return mType;
-    }
+    //Add/Remove for Workout List
+    public void removeWorkout(int pos){mWorkouts.remove(pos);}
 
-    public String getTrainingDayDescriptor(){
-        return mDescriptor;
-    }
+    public void addWorkout(Workout workout){mWorkouts.add(workout);}
+
+    //Only Getters and Setters Below Here
+    public ArrayList<Run> getTrainingDayRuns(){return mRuns;}
+
+    public ArrayList<Workout> getTrainingDayWorkouts(){return mWorkouts;}
+
+    public String getTrainingDayType(){return mType;}
+
+    public void setTrainingDayType(String type){mType = type;}
+
+    public String getTrainingDayDescriptor(){return mDescriptor;}
+
+    public void setTrainingDayDescriptor(String dayDescriptor){mDescriptor = dayDescriptor;}
 }

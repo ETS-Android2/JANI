@@ -76,6 +76,12 @@
             android:text="Number of Weeks:  0"
             android:textSize="20dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Duration: 0"
+            android:textSize="20dp"/>
+
     </LinearLayout>
 
 

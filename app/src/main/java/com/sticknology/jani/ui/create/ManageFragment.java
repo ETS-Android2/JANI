@@ -22,7 +22,16 @@ public class ManageFragment extends Fragment {
 
     //TODO: Reimplement recycler view for having multiple training plans
 
-    //ArrayList<TrainingPlan> mTrainingPlans;
+    public static ManageFragment newInstance(String text) {
+
+        ManageFragment f = new ManageFragment();
+        Bundle b = new Bundle();
+        b.putString("msg", text);
+
+        f.setArguments(b);
+
+        return f;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,12 +45,6 @@ public class ManageFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        /*RecyclerView revTrainingPlans = (RecyclerView) getView().findViewById(R.id.rev_manage);
-        mTrainingPlans = TrainingPlan.createContactsList(6);
-        PlanRevAdapter planRevAdapter = new PlanRevAdapter(mTrainingPlans);
-        revTrainingPlans.setAdapter(planRevAdapter);
-        revTrainingPlans.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        */
         Button newButton = getView().findViewById(R.id.button_new_plan_manage);
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,16 +61,5 @@ public class ManageFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.manage_nav_menu, menu);
-    }
-
-    public static ManageFragment newInstance(String text) {
-
-        ManageFragment f = new ManageFragment();
-        Bundle b = new Bundle();
-        b.putString("msg", text);
-
-        f.setArguments(b);
-
-        return f;
     }
 }

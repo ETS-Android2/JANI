@@ -1,12 +1,10 @@
 package com.sticknology.jani.data;
 
-import java.util.ArrayList;
-
 public class Workout {
 
-    private final String mName;
-    private final String mType;
-    private final String mDescriptor;
+    private String mName;
+    private String mType;
+    private String mDescriptor;
 
     public Workout(String name, String type, String descriptor){
 
@@ -15,13 +13,16 @@ public class Workout {
         mDescriptor = descriptor;
     }
 
+    //Only Getters and Setters Below Here
     public String getWorkoutName(){return mName;}
 
-    public String getWorkoutType(){
-        return mType;
-    }
+    public void setWorkoutName(String name){mName = name;}
 
-    public String getWorkoutDescriptor(){
-        return mDescriptor;
-    }
+    public String getWorkoutType(){return mType;}
+
+    public void setWorkoutType(String type){mType = type;}
+
+    public String getWorkoutDescriptor(){return mDescriptor;}
+
+    public void setWorkoutDescriptor(String descriptor){mDescriptor = descriptor;}
 }
