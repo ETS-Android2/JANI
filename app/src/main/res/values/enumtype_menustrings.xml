@@ -26,4 +26,10 @@
         <item>Cross Training</item>
         <item>Off Day</item>
     </string-array>
+    <string-array name="workouttype_array">
+        <item>Stretching</item>
+        <item>Weights</item>
+        <item>Yoga</item>
+        <item>Cardio</item>
+    </string-array>
 </resources>

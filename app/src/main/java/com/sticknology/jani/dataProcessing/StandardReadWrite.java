@@ -17,7 +17,8 @@ public class StandardReadWrite {
     public void writeText(String content, String filename, Context context) {
 
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_APPEND));
+            outputStreamWriter.append("\n");
             outputStreamWriter.append(content);
             outputStreamWriter.close();
         }

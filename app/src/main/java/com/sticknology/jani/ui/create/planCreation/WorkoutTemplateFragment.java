@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
@@ -27,5 +28,24 @@ public class WorkoutTemplateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_workouttemplate, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+
+        super.onViewCreated(view, savedInstanceState);
+
+        Button newWorkoutButton = getView().findViewById(R.id.wc_button_newworkout);
+        newWorkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                WorkoutCreationFragment workoutCreationFragment = new WorkoutCreationFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, workoutCreationFragment, null)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 }

@@ -77,11 +77,13 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
         dayType.setAdapter(adapter);
 
         //Create RecyclerView for displaying currently added runs/workouts
-        RecyclerView revDay = (RecyclerView) holder.mInternalRecyclerView;
-        ArrayList<Run> runs = mTrainingDayList.get(position).getTrainingDayRuns();
-        WByWRunRevAdapter wByWRunRevAdapter = new WByWRunRevAdapter(runs);
-        revDay.setAdapter(wByWRunRevAdapter);
-        revDay.setLayoutManager(new LinearLayoutManager(holder.mContext));
+        if(WByWFragment.numWeeks != 1) {
+            RecyclerView revDay = (RecyclerView) holder.mInternalRecyclerView;
+            ArrayList<Run> runs = mTrainingDayList.get(position).getTrainingDayRuns();
+            WByWRunRevAdapter wByWRunRevAdapter = new WByWRunRevAdapter(runs);
+            revDay.setAdapter(wByWRunRevAdapter);
+            revDay.setLayoutManager(new LinearLayoutManager(holder.mContext));
+        }
 
         System.out.println("THIS IS POSITION:  " + position);
         TextView dayName = holder.mDayName;
