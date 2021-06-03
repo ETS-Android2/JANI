@@ -1,6 +1,5 @@
 package com.sticknology.jani.ui.create.planCreation;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sticknology.jani.MainActivity;
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.ListCreation;
 import com.sticknology.jani.data.Run;
 import com.sticknology.jani.data.TrainingDay;
-import com.sticknology.jani.data.TrainingWeek;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,15 +31,18 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
         public RecyclerView mInternalRecyclerView;
         public TextView mDayName;
         public Button mNewItemButton;
+        public RecyclerView mRecyclerView;
 
         public ViewHolder(View itemView){
 
             super(itemView);
+
             mDayTypeSpinner = itemView.findViewById(R.id.wbyw_rev_spinner_daytype);
             mContext = itemView.getContext();
             mInternalRecyclerView = itemView.findViewById(R.id.wbyw_rev_rev);
             mDayName = itemView.findViewById(R.id.wbyw_rev_text_dayname);
             mNewItemButton = itemView.findViewById(R.id.wbyw_rev_newitem);
+            mRecyclerView = itemView.findViewById(R.id.wbyw_rev_rev);
         }
     }
 
@@ -70,6 +69,7 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
+        //Set Spinner for type of day
         Spinner dayType = holder.mDayTypeSpinner;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(holder.mContext,
                 R.array.daytype_array, android.R.layout.simple_spinner_item);
@@ -127,7 +127,6 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .addToBackStack(null)
                         .commit();
-
             }
         });
     }

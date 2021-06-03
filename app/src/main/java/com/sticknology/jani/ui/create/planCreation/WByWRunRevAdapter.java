@@ -50,6 +50,7 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull @NotNull WByWRunRevAdapter.ViewHolder holder, int position) {
 
+
     }
 
     @Override
