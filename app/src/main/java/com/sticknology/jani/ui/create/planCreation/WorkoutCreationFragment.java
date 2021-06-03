@@ -1,5 +1,6 @@
 package com.sticknology.jani.ui.create.planCreation;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,20 +58,27 @@ public class WorkoutCreationFragment extends Fragment {
             public void onClick(View view) {
 
                 Switch templateSwitch = getView().findViewById(R.id.wc_wc_switchtemplate);
+                TextView workoutName = getView().findViewById(R.id.wc_wc_workoutname);
+                TextView workoutDescript = getView().findViewById(R.id.wc_wc_workoutdescript);
+                Workout workout = new Workout(workoutName.getText().toString(),
+                        workoutTypeSpinner.getSelectedItem().toString(), workoutDescript.getText().toString());
 
                 if(templateSwitch.isChecked()) {
-
-                    TextView workoutName = getView().findViewById(R.id.wc_wc_workoutname);
-                    TextView workoutDescript = getView().findViewById(R.id.wc_wc_workoutdescript);
-
-                    Workout workout = new Workout(workoutName.getText().toString(),
-                            workoutTypeSpinner.getSelectedItem().toString(), workoutDescript.getText().toString());
-
                     StandardReadWrite standardReadWrite = new StandardReadWrite();
                     InterpretWorkout interpretWorkout = new InterpretWorkout();
                     String workoutString = interpretWorkout.getStringWorkout(workout);
                     workoutString = workoutString.replace("\n", " ");
-                    standardReadWrite.appendText(workoutString,"workout_templates.txt", getContext());
+                    standardReadWrite.appendText(workoutString,"workout_templates.txt", getContext(), Context.MODE_APPEND);
+                } else{
+                    PlanCreationActivity planCreationActivity = new PlanCreationActivity();
+                    planCreationActivity.mTrainingPlan.getTrainingDay(0,2).addWorkout(workout);
+
+                    PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container_create, PlanCreateInterFragment.class, null)
+                            .addToBackStack(null)
+                            .commit();
                 }
             }
         });

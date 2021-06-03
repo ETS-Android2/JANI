@@ -1,0 +1,18 @@
+Between Interior Items:
+Workout:    &!&
+Run:        &@&
+Day:        &#&
+
+Between Objects:
+Workout:    &^&
+Run:        &&&
+Day:        &%&
+
+
+
+For Training Plan:
+Before and after each plan:
+Sequence:   ------
+
+First Line: Plan details
+Weeks on Separate Lines

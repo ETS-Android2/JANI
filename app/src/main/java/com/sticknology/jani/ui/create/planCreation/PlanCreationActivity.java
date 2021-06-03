@@ -20,17 +20,15 @@ public class PlanCreationActivity extends AppCompatActivity {
     protected enum TABSET {VIEW, TEMPLATES}
     protected static TABSET currentTabSet = TABSET.VIEW;
 
-    public static TrainingPlan mTrainingPlan;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plancreation);
 
-        mTrainingPlan = new ListCreation().createEmptyTrainingPlan();
 
+
+        //Starts fragment
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)

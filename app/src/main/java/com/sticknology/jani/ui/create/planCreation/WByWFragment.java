@@ -17,6 +17,7 @@ import com.sticknology.jani.R;
 import com.sticknology.jani.data.ListCreation;
 import com.sticknology.jani.data.TrainingDay;
 import com.sticknology.jani.data.TrainingWeek;
+import com.sticknology.jani.data.Workout;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -58,7 +59,9 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
         RecyclerView revDay = (RecyclerView) getView().findViewById(R.id.pc_rev_dayholder);
         TrainingWeek newTrainingWeek = new ListCreation().createEmptyTrainingWeek();
         mTrainingDayList = newTrainingWeek.getTrainingWeekDays();
-        WeekByWeekRevAdapter weekByWeekRevAdapter = new WeekByWeekRevAdapter(mTrainingDayList);
+        ArrayList<TrainingDay> trainingDayArrayList =
+                PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(0).getTrainingWeekDays();
+        WeekByWeekRevAdapter weekByWeekRevAdapter = new WeekByWeekRevAdapter(trainingDayArrayList);
         revDay.setAdapter(weekByWeekRevAdapter);
         revDay.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -95,6 +98,16 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
                 numWeeks--;
             }
         });
+
+        try{
+            System.out.println("GOT INSIDE TRY");
+            Workout test = PlanCreationActivity.mTrainingPlan.getTrainingDay(0, 2)
+                    .getTrainingDayWorkouts().get(0);
+            System.out.println(test.getWorkoutName());
+            System.out.println("GOT TO END OF TRY");
+        } catch (Exception e){
+            System.out.println("AN ERROR OCCURED");
+        }
     }
 
     //Listener for selection of week spinner

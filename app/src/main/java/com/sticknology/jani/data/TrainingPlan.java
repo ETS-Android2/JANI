@@ -22,6 +22,11 @@ public class TrainingPlan {
         mGoal = goal;
     }
 
+    //Gets TrainingDay from Plan
+    public TrainingDay getTrainingDay(int weekNumber, int dayPosition){
+        return mTrainingWeeks.get(weekNumber).getTrainingWeekDays().get(dayPosition);
+    }
+
     //Modifying TrainingWeek Arraylist
     public void addWeek(){
         ListCreation listCreation = new ListCreation();
