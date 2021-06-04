@@ -59,7 +59,6 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
     @Override
     public void onBindViewHolder(@NonNull @NotNull WorkoutTemplateAdapter.ViewHolder holder, int position) {
 
-        System.out.println("got inside onbindviewholder");
         TextView nameView = holder.mName;
         TextView typeView = holder.mType;
         TextView descriptorView = holder.mDescriptor;

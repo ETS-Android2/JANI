@@ -24,11 +24,11 @@ public class WorkoutCreationFragment extends Fragment {
 
     private ArrayAdapter<CharSequence> dataAdapter;
 
-    public static WorkoutCreationFragment newInstance(String text) {
+    public static WorkoutCreationFragment newInstance(String plan) {
 
         WorkoutCreationFragment f = new WorkoutCreationFragment();
         Bundle b = new Bundle();
-        b.putString("msg", text);
+        b.putString("plan", plan);
 
         f.setArguments(b);
 
@@ -38,6 +38,8 @@ public class WorkoutCreationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        Bundle bundle = getArguments();
+        System.out.println("This is mplan from workoutcreation: " + bundle.getString("plan"));
         return inflater.inflate(R.layout.fragment_workoutcreation, container, false);
     }
 
@@ -70,8 +72,6 @@ public class WorkoutCreationFragment extends Fragment {
                     workoutString = workoutString.replace("\n", " ");
                     standardReadWrite.appendText(workoutString,"workout_templates.txt", getContext(), Context.MODE_APPEND);
                 } else{
-                    PlanCreationActivity planCreationActivity = new PlanCreationActivity();
-                    planCreationActivity.mTrainingPlan.getTrainingDay(0,2).addWorkout(workout);
 
                     PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
 

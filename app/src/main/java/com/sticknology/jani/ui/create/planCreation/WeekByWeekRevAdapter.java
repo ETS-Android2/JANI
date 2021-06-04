@@ -47,8 +47,11 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
     }
 
     private List<TrainingDay> mTrainingDayList;
-    public WeekByWeekRevAdapter(List<TrainingDay> dayList){
+    private String mPlan;
+
+    public WeekByWeekRevAdapter(List<TrainingDay> dayList, String plan){
         mTrainingDayList = dayList;
+        mPlan = plan;
     }
 
     @Override
@@ -85,7 +88,6 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
             revDay.setLayoutManager(new LinearLayoutManager(holder.mContext));
         }
 
-        System.out.println("THIS IS POSITION:  " + position);
         TextView dayName = holder.mDayName;
 
         //Sets the correct day for each rev item
@@ -116,15 +118,14 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
             }
         }
 
-        //Sets listener for the button to add a run
+        //Sets listener for the button to add an item to the day
         Button newItemButton = holder.mNewItemButton;
         newItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.TEMPLATES;
-
-                PlanCreateInterFragment planCreateInterFragment = new PlanCreateInterFragment();
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(mPlan);
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .addToBackStack(null)

@@ -96,7 +96,6 @@ public class RunCreationFragment extends Fragment {
 
                 int currLength = runCreationRevAdapter.getItemCount();
 
-                System.out.println(currLength);
                 EditText nameEditText = getView().findViewById(R.id.run_name_edit);
                 mName = nameEditText.getText().toString();
                 EditText descriptionEditText = getView().findViewById(R.id.run_descript_edit);
@@ -104,12 +103,10 @@ public class RunCreationFragment extends Fragment {
                 Spinner typeSpinner = getView().findViewById(R.id.spinner_runtype);
                 mType = typeSpinner.getSelectedItem().toString();
 
-
                 mDistance = new String[currLength];
                 mPace = new String[currLength];
                 mTime = new String[currLength];
                 mEfforts = new String[currLength];
-
 
                 for(int i = 0; i < currLength; i++){
                     //Todo: Find out why it breaks if there are multiple intervals

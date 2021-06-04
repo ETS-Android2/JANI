@@ -33,12 +33,13 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
     private ArrayAdapter<String> dataAdapter;
     private List<String> weeks;
     private int newWeekIndex;
+    private String mPlan;
 
-    public static WByWFragment newInstance(String text) {
+    public static WByWFragment newInstance(String plan) {
 
         WByWFragment f = new WByWFragment();
         Bundle b = new Bundle();
-        b.putString("msg", text);
+        b.putString("plan", plan);
 
         f.setArguments(b);
 
@@ -48,6 +49,7 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        mPlan = this.getArguments().getString("plan");
         return inflater.inflate(R.layout.fragment_wbyw, container, false);
     }
 
@@ -59,9 +61,8 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
         RecyclerView revDay = (RecyclerView) getView().findViewById(R.id.pc_rev_dayholder);
         TrainingWeek newTrainingWeek = new ListCreation().createEmptyTrainingWeek();
         mTrainingDayList = newTrainingWeek.getTrainingWeekDays();
-        ArrayList<TrainingDay> trainingDayArrayList =
-                PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(0).getTrainingWeekDays();
-        WeekByWeekRevAdapter weekByWeekRevAdapter = new WeekByWeekRevAdapter(trainingDayArrayList);
+        ArrayList<TrainingDay> trainingDayArrayList = newTrainingWeek.getTrainingWeekDays();
+        WeekByWeekRevAdapter weekByWeekRevAdapter = new WeekByWeekRevAdapter(trainingDayArrayList, mPlan);
         revDay.setAdapter(weekByWeekRevAdapter);
         revDay.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -98,16 +99,6 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
                 numWeeks--;
             }
         });
-
-        try{
-            System.out.println("GOT INSIDE TRY");
-            Workout test = PlanCreationActivity.mTrainingPlan.getTrainingDay(0, 2)
-                    .getTrainingDayWorkouts().get(0);
-            System.out.println(test.getWorkoutName());
-            System.out.println("GOT TO END OF TRY");
-        } catch (Exception e){
-            System.out.println("AN ERROR OCCURED");
-        }
     }
 
     //Listener for selection of week spinner

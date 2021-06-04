@@ -20,11 +20,13 @@ import java.util.ArrayList;
 
 public class WorkoutTemplateFragment extends Fragment {
 
-    public static WorkoutTemplateFragment newInstance(String text) {
+    private String mPlan;
+
+    public static WorkoutTemplateFragment newInstance(String plan) {
 
         WorkoutTemplateFragment f = new WorkoutTemplateFragment();
         Bundle b = new Bundle();
-        b.putString("msg", text);
+        b.putString("plan", plan);
 
         f.setArguments(b);
 
@@ -34,6 +36,9 @@ public class WorkoutTemplateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        Bundle bundle = getArguments();
+        mPlan = bundle.getString("plan");
+        System.out.println(mPlan + " this is plan inside workouttemplatefragment");
         return inflater.inflate(R.layout.fragment_workouttemplate, container, false);
     }
 
@@ -47,7 +52,7 @@ public class WorkoutTemplateFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                WorkoutCreationFragment workoutCreationFragment = new WorkoutCreationFragment();
+                WorkoutCreationFragment workoutCreationFragment = WorkoutCreationFragment.newInstance(mPlan);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, workoutCreationFragment, null)
                         .addToBackStack(null)
@@ -56,7 +61,6 @@ public class WorkoutTemplateFragment extends Fragment {
         });
 
         //Get List of Workout Templates
-        System.out.println("Got in here");
         InterpretWorkout interpretWorkout = new InterpretWorkout();
         ArrayList<Workout> workoutList = interpretWorkout.getWorkoutTemplates(getContext());
 

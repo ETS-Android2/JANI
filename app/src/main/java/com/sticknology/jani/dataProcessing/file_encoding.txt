@@ -1,14 +1,17 @@
 Between Interior Items:
+These are used as delimiters with objects of the listed type
 Workout:    &!&
 Run:        &@&
 Day:        &#&
+Week:       &/&
+Plan:       &`&
 
 Between Objects:
-Workout:    &^&
+These are used as delimiters between objects of the listed type
+Workout:    &_&
 Run:        &&&
 Day:        &%&
-
-
+Week:       &,&
 
 For Training Plan:
 Before and after each plan:

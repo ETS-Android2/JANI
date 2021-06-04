@@ -6,9 +6,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 public class PlanCreationPager extends FragmentStateAdapter {
 
     private static final int NUM_TABS = 2;
+    private String mPlan;
 
-    public PlanCreationPager(Fragment fragment) {
+    public PlanCreationPager(Fragment fragment, String test) {
         super(fragment);
+        mPlan = test;
     }
 
     @Override
@@ -17,20 +19,18 @@ public class PlanCreationPager extends FragmentStateAdapter {
         PlanCreationActivity.TABSET tabset = PlanCreationActivity.currentTabSet;
 
         if(tabset == PlanCreationActivity.TABSET.VIEW && position == 0){
-            return EditOverviewFragment.newInstance("");
+            return EditOverviewFragment.newInstance(mPlan);
         } else if(tabset == PlanCreationActivity.TABSET.VIEW && position == 1){
-            return WByWFragment.newInstance("");
+            return WByWFragment.newInstance(mPlan);
         } else if(tabset == PlanCreationActivity.TABSET.TEMPLATES && position == 0){
-            return RunTemplateFragment.newInstance("");
+            return RunTemplateFragment.newInstance(mPlan);
         } else if(tabset == PlanCreationActivity.TABSET.TEMPLATES && position == 1){
-            return WorkoutTemplateFragment.newInstance("");
+            return WorkoutTemplateFragment.newInstance(mPlan);
         } else{
-            return EditOverviewFragment.newInstance("");
+            return EditOverviewFragment.newInstance(mPlan);
         }
     }
 
     @Override
-    public int getItemCount() {
-        return NUM_TABS;
-    }
+    public int getItemCount() {return NUM_TABS;}
 }
