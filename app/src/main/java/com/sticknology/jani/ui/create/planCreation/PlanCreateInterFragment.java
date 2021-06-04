@@ -22,6 +22,7 @@ public class PlanCreateInterFragment extends Fragment {
 
     private static ViewPager2 viewPager2;
     private static TabLayout tabLayout;
+    private String mPlanString;
 
     public static PlanCreateInterFragment newInstance(String plan) {
 
@@ -37,6 +38,9 @@ public class PlanCreateInterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        Bundle bundle = getArguments();
+        mPlanString = bundle.getString("plan");
+        System.out.println("This is plan string form createinterfragment: " + mPlanString);
         return inflater.inflate(R.layout.fragment_plancreation_inter, container, false);
     }
 
@@ -51,7 +55,8 @@ public class PlanCreateInterFragment extends Fragment {
 
     protected void setTabs(ViewPager2 viewPager2, TabLayout tabLayout){
 
-        PlanCreationPager planCreationPager = new PlanCreationPager(this, "test");
+
+        PlanCreationPager planCreationPager = new PlanCreationPager(this, mPlanString);
         viewPager2.setAdapter(planCreationPager);
         if (currentTabSet == PlanCreationActivity.TABSET.VIEW){
             new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> tab.setText(titlesV[position])).attach();

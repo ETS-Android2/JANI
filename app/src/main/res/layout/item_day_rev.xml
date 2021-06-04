@@ -9,13 +9,15 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="Test Item"/>
+        android:text="Test Item"
+        android:id="@+id/wbyw_rev_rev_name"/>
 
     <TextView
         android:layout_width="0dp"
         android:layout_weight="0.75"
         android:layout_height="wrap_content"
-        android:text="Distance"/>
+        android:text="Distance"
+        android:id="@+id/wbyw_rev_rev_descript"/>
 
     <Button
         android:layout_width="0dp"

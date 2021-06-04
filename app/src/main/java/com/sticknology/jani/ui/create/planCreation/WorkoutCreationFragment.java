@@ -14,7 +14,9 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.sticknology.jani.R;
+import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.data.Workout;
+import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 import com.sticknology.jani.dataProcessing.InterpretWorkout;
 import com.sticknology.jani.dataProcessing.StandardReadWrite;
 
@@ -23,6 +25,7 @@ public class WorkoutCreationFragment extends Fragment {
     public Spinner workoutTypeSpinner;
 
     private ArrayAdapter<CharSequence> dataAdapter;
+    private TrainingPlan mTrainingPlan;
 
     public static WorkoutCreationFragment newInstance(String plan) {
 
@@ -39,7 +42,8 @@ public class WorkoutCreationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        System.out.println("This is mplan from workoutcreation: " + bundle.getString("plan"));
+        String mPlan = bundle.getString("plan");
+        mTrainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan);
         return inflater.inflate(R.layout.fragment_workoutcreation, container, false);
     }
 
@@ -71,15 +75,27 @@ public class WorkoutCreationFragment extends Fragment {
                     String workoutString = interpretWorkout.getStringWorkout(workout);
                     workoutString = workoutString.replace("\n", " ");
                     standardReadWrite.appendText(workoutString,"workout_templates.txt", getContext(), Context.MODE_APPEND);
-                } else{
-
-                    PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
-
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container_create, PlanCreateInterFragment.class, null)
-                            .addToBackStack(null)
-                            .commit();
                 }
+
+                //Add Workout to Training Plan
+                mTrainingPlan.getTrainingDay(0,0).addWorkout(workout);
+                if(mTrainingPlan.getTrainingDay(0, 0).getTrainingDayWorkouts()
+                        .get(0).getWorkoutName().equals(":;:")){
+
+                    mTrainingPlan.getTrainingDay(0,0).removeWorkout(0);
+                }
+
+                System.out.println("SAVING NEW WORKOUT");
+
+                //Navigation back to overview
+                //TODO: Make navigation back to weekbyweek
+                String trainingPlanString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlan);
+                PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(trainingPlanString);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, planCreateInterFragment, null)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }

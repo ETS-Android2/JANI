@@ -23,7 +23,7 @@ public class ListCreation {
 
         ArrayList<Interval> intervalArrayList = new ArrayList<Interval>();
 
-        intervalArrayList.add(new Interval("", "", "", ""));
+        intervalArrayList.add(new Interval(":;:", " ", " ", " "));
 
         return intervalArrayList;
     }
@@ -43,7 +43,7 @@ public class ListCreation {
     public ArrayList<Run> createEmptyRunList(){
 
         ArrayList<Run> runArrayList = new ArrayList<Run>();
-        runArrayList.add(new Run(createEmptyInterval(), "", "", ""));
+        runArrayList.add(new Run(createEmptyInterval(), ":;:", " ", " "));
         return runArrayList;
     }
 
@@ -58,7 +58,7 @@ public class ListCreation {
     //TODO: Remove default string values and go back to empty strings
     public ArrayList<Workout> createEmptyWorkoutList(){
         ArrayList<Workout> workoutArrayList = new ArrayList<Workout>();
-        workoutArrayList.add(new Workout("", "", ""));
+        workoutArrayList.add(new Workout(":;:", " ", " "));
         return workoutArrayList;
     }
 
@@ -81,7 +81,7 @@ public class ListCreation {
     public ArrayList<TrainingDay> createEmptyTrainingDayList(){
 
         ArrayList<TrainingDay> trainingDayArrayList = new ArrayList<TrainingDay>();
-        trainingDayArrayList.add(new TrainingDay(createEmptyRunList(), createEmptyWorkoutList(), "", ""));
+        trainingDayArrayList.add(new TrainingDay(createEmptyRunList(), createEmptyWorkoutList(), ":;:", " "));
         return trainingDayArrayList;
     }
 
@@ -92,7 +92,7 @@ public class ListCreation {
             ArrayList<TrainingDay> additionalDay = createEmptyTrainingDayList();
             trainingDayArrayList.addAll(additionalDay);
         }
-        TrainingWeek trainingWeek = new TrainingWeek(trainingDayArrayList, "", "", "");
+        TrainingWeek trainingWeek = new TrainingWeek(trainingDayArrayList, ":;:", " ", " ");
         return trainingWeek;
     }
 
@@ -104,8 +104,8 @@ public class ListCreation {
 
     public TrainingPlan createEmptyTrainingPlan(){
         ArrayList<TrainingWeek> trainingWeekArrayList = createEmptyTrainingWeekList();
-        TrainingPlan trainingPlan = new TrainingPlan(trainingWeekArrayList, "", "", "",
-                "", "");
+        TrainingPlan trainingPlan = new TrainingPlan(trainingWeekArrayList, ":;:", " ", " ",
+                " ", " ");
         return trainingPlan;
     }
 

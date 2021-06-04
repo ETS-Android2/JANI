@@ -16,6 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.Run;
 import com.sticknology.jani.data.TrainingDay;
+import com.sticknology.jani.data.TrainingPlan;
+import com.sticknology.jani.data.TrainingWeek;
+import com.sticknology.jani.data.Workout;
+import com.sticknology.jani.dataProcessing.InterpretDay;
+import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
+import com.sticknology.jani.dataProcessing.InterpretWeek;
+import com.sticknology.jani.dataProcessing.InterpretWorkout;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -49,9 +56,22 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
     private List<TrainingDay> mTrainingDayList;
     private String mPlan;
 
-    public WeekByWeekRevAdapter(List<TrainingDay> dayList, String plan){
-        mTrainingDayList = dayList;
+    public WeekByWeekRevAdapter(String plan){
         mPlan = plan;
+        TrainingPlan trainingPlanObject = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan);
+        mTrainingDayList = trainingPlanObject.getTrainingPlanWeeks().get(0).getTrainingWeekDays();
+
+        TrainingWeek testWeek = trainingPlanObject.getTrainingPlanWeeks().get(0);
+
+        System.out.println("THIS IS TESTWEEK STRING: " + new InterpretWeek().getStringTrainingWeek(testWeek));
+
+        TrainingDay testDay = testWeek.getTrainingWeekDays().get(0);
+
+        System.out.println("THIS IS TESTDAY STRING: " + new InterpretDay().getStringDay(testDay));
+
+        Workout test = testDay.getTrainingDayWorkouts().get(0);
+
+        System.out.println("THIS IS TESWORKOUT:  " + new InterpretWorkout().getStringWorkout(test));
     }
 
     @Override
@@ -79,18 +99,22 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dayType.setAdapter(adapter);
 
-        //Create RecyclerView for displaying currently added runs/workouts
-        if(WByWFragment.numWeeks != 1) {
+        //Create list for interior Recycler View
+        ArrayList<Workout> workoutList = mTrainingDayList.get(position).getTrainingDayWorkouts();
+
+        if(!workoutList.get(0).getWorkoutName().equals(":;:")){
+
+            System.out.println("WBYWREVADAPTER onBindViewHolder was run inside if statement");
+
+            //Create RecyclerView for displaying currently added runs/workouts
             RecyclerView revDay = (RecyclerView) holder.mInternalRecyclerView;
-            ArrayList<Run> runs = mTrainingDayList.get(position).getTrainingDayRuns();
-            WByWRunRevAdapter wByWRunRevAdapter = new WByWRunRevAdapter(runs);
+            WByWRunRevAdapter wByWRunRevAdapter = new WByWRunRevAdapter(workoutList);
             revDay.setAdapter(wByWRunRevAdapter);
             revDay.setLayoutManager(new LinearLayoutManager(holder.mContext));
         }
 
-        TextView dayName = holder.mDayName;
-
         //Sets the correct day for each rev item
+        TextView dayName = holder.mDayName;
         switch (position){
             case 0:{
                 dayName.setText("Monday");
@@ -128,7 +152,6 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
                 PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(mPlan);
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
-                        .addToBackStack(null)
                         .commit();
             }
         });

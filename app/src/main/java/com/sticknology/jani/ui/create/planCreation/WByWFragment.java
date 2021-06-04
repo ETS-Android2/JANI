@@ -26,7 +26,6 @@ import java.util.List;
 
 public class WByWFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    public ArrayList<TrainingDay> mTrainingDayList;
     public static int numWeeks = 1;
 
     private Spinner weekSpinner;
@@ -60,9 +59,7 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
         //Create RecyclerView for Displaying Days in Week
         RecyclerView revDay = (RecyclerView) getView().findViewById(R.id.pc_rev_dayholder);
         TrainingWeek newTrainingWeek = new ListCreation().createEmptyTrainingWeek();
-        mTrainingDayList = newTrainingWeek.getTrainingWeekDays();
-        ArrayList<TrainingDay> trainingDayArrayList = newTrainingWeek.getTrainingWeekDays();
-        WeekByWeekRevAdapter weekByWeekRevAdapter = new WeekByWeekRevAdapter(trainingDayArrayList, mPlan);
+        WeekByWeekRevAdapter weekByWeekRevAdapter = new WeekByWeekRevAdapter(mPlan);
         revDay.setAdapter(weekByWeekRevAdapter);
         revDay.setLayoutManager(new LinearLayoutManager(this.getContext()));
 

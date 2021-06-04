@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.Run;
 import com.sticknology.jani.data.TrainingDay;
+import com.sticknology.jani.data.Workout;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -20,16 +22,23 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
+        public TextView mName;
+        public TextView mDescript;
+
         public ViewHolder(View itemView){
 
             super(itemView);
+            mName = itemView.findViewById(R.id.wbyw_rev_rev_name);
+            mDescript = itemView.findViewById(R.id.wbyw_rev_rev_descript);
+
         }
     }
 
     private List<Run> mTrainingDays;
+    private List<Workout> mWorkouts;
 
-    public WByWRunRevAdapter(List<Run> trainingDayList){
-        mTrainingDays = trainingDayList;
+    public WByWRunRevAdapter(List<Workout> workoutList){
+        mWorkouts = workoutList;
     }
 
     @Override
@@ -50,11 +59,13 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull @NotNull WByWRunRevAdapter.ViewHolder holder, int position) {
 
-
+        System.out.println("WBYWRUNREVADAPTER onbindviewholder was run");
+        holder.mName.setText(mWorkouts.get(position).getWorkoutName());
+        holder.mDescript.setText(mWorkouts.get(position).getWorkoutType());
     }
 
     @Override
     public int getItemCount() {
-        return mTrainingDays.size();
+        return mWorkouts.size();
     }
 }

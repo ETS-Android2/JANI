@@ -13,45 +13,37 @@ public class InterpretRun {
         String name = run.getRunName();
         String description = run.getRunDescriptor();
         String type = run.getRunType();
-        ArrayList<Interval> intervalList = run.getRunIntervals();
 
+        String runBuild = name + "&@&" + description + "&@&" + type;
+
+        String intervalBuild = "";
         InterpretInterval interpretInterval = new InterpretInterval();
-
-        String build = name + "&!&" + description + "&!&" + type + "\n";
-
+        ArrayList<Interval> intervalList = run.getRunIntervals();
         for(int i = 0; i < intervalList.size(); i++){
 
-            build += interpretInterval.getIntervalString(intervalList.get(i)) + "\n";
+            intervalBuild += interpretInterval.getIntervalString(intervalList.get(i));
+            if(i < intervalList.size()-1){
+                intervalBuild += "&>&";
+            }
         }
 
-        return build;
+        return runBuild + "&@&" + intervalBuild;
     }
 
     public Run getObjectRun(String runString){
 
-        String[] buildArray = runString.split("\n");
+        String[] runArray = runString.split("(&@&)");
 
-        String[] identifier = buildArray[0].split("(&!&)");
-        String name = identifier[0];
-        String descriptor = identifier[1];
-        String type = identifier[2];
+        String name = runArray[0];
+        String descriptor = runArray[1];
+        String type = runArray[2];
 
-        String[] distanceArray = new String[buildArray.length-1];
-        String[] paceArray = new String[buildArray.length-1];
-        String[] timeArray = new String[buildArray.length-1];
-        String[] effortArray = new String[buildArray.length-1];
-
-        for (int i = 1; i < buildArray.length; i++) {
-            String[] intervalArray = buildArray[i].split("(&!&)");
-            distanceArray[i] = intervalArray[0];
-            paceArray[i] = intervalArray[1];
-            timeArray[i] = intervalArray[2];
-            effortArray[i] = intervalArray[3];
+        InterpretInterval interpretInterval = new InterpretInterval();
+        ArrayList<Interval> intervalArrayList = new ArrayList<>();
+        String[] intervalArray = runArray[3].split("(&>&)");
+        for(int i = 0; i < intervalArray.length; i++){
+            intervalArrayList.add(interpretInterval.getIntervalObject(intervalArray[i]));
         }
-
-        ListCreation listCreation = new ListCreation();
-        ArrayList<Interval> intervalArrayList = listCreation.createIntervalList(distanceArray,
-                paceArray, timeArray, effortArray);
 
         return new Run(intervalArrayList, name, descriptor, type);
     }
