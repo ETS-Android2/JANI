@@ -18,6 +18,7 @@ import com.sticknology.jani.data.ListCreation;
 import com.sticknology.jani.data.TrainingDay;
 import com.sticknology.jani.data.TrainingWeek;
 import com.sticknology.jani.data.Workout;
+import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -29,11 +30,13 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
     public static int numWeeks = 1;
     public static int weekPosition = 0;
 
+    public static String mPlan;
+    public static TrainingWeek mTrainingWeek;
+
     private Spinner weekSpinner;
     private ArrayAdapter<String> dataAdapter;
     private List<String> weeks;
     private int newWeekIndex;
-    private String mPlan;
 
     public static WByWFragment newInstance(String plan) {
 
@@ -50,6 +53,7 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mPlan = this.getArguments().getString("plan");
+        mTrainingWeek = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan).getTrainingPlanWeeks().get(0);
         return inflater.inflate(R.layout.fragment_wbyw, container, false);
     }
 
@@ -59,8 +63,7 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
 
         //Create RecyclerView for Displaying Days in Week
         RecyclerView revDay = (RecyclerView) getView().findViewById(R.id.pc_rev_dayholder);
-        TrainingWeek newTrainingWeek = new ListCreation().createEmptyTrainingWeek();
-        WeekByWeekRevAdapter weekByWeekRevAdapter = new WeekByWeekRevAdapter(mPlan);
+        WeekByWeekRevAdapter weekByWeekRevAdapter = new WeekByWeekRevAdapter();
         revDay.setAdapter(weekByWeekRevAdapter);
         revDay.setLayoutManager(new LinearLayoutManager(this.getContext()));
 

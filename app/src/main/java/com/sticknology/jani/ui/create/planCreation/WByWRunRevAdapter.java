@@ -4,12 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
+import com.sticknology.jani.data.ListCreation;
 import com.sticknology.jani.data.Run;
 import com.sticknology.jani.data.TrainingDay;
 import com.sticknology.jani.data.Workout;
@@ -24,6 +26,7 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
 
         public TextView mName;
         public TextView mDescript;
+        public Button mRemove;
 
         public ViewHolder(View itemView){
 
@@ -31,21 +34,21 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
             System.out.println("Inside viewholder");
             mName = itemView.findViewById(R.id.wbyw_rev_rev_name);
             mDescript = itemView.findViewById(R.id.wbyw_rev_rev_descript);
+            mRemove = itemView.findViewById(R.id.wbyw_rev_rev_del);
         }
     }
 
-    private List<Run> mTrainingDays;
     private List<Workout> mWorkouts;
+    private int mDayPosition;
 
-    public WByWRunRevAdapter(List<Workout> workoutList){
-        System.out.println("Adapter called");
+    public WByWRunRevAdapter(List<Workout> workoutList, int dayPosition){
+
         mWorkouts = workoutList;
+        mDayPosition = dayPosition;
     }
 
     @Override
     public WByWRunRevAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-
-        System.out.println("Inside oncreateviewholder");
 
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -62,9 +65,21 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull @NotNull WByWRunRevAdapter.ViewHolder holder, int position) {
 
-        System.out.println("Setting up position: " + position);
         holder.mName.setText(mWorkouts.get(position).getWorkoutName());
         holder.mDescript.setText(mWorkouts.get(position).getWorkoutType());
+
+
+
+        holder.mRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                WByWFragment.mTrainingWeek.getTrainingWeekDays().get(mDayPosition).removeWorkout(position);
+                WeekByWeekRevAdapter.mRunAdapter.notifyDataSetChanged();
+
+            }
+        });
+
     }
 
     @Override

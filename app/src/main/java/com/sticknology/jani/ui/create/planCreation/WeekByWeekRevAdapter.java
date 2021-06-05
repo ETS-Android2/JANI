@@ -14,15 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.Run;
 import com.sticknology.jani.data.TrainingDay;
 import com.sticknology.jani.data.TrainingPlan;
-import com.sticknology.jani.data.TrainingWeek;
 import com.sticknology.jani.data.Workout;
-import com.sticknology.jani.dataProcessing.InterpretDay;
 import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
-import com.sticknology.jani.dataProcessing.InterpretWeek;
-import com.sticknology.jani.dataProcessing.InterpretWorkout;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -53,15 +48,15 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
         }
     }
 
+    public static WByWRunRevAdapter mRunAdapter;
+    public static List<Workout>[] mWorkoutList = new List[7];
+
     private List<TrainingDay> mTrainingDayList;
-    private String mPlan;
-
-    public WeekByWeekRevAdapter(String plan){
-        mPlan = plan;
-        TrainingPlan trainingPlanObject = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan);
-        mTrainingDayList = trainingPlanObject.getTrainingPlanWeeks().get(0).getTrainingWeekDays();
 
 
+    public WeekByWeekRevAdapter(){
+
+        mTrainingDayList = WByWFragment.mTrainingWeek.getTrainingWeekDays();
     }
 
     @Override
@@ -90,18 +85,18 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
         dayType.setAdapter(adapter);
 
         //Create list for interior Recycler View
-        ArrayList<Workout> workoutList = mTrainingDayList.get(position).getTrainingDayWorkouts();
+        mWorkoutList[position] = mTrainingDayList.get(position).getTrainingDayWorkouts();
 
-        if(!workoutList.get(0).getWorkoutName().equals(":;:")){
+        System.out.println("GOT INTO WBYWREVADAPTER");
 
-            System.out.println("WBYWREVADAPTER onBindViewHolder was run inside if statement");
+        if(!mWorkoutList[position].get(0).getWorkoutName().equals(":;:")){
 
             //Create RecyclerView for displaying currently added runs/workouts
             RecyclerView revDay = (RecyclerView) holder.mInternalRecyclerView;
-            WByWRunRevAdapter wByWRunRevAdapter = new WByWRunRevAdapter(workoutList);
-            revDay.setAdapter(wByWRunRevAdapter);
+            mRunAdapter = new WByWRunRevAdapter(mWorkoutList[position], position);
+            revDay.setAdapter(mRunAdapter);
             revDay.setLayoutManager(new LinearLayoutManager(holder.mContext));
-            wByWRunRevAdapter.notifyDataSetChanged();
+            mRunAdapter.notifyDataSetChanged();
         }
 
         //Sets the correct day for each rev item
@@ -138,10 +133,16 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
         newItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                TrainingPlan trainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(WByWFragment.mPlan);
+                WByWFragment.mTrainingWeek = new WByWDataHandler().fixTrainingWeek(WByWFragment.mTrainingWeek);
+                trainingPlan.getTrainingPlanWeeks().set(0, WByWFragment.mTrainingWeek);
+                WByWFragment.mPlan = new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlan);
+
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.TEMPLATES;
                 PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment
-                        .newInstance(mPlan, WByWFragment.weekPosition, position);
+                        .newInstance(WByWFragment.mPlan, WByWFragment.weekPosition, position);
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();
