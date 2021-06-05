@@ -17,6 +17,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/wbyw_rev_spinner_daytype"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/wbyw_rev_rev"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,10 +35,5 @@
             android:id="@+id/wbyw_rev_newitem"/>
 
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/wbyw_rev_rev"/>
 
 </LinearLayout>

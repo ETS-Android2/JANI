@@ -23,12 +23,16 @@ public class PlanCreateInterFragment extends Fragment {
     private static ViewPager2 viewPager2;
     private static TabLayout tabLayout;
     private String mPlanString;
+    private int mWeekIndex;
+    private int mDayIndex;
 
-    public static PlanCreateInterFragment newInstance(String plan) {
+    public static PlanCreateInterFragment newInstance(String plan, int week, int day) {
 
         PlanCreateInterFragment f = new PlanCreateInterFragment();
         Bundle b = new Bundle();
         b.putString("plan", plan);
+        b.putInt("week", week);
+        b.putInt("day", day);
 
         f.setArguments(b);
 
@@ -40,7 +44,8 @@ public class PlanCreateInterFragment extends Fragment {
 
         Bundle bundle = getArguments();
         mPlanString = bundle.getString("plan");
-        System.out.println("This is plan string form createinterfragment: " + mPlanString);
+        mWeekIndex = bundle.getInt("week");
+        mDayIndex = bundle.getInt("day");
         return inflater.inflate(R.layout.fragment_plancreation_inter, container, false);
     }
 
@@ -56,7 +61,7 @@ public class PlanCreateInterFragment extends Fragment {
     protected void setTabs(ViewPager2 viewPager2, TabLayout tabLayout){
 
 
-        PlanCreationPager planCreationPager = new PlanCreationPager(this, mPlanString);
+        PlanCreationPager planCreationPager = new PlanCreationPager(this, mPlanString, mWeekIndex, mDayIndex);
         viewPager2.setAdapter(planCreationPager);
         if (currentTabSet == PlanCreationActivity.TABSET.VIEW){
             new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> tab.setText(titlesV[position])).attach();

@@ -7,10 +7,14 @@ public class PlanCreationPager extends FragmentStateAdapter {
 
     private static final int NUM_TABS = 2;
     private String mPlan;
+    private int mWeekIndex;
+    private int mDayIndex;
 
-    public PlanCreationPager(Fragment fragment, String test) {
+    public PlanCreationPager(Fragment fragment, String test, int week, int day) {
         super(fragment);
         mPlan = test;
+        mWeekIndex = week;
+        mDayIndex = day;
     }
 
     @Override
@@ -25,7 +29,7 @@ public class PlanCreationPager extends FragmentStateAdapter {
         } else if(tabset == PlanCreationActivity.TABSET.TEMPLATES && position == 0){
             return RunTemplateFragment.newInstance(mPlan);
         } else if(tabset == PlanCreationActivity.TABSET.TEMPLATES && position == 1){
-            return WorkoutTemplateFragment.newInstance(mPlan);
+            return WorkoutTemplateFragment.newInstance(mPlan, mWeekIndex, mDayIndex);
         } else{
             return EditOverviewFragment.newInstance(mPlan);
         }

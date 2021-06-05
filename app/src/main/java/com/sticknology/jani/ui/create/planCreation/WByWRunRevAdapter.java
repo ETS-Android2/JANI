@@ -28,9 +28,9 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
         public ViewHolder(View itemView){
 
             super(itemView);
+            System.out.println("Inside viewholder");
             mName = itemView.findViewById(R.id.wbyw_rev_rev_name);
             mDescript = itemView.findViewById(R.id.wbyw_rev_rev_descript);
-
         }
     }
 
@@ -38,11 +38,14 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
     private List<Workout> mWorkouts;
 
     public WByWRunRevAdapter(List<Workout> workoutList){
+        System.out.println("Adapter called");
         mWorkouts = workoutList;
     }
 
     @Override
     public WByWRunRevAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+
+        System.out.println("Inside oncreateviewholder");
 
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -59,7 +62,7 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull @NotNull WByWRunRevAdapter.ViewHolder holder, int position) {
 
-        System.out.println("WBYWRUNREVADAPTER onbindviewholder was run");
+        System.out.println("Setting up position: " + position);
         holder.mName.setText(mWorkouts.get(position).getWorkoutName());
         holder.mDescript.setText(mWorkouts.get(position).getWorkoutType());
     }

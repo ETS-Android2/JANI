@@ -21,12 +21,16 @@ import java.util.ArrayList;
 public class WorkoutTemplateFragment extends Fragment {
 
     private String mPlan;
+    private int mWeekIndex;
+    private int mDayIndex;
 
-    public static WorkoutTemplateFragment newInstance(String plan) {
+    public static WorkoutTemplateFragment newInstance(String plan, int week, int day) {
 
         WorkoutTemplateFragment f = new WorkoutTemplateFragment();
         Bundle b = new Bundle();
         b.putString("plan", plan);
+        b.putInt("week", week);
+        b.putInt("day", day);
 
         f.setArguments(b);
 
@@ -38,7 +42,9 @@ public class WorkoutTemplateFragment extends Fragment {
 
         Bundle bundle = getArguments();
         mPlan = bundle.getString("plan");
-        System.out.println(mPlan + " this is plan inside workouttemplatefragment");
+        mWeekIndex = bundle.getInt("week");
+        mDayIndex = bundle.getInt("day");
+
         return inflater.inflate(R.layout.fragment_workouttemplate, container, false);
     }
 
@@ -52,10 +58,9 @@ public class WorkoutTemplateFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                WorkoutCreationFragment workoutCreationFragment = WorkoutCreationFragment.newInstance(mPlan);
+                WorkoutCreationFragment workoutCreationFragment = WorkoutCreationFragment.newInstance(mPlan, mWeekIndex, mDayIndex);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, workoutCreationFragment, null)
-                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -66,7 +71,6 @@ public class WorkoutTemplateFragment extends Fragment {
 
         //Sets up recyclerview displaying list of workout template items
         RecyclerView templateRecyclerView = getView().findViewById(R.id.wc_rev_wov);
-        //ArrayList<Workout> workoutList = new ListCreation().createEmptyWorkoutList();
         WorkoutTemplateAdapter workoutTemplateAdapter = new WorkoutTemplateAdapter(workoutList);
         templateRecyclerView.setAdapter(workoutTemplateAdapter);
         templateRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

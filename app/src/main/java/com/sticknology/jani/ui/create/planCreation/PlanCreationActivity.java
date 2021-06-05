@@ -33,7 +33,7 @@ public class PlanCreationActivity extends AppCompatActivity {
             //Create Training Plan
             TrainingPlan trainingPlan = new ListCreation().createEmptyTrainingPlan();
             String trainingPlanString = new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlan);
-            PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(trainingPlanString);
+            PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(trainingPlanString, 0, 0);
 
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)

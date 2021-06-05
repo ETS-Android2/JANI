@@ -61,17 +61,7 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
         TrainingPlan trainingPlanObject = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan);
         mTrainingDayList = trainingPlanObject.getTrainingPlanWeeks().get(0).getTrainingWeekDays();
 
-        TrainingWeek testWeek = trainingPlanObject.getTrainingPlanWeeks().get(0);
 
-        System.out.println("THIS IS TESTWEEK STRING: " + new InterpretWeek().getStringTrainingWeek(testWeek));
-
-        TrainingDay testDay = testWeek.getTrainingWeekDays().get(0);
-
-        System.out.println("THIS IS TESTDAY STRING: " + new InterpretDay().getStringDay(testDay));
-
-        Workout test = testDay.getTrainingDayWorkouts().get(0);
-
-        System.out.println("THIS IS TESWORKOUT:  " + new InterpretWorkout().getStringWorkout(test));
     }
 
     @Override
@@ -111,6 +101,7 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
             WByWRunRevAdapter wByWRunRevAdapter = new WByWRunRevAdapter(workoutList);
             revDay.setAdapter(wByWRunRevAdapter);
             revDay.setLayoutManager(new LinearLayoutManager(holder.mContext));
+            wByWRunRevAdapter.notifyDataSetChanged();
         }
 
         //Sets the correct day for each rev item
@@ -149,12 +140,15 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
             public void onClick(View view) {
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.TEMPLATES;
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(mPlan);
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment
+                        .newInstance(mPlan, WByWFragment.weekPosition, position);
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();
             }
         });
+
+
     }
 
     @Override

@@ -26,12 +26,16 @@ public class WorkoutCreationFragment extends Fragment {
 
     private ArrayAdapter<CharSequence> dataAdapter;
     private TrainingPlan mTrainingPlan;
+    private int mWeekIndex;
+    private int mDayIndex;
 
-    public static WorkoutCreationFragment newInstance(String plan) {
+    public static WorkoutCreationFragment newInstance(String plan, int week, int day) {
 
         WorkoutCreationFragment f = new WorkoutCreationFragment();
         Bundle b = new Bundle();
         b.putString("plan", plan);
+        b.putInt("week", week);
+        b.putInt("day", day);
 
         f.setArguments(b);
 
@@ -44,6 +48,9 @@ public class WorkoutCreationFragment extends Fragment {
         Bundle bundle = getArguments();
         String mPlan = bundle.getString("plan");
         mTrainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan);
+        mWeekIndex = bundle.getInt("week");
+        mDayIndex = bundle.getInt("day");
+
         return inflater.inflate(R.layout.fragment_workoutcreation, container, false);
     }
 
@@ -63,38 +70,47 @@ public class WorkoutCreationFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                System.out.println("SAVING NEW WORKOUT");
+
                 Switch templateSwitch = getView().findViewById(R.id.wc_wc_switchtemplate);
                 TextView workoutName = getView().findViewById(R.id.wc_wc_workoutname);
                 TextView workoutDescript = getView().findViewById(R.id.wc_wc_workoutdescript);
-                Workout workout = new Workout(workoutName.getText().toString(),
-                        workoutTypeSpinner.getSelectedItem().toString(), workoutDescript.getText().toString());
+
+                String name = workoutName.getText().toString();
+                String type = workoutTypeSpinner.getSelectedItem().toString();
+                String description = workoutDescript.getText().toString();
+                if(name.equals("")){
+                    name = " ";
+                }
+                if(description.equals("")){
+                    description = " ";
+                }
+                Workout workout = new Workout(name, type, description);
+
+
 
                 if(templateSwitch.isChecked()) {
                     StandardReadWrite standardReadWrite = new StandardReadWrite();
                     InterpretWorkout interpretWorkout = new InterpretWorkout();
                     String workoutString = interpretWorkout.getStringWorkout(workout);
-                    workoutString = workoutString.replace("\n", " ");
                     standardReadWrite.appendText(workoutString,"workout_templates.txt", getContext(), Context.MODE_APPEND);
                 }
 
                 //Add Workout to Training Plan
-                mTrainingPlan.getTrainingDay(0,0).addWorkout(workout);
-                if(mTrainingPlan.getTrainingDay(0, 0).getTrainingDayWorkouts()
+                mTrainingPlan.getTrainingDay(mWeekIndex,mDayIndex).addWorkout(workout);
+                if(mTrainingPlan.getTrainingDay(mWeekIndex, mDayIndex).getTrainingDayWorkouts()
                         .get(0).getWorkoutName().equals(":;:")){
 
-                    mTrainingPlan.getTrainingDay(0,0).removeWorkout(0);
+                    mTrainingPlan.getTrainingDay(mWeekIndex,mDayIndex).removeWorkout(0);
                 }
-
-                System.out.println("SAVING NEW WORKOUT");
 
                 //Navigation back to overview
                 //TODO: Make navigation back to weekbyweek
                 String trainingPlanString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlan);
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(trainingPlanString);
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(trainingPlanString, 0, 0);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
-                        .addToBackStack(null)
                         .commit();
             }
         });

@@ -46,7 +46,6 @@ public class RunTemplateFragment extends Fragment {
                 RunCreationFragment runCreationFragment = new RunCreationFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, runCreationFragment, null)
-                        .addToBackStack(null)
                         .commit();
             }
         });

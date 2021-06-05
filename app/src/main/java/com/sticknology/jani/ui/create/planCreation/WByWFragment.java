@@ -27,6 +27,7 @@ import java.util.List;
 public class WByWFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     public static int numWeeks = 1;
+    public static int weekPosition = 0;
 
     private Spinner weekSpinner;
     private ArrayAdapter<String> dataAdapter;
