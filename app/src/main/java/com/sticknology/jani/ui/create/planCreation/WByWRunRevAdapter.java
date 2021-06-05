@@ -65,20 +65,24 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull @NotNull WByWRunRevAdapter.ViewHolder holder, int position) {
 
-        holder.mName.setText(mWorkouts.get(position).getWorkoutName());
-        holder.mDescript.setText(mWorkouts.get(position).getWorkoutType());
 
+        if(!mWorkouts.get(position).getWorkoutName().equals(":;:")) {
+            holder.mName.setText(mWorkouts.get(position).getWorkoutName());
+            holder.mDescript.setText(mWorkouts.get(position).getWorkoutType());
 
+            holder.mRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-        holder.mRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                WByWFragment.mTrainingWeek.getTrainingWeekDays().get(mDayPosition).removeWorkout(position);
-                WeekByWeekRevAdapter.mRunAdapter.notifyDataSetChanged();
-
-            }
-        });
+                    WByWFragment.mTrainingWeek.getTrainingWeekDays().get(mDayPosition).removeWorkout(position);
+                    WeekByWeekRevAdapter.mRunAdapter.notifyDataSetChanged();
+                }
+            });
+        } else {
+            holder.mName.setVisibility(View.GONE);
+            holder.mDescript.setVisibility(View.GONE);
+            holder.mRemove.setVisibility(View.GONE);
+        }
 
     }
 

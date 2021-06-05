@@ -15,9 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.ListCreation;
-import com.sticknology.jani.data.TrainingDay;
+import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.data.TrainingWeek;
-import com.sticknology.jani.data.Workout;
 import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +33,8 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
     public static TrainingWeek mTrainingWeek;
 
     private Spinner weekSpinner;
-    private ArrayAdapter<String> dataAdapter;
+    private ArrayAdapter<String> spinnerAdapter;
+    private WeekByWeekRevAdapter mWByWRevAdapter;
     private List<String> weeks;
     private int newWeekIndex;
 
@@ -63,8 +63,8 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
 
         //Create RecyclerView for Displaying Days in Week
         RecyclerView revDay = (RecyclerView) getView().findViewById(R.id.pc_rev_dayholder);
-        WeekByWeekRevAdapter weekByWeekRevAdapter = new WeekByWeekRevAdapter();
-        revDay.setAdapter(weekByWeekRevAdapter);
+        mWByWRevAdapter = new WeekByWeekRevAdapter();
+        revDay.setAdapter(mWByWRevAdapter);
         revDay.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         //Add Drop Down Menu For Weeks
@@ -74,26 +74,31 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
         weeks.add("Add Week");
         //Is one because array starts at 0
         newWeekIndex = 1;
-        dataAdapter = new ArrayAdapter<String>(getActivity(),
+        spinnerAdapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, weeks);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         weekSpinner.setOnItemSelectedListener(this);
-        weekSpinner.setAdapter(dataAdapter);
+        weekSpinner.setAdapter(spinnerAdapter);
 
         //Add Listener To Delete Week
         Button deleteWeekButton = getView().findViewById(R.id.wbyw_button_delete);
         deleteWeekButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 int currSelected = weekSpinner.getSelectedItemPosition();
                 weeks.remove(currSelected);
                 newWeekIndex--;
+
+                TrainingPlan trainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan);
+                trainingPlan.getTrainingPlanWeeks().remove(currSelected);
+                mPlan = new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlan);
 
                 for(int i = currSelected; i < newWeekIndex; i++){
                     weeks.set(i, "Week " + (i+1));
                 }
 
-                dataAdapter.notifyDataSetChanged();
+                spinnerAdapter.notifyDataSetChanged();
                 if(currSelected == newWeekIndex){
                     weekSpinner.setSelection(newWeekIndex - 1);
                 }
@@ -110,10 +115,28 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
         if(i == newWeekIndex){
             int newPos = newWeekIndex + 1;
             weeks.add(newWeekIndex, "Week " + newPos);
-            dataAdapter.notifyDataSetChanged();
+            spinnerAdapter.notifyDataSetChanged();
             newWeekIndex++;
             numWeeks++;
+
+            TrainingPlan trainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan);
+            trainingPlan.getTrainingPlanWeeks().add(new ListCreation().createEmptyTrainingWeek());
+            mTrainingWeek = trainingPlan.getTrainingPlanWeeks().get(i);
+            mPlan = new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlan);
+        } else {
+            TrainingPlan trainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan);
+            mTrainingWeek = trainingPlan.getTrainingPlanWeeks().get(i);
+            weekPosition = i;
         }
+        try {
+            mWByWRevAdapter.notifyDataSetChanged();
+            WeekByWeekRevAdapter.mRunAdapter.notifyDataSetChanged();
+        } catch (NullPointerException nullPointerException){
+            System.out.println("DID NOT UPDATE ADAPTERS");
+        }
+
+
+        System.out.println("TRIED TO CHANGE VIEWING WEEK");
     }
 
     @Override
