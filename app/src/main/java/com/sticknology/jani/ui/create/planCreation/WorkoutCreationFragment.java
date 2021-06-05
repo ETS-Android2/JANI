@@ -87,8 +87,6 @@ public class WorkoutCreationFragment extends Fragment {
                 }
                 Workout workout = new Workout(name, type, description);
 
-
-
                 if(templateSwitch.isChecked()) {
                     StandardReadWrite standardReadWrite = new StandardReadWrite();
                     InterpretWorkout interpretWorkout = new InterpretWorkout();

@@ -1,16 +1,21 @@
 package com.sticknology.jani.ui.create.planCreation;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
+import com.sticknology.jani.data.TrainingPlan;
+import com.sticknology.jani.data.Types;
 import com.sticknology.jani.data.Workout;
+import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Text;
@@ -24,6 +29,8 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
         public TextView mName;
         public TextView mType;
         public TextView mDescriptor;
+        public Button mAddButton;
+        public Context mContext;
 
 
         public ViewHolder(View itemView){
@@ -32,13 +39,21 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
             mName = itemView.findViewById(R.id.wov_name);
             mType = itemView.findViewById(R.id.wov_type);
             mDescriptor = itemView.findViewById(R.id.wov_description);
+            mAddButton = itemView.findViewById(R.id.wov_button_add);
+            mContext = itemView.getContext();
         }
     }
 
     private List<Workout> mWorkouts;
+    private String mPlan;
+    private int mWeekIndex;
+    private int mDayIndex;
 
-    public WorkoutTemplateAdapter(List<Workout> workouts){
+    public WorkoutTemplateAdapter(List<Workout> workouts, String plan, int week, int day){
         mWorkouts = workouts;
+        mPlan = plan;
+        mWeekIndex = week;
+        mDayIndex = day;
     }
 
     @Override
@@ -65,6 +80,31 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
         nameView.setText(mWorkouts.get(position).getWorkoutName());
         typeView.setText(mWorkouts.get(position).getWorkoutType());
         descriptorView.setText(mWorkouts.get(position).getWorkoutDescriptor());
+
+        Button addButton = holder.mAddButton;
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
+                TrainingPlan trainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan);
+                trainingPlan.getTrainingDay(mWeekIndex, mDayIndex).addWorkout(mWorkouts.get(position));
+
+                if(trainingPlan.getTrainingDay(mWeekIndex, mDayIndex).getTrainingDayWorkouts()
+                        .get(0).getWorkoutName().equals(":;:")){
+
+                    trainingPlan.getTrainingDay(mWeekIndex,mDayIndex).removeWorkout(0);
+                }
+
+                String newPlan = new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlan);
+                PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(newPlan, 0, 0);
+                planCreationActivity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, planCreateInterFragment, null)
+                        .commit();
+
+            }
+        });
     }
 
     @Override

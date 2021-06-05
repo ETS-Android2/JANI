@@ -71,7 +71,7 @@ public class WorkoutTemplateFragment extends Fragment {
 
         //Sets up recyclerview displaying list of workout template items
         RecyclerView templateRecyclerView = getView().findViewById(R.id.wc_rev_wov);
-        WorkoutTemplateAdapter workoutTemplateAdapter = new WorkoutTemplateAdapter(workoutList);
+        WorkoutTemplateAdapter workoutTemplateAdapter = new WorkoutTemplateAdapter(workoutList, mPlan, mWeekIndex, mDayIndex);
         templateRecyclerView.setAdapter(workoutTemplateAdapter);
         templateRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

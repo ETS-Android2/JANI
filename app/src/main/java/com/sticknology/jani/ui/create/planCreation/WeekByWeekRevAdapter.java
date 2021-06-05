@@ -147,8 +147,6 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
                         .commit();
             }
         });
-
-
     }
 
     @Override
