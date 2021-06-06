@@ -6,13 +6,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 public class PlanCreationPager extends FragmentStateAdapter {
 
     private static final int NUM_TABS = 2;
-    private String mPlan;
     private int mWeekIndex;
     private int mDayIndex;
 
-    public PlanCreationPager(Fragment fragment, String test, int week, int day) {
+    public PlanCreationPager(Fragment fragment, int week, int day) {
         super(fragment);
-        mPlan = test;
         mWeekIndex = week;
         mDayIndex = day;
     }
@@ -23,15 +21,15 @@ public class PlanCreationPager extends FragmentStateAdapter {
         PlanCreationActivity.TABSET tabset = PlanCreationActivity.currentTabSet;
 
         if(tabset == PlanCreationActivity.TABSET.VIEW && position == 0){
-            return EditOverviewFragment.newInstance(mPlan);
+            return EditOverviewFragment.newInstance();
         } else if(tabset == PlanCreationActivity.TABSET.VIEW && position == 1){
-            return WByWFragment.newInstance(mPlan);
+            return WByWFragment.newInstance();
         } else if(tabset == PlanCreationActivity.TABSET.TEMPLATES && position == 0){
-            return RunTemplateFragment.newInstance(mPlan);
+            return RunTemplateFragment.newInstance();
         } else if(tabset == PlanCreationActivity.TABSET.TEMPLATES && position == 1){
-            return WorkoutTemplateFragment.newInstance(mPlan, mWeekIndex, mDayIndex);
+            return WorkoutTemplateFragment.newInstance(mDayIndex);
         } else{
-            return EditOverviewFragment.newInstance(mPlan);
+            return EditOverviewFragment.newInstance();
         }
     }
 

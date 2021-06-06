@@ -13,13 +13,11 @@ import com.sticknology.jani.ui.create.ManageFragment;
 
 public class RunTemplateFragment extends Fragment {
 
-    private String mPlan;
 
-    public static RunTemplateFragment newInstance(String plan) {
+    public static RunTemplateFragment newInstance() {
 
         RunTemplateFragment f = new RunTemplateFragment();
         Bundle b = new Bundle();
-        b.putString("plan", plan);
 
         f.setArguments(b);
 
@@ -29,8 +27,6 @@ public class RunTemplateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        mPlan = this.getArguments().getString("plan");
-        System.out.println(mPlan + " THIS IS MPLAN IN RUNTEMPLATE FRAGMENT");
         return inflater.inflate(R.layout.fragment_runtemplate, container, false);
     }
 

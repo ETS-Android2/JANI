@@ -12,13 +12,10 @@ import com.sticknology.jani.ui.create.ManageFragment;
 
 public class EditOverviewFragment extends Fragment {
 
-    private String mPlan;
-
-    public static EditOverviewFragment newInstance(String plan) {
+    public static EditOverviewFragment newInstance() {
 
         EditOverviewFragment f = new EditOverviewFragment();
         Bundle b = new Bundle();
-        b.putString("plan", plan);
 
         f.setArguments(b);
 
@@ -28,7 +25,6 @@ public class EditOverviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        mPlan = this.getArguments().getString("plan");
         return inflater.inflate(R.layout.fragment_overview, container, false);
     }
 }

@@ -132,15 +132,13 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
             @Override
             public void onClick(View view) {
 
-                TrainingPlan trainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(WByWFragment.mPlan);
                 WByWFragment.mTrainingWeek = new WByWDataHandler().fixTrainingWeek(WByWFragment.mTrainingWeek);
-                trainingPlan.getTrainingPlanWeeks().set(0, WByWFragment.mTrainingWeek);
-                WByWFragment.mPlan = new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlan);
+                PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().set(0, WByWFragment.mTrainingWeek);
 
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.TEMPLATES;
                 PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment
-                        .newInstance(WByWFragment.mPlan, WByWFragment.weekPosition, position);
+                        .newInstance(WByWFragment.weekPosition, position);
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();

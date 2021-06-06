@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.sticknology.jani.R;
+import com.sticknology.jani.data.TrainingDay;
 import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.data.Workout;
 import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
@@ -25,15 +26,13 @@ public class WorkoutCreationFragment extends Fragment {
     public Spinner workoutTypeSpinner;
 
     private ArrayAdapter<CharSequence> dataAdapter;
-    private TrainingPlan mTrainingPlan;
     private int mWeekIndex;
     private int mDayIndex;
 
-    public static WorkoutCreationFragment newInstance(String plan, int week, int day) {
+    public static WorkoutCreationFragment newInstance(int week, int day) {
 
         WorkoutCreationFragment f = new WorkoutCreationFragment();
         Bundle b = new Bundle();
-        b.putString("plan", plan);
         b.putInt("week", week);
         b.putInt("day", day);
 
@@ -46,8 +45,6 @@ public class WorkoutCreationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        String mPlan = bundle.getString("plan");
-        mTrainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan);
         mWeekIndex = bundle.getInt("week");
         mDayIndex = bundle.getInt("day");
 
@@ -95,18 +92,17 @@ public class WorkoutCreationFragment extends Fragment {
                 }
 
                 //Add Workout to Training Plan
-                mTrainingPlan.getTrainingDay(mWeekIndex,mDayIndex).addWorkout(workout);
-                if(mTrainingPlan.getTrainingDay(mWeekIndex, mDayIndex).getTrainingDayWorkouts()
+                PlanCreationActivity.mTrainingPlan.getTrainingDay(mWeekIndex,mDayIndex).addWorkout(workout);
+                if(PlanCreationActivity.mTrainingPlan.getTrainingDay(mWeekIndex, mDayIndex).getTrainingDayWorkouts()
                         .get(0).getWorkoutName().equals(":;:")){
 
-                    mTrainingPlan.getTrainingDay(mWeekIndex,mDayIndex).removeWorkout(0);
+                    PlanCreationActivity.mTrainingPlan.getTrainingDay(mWeekIndex,mDayIndex).removeWorkout(0);
                 }
 
                 //Navigation back to overview
                 //TODO: Make navigation back to weekbyweek
-                String trainingPlanString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlan);
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(trainingPlanString, 0, 0);
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0, 0);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();

@@ -75,6 +75,7 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
                 public void onClick(View view) {
 
                     WByWFragment.mTrainingWeek.getTrainingWeekDays().get(mDayPosition).removeWorkout(position);
+                    WByWFragment.mTrainingWeek = new WByWDataHandler().fixTrainingWeek(WByWFragment.mTrainingWeek);
                     WeekByWeekRevAdapter.mRunAdapter.notifyDataSetChanged();
                 }
             });

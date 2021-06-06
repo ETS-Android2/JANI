@@ -11,25 +11,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.ListCreation;
 import com.sticknology.jani.data.Workout;
 import com.sticknology.jani.dataProcessing.InterpretWorkout;
-import com.sticknology.jani.ui.create.ManageFragment;
 
 import java.util.ArrayList;
 
 public class WorkoutTemplateFragment extends Fragment {
 
-    private String mPlan;
-    private int mWeekIndex;
     private int mDayIndex;
 
-    public static WorkoutTemplateFragment newInstance(String plan, int week, int day) {
+    public static WorkoutTemplateFragment newInstance(int day) {
 
         WorkoutTemplateFragment f = new WorkoutTemplateFragment();
         Bundle b = new Bundle();
-        b.putString("plan", plan);
-        b.putInt("week", week);
         b.putInt("day", day);
 
         f.setArguments(b);
@@ -41,8 +35,6 @@ public class WorkoutTemplateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        mPlan = bundle.getString("plan");
-        mWeekIndex = bundle.getInt("week");
         mDayIndex = bundle.getInt("day");
 
         return inflater.inflate(R.layout.fragment_workouttemplate, container, false);
@@ -58,7 +50,7 @@ public class WorkoutTemplateFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                WorkoutCreationFragment workoutCreationFragment = WorkoutCreationFragment.newInstance(mPlan, mWeekIndex, mDayIndex);
+                WorkoutCreationFragment workoutCreationFragment = WorkoutCreationFragment.newInstance(WByWFragment.weekPosition, mDayIndex);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, workoutCreationFragment, null)
                         .commit();
@@ -71,7 +63,7 @@ public class WorkoutTemplateFragment extends Fragment {
 
         //Sets up recyclerview displaying list of workout template items
         RecyclerView templateRecyclerView = getView().findViewById(R.id.wc_rev_wov);
-        WorkoutTemplateAdapter workoutTemplateAdapter = new WorkoutTemplateAdapter(workoutList, mPlan, mWeekIndex, mDayIndex);
+        WorkoutTemplateAdapter workoutTemplateAdapter = new WorkoutTemplateAdapter(workoutList, mDayIndex);
         templateRecyclerView.setAdapter(workoutTemplateAdapter);
         templateRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

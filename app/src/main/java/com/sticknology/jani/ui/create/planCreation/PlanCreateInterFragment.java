@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.sticknology.jani.R;
+import com.sticknology.jani.data.TrainingPlan;
 
 import static com.sticknology.jani.ui.create.planCreation.PlanCreationActivity.currentTabSet;
 
@@ -22,15 +23,13 @@ public class PlanCreateInterFragment extends Fragment {
 
     private static ViewPager2 viewPager2;
     private static TabLayout tabLayout;
-    private String mPlanString;
     private int mWeekIndex;
     private int mDayIndex;
 
-    public static PlanCreateInterFragment newInstance(String plan, int week, int day) {
+    public static PlanCreateInterFragment newInstance(int week, int day) {
 
         PlanCreateInterFragment f = new PlanCreateInterFragment();
         Bundle b = new Bundle();
-        b.putString("plan", plan);
         b.putInt("week", week);
         b.putInt("day", day);
 
@@ -43,9 +42,9 @@ public class PlanCreateInterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        mPlanString = bundle.getString("plan");
         mWeekIndex = bundle.getInt("week");
         mDayIndex = bundle.getInt("day");
+
         return inflater.inflate(R.layout.fragment_plancreation_inter, container, false);
     }
 
@@ -61,7 +60,7 @@ public class PlanCreateInterFragment extends Fragment {
     protected void setTabs(ViewPager2 viewPager2, TabLayout tabLayout){
 
 
-        PlanCreationPager planCreationPager = new PlanCreationPager(this, mPlanString, mWeekIndex, mDayIndex);
+        PlanCreationPager planCreationPager = new PlanCreationPager(this, mWeekIndex, mDayIndex);
         viewPager2.setAdapter(planCreationPager);
         if (currentTabSet == PlanCreationActivity.TABSET.VIEW){
             new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> tab.setText(titlesV[position])).attach();

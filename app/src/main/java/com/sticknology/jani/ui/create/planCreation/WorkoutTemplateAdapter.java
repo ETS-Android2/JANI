@@ -45,14 +45,10 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
     }
 
     private List<Workout> mWorkouts;
-    private String mPlan;
-    private int mWeekIndex;
     private int mDayIndex;
 
-    public WorkoutTemplateAdapter(List<Workout> workouts, String plan, int week, int day){
+    public WorkoutTemplateAdapter(List<Workout> workouts, int day){
         mWorkouts = workouts;
-        mPlan = plan;
-        mWeekIndex = week;
         mDayIndex = day;
     }
 
@@ -86,19 +82,19 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
             @Override
             public void onClick(View view) {
 
-                PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
-                TrainingPlan trainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(mPlan);
-                trainingPlan.getTrainingDay(mWeekIndex, mDayIndex).addWorkout(mWorkouts.get(position));
+                System.out.println("THIS IS WEEKPOSITION: " + WByWFragment.weekPosition);
 
-                if(trainingPlan.getTrainingDay(mWeekIndex, mDayIndex).getTrainingDayWorkouts()
+                PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
+                PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayIndex).addWorkout(mWorkouts.get(position));
+
+                if(PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayIndex).getTrainingDayWorkouts()
                         .get(0).getWorkoutName().equals(":;:")){
 
-                    trainingPlan.getTrainingDay(mWeekIndex,mDayIndex).removeWorkout(0);
+                    PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition,mDayIndex).removeWorkout(0);
                 }
 
-                String newPlan = new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlan);
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(newPlan, 0, 0);
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0, 0);
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();
