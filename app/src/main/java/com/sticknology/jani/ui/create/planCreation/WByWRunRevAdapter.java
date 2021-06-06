@@ -1,6 +1,7 @@
 package com.sticknology.jani.ui.create.planCreation;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,7 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull @NotNull WByWRunRevAdapter.ViewHolder holder, int position) {
 
-
+        Log.e("test", "this is workout name being considered " + mWorkouts.get(position).getWorkoutName());
         if(!mWorkouts.get(position).getWorkoutName().equals(":;:")) {
             holder.mName.setText(mWorkouts.get(position).getWorkoutName());
             holder.mDescript.setText(mWorkouts.get(position).getWorkoutType());
@@ -76,7 +77,6 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
 
                     WByWFragment.mTrainingWeek.getTrainingWeekDays().get(mDayPosition).removeWorkout(position);
                     WByWFragment.mTrainingWeek = new WByWDataHandler().fixTrainingWeek(WByWFragment.mTrainingWeek);
-                    WeekByWeekRevAdapter.mRunAdapter.notifyDataSetChanged();
                 }
             });
         } else {

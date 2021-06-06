@@ -1,6 +1,7 @@
 package com.sticknology.jani.ui.create.planCreation;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,8 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
         }
     }
 
+    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+
     public static WByWRunRevAdapter mRunAdapter;
     public static List<Workout>[] mWorkoutList = new List[7];
 
@@ -87,7 +90,10 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
         //Create list for interior Recycler View
         mWorkoutList[position] = mTrainingDayList.get(position).getTrainingDayWorkouts();
 
+        /*
         if(!mWorkoutList[position].get(0).getWorkoutName().equals(":;:")){
+
+            Log.d("debug", "Got Inside if onBindViewHolder WByWRevAdapter, ");
 
             //Create RecyclerView for displaying currently added runs/workouts
             RecyclerView revDay = (RecyclerView) holder.mInternalRecyclerView;
@@ -95,7 +101,17 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
             revDay.setAdapter(mRunAdapter);
             revDay.setLayoutManager(new LinearLayoutManager(holder.mContext));
             mRunAdapter.notifyDataSetChanged();
-        }
+        }*/
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(holder.mInternalRecyclerView.getContext(),
+                LinearLayoutManager.VERTICAL, false);
+
+        layoutManager.setInitialPrefetchItemCount(WByWFragment.mTrainingWeek.getTrainingWeekDays().get(position).getTrainingDayWorkouts().size());
+
+        WByWRunRevAdapter childItemAdapter = new WByWRunRevAdapter(WByWFragment.mTrainingWeek.getTrainingWeekDays().get(position).getTrainingDayWorkouts(), position);
+        holder.mInternalRecyclerView.setLayoutManager(layoutManager);
+        holder.mInternalRecyclerView.setAdapter(childItemAdapter);
+        holder.mInternalRecyclerView.setRecycledViewPool(viewPool);
 
         //Sets the correct day for each rev item
         TextView dayName = holder.mDayName;
