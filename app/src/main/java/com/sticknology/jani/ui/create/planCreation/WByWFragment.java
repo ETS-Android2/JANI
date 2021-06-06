@@ -26,8 +26,7 @@ import java.util.List;
 
 public class WByWFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    public static int numWeeks = 1;
-    public static int weekPosition = 0;
+    public static int weekPosition;
 
     public static TrainingWeek mTrainingWeek;
 
@@ -51,13 +50,17 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         System.out.println("GOT IN ONCREATEVIEW WBYWFRAG");
-        mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(weekPosition);
+
         return inflater.inflate(R.layout.fragment_wbyw, container, false);
     }
 
     @Override
     public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        System.out.println("THIS IS WEEKPOSITION: " + weekPosition);
+
+        mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(weekPosition);
 
         //Create RecyclerView for Displaying Days in Week
         RecyclerView revDay = (RecyclerView) getView().findViewById(R.id.pc_rev_dayholder);
@@ -73,7 +76,7 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
             weeks.add("Week " + (i+1));
         }
         weeks.add("Add Week");
-        newWeekIndex = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().size();
+        newWeekIndex = weekSize;
         spinnerAdapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, weeks);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -101,7 +104,6 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
                 if(currSelected == newWeekIndex){
                     weekSpinner.setSelection(newWeekIndex - 1);
                 }
-                numWeeks--;
             }
         });
     }
@@ -110,25 +112,29 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
     //Currently only spinner addition when add week selected implemented
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
         //i is the position of the spinner, not sure what l is
         if(i == newWeekIndex){
             weeks.add(newWeekIndex, "Week " + (newWeekIndex+1));
             spinnerAdapter.notifyDataSetChanged();
             newWeekIndex++;
-            numWeeks++;
 
             PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().add(new ListCreation().createEmptyTrainingWeek());
-            mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(i);
-        } else {
-            mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(i);
-            weekPosition = i;
         }
+        mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(i);
+        weekPosition = i;
+
+        System.out.println("THIS IS WEEK POSITION: " + weekPosition);
+
         try {
             mWByWRevAdapter.notifyDataSetChanged();
             WeekByWeekRevAdapter.mRunAdapter.notifyDataSetChanged();
         } catch (NullPointerException nullPointerException){
             System.out.println("DID NOT UPDATE ADAPTERS");
         }
+
+        new WByWDataHandler().printFilledPlan(PlanCreationActivity.mTrainingPlan);
+        new WByWDataHandler().printFilledWeek(WByWFragment.mTrainingWeek);
     }
 
     @Override

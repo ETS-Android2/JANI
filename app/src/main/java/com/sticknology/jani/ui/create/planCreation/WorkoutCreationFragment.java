@@ -102,7 +102,7 @@ public class WorkoutCreationFragment extends Fragment {
                 //Navigation back to overview
                 //TODO: Make navigation back to weekbyweek
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0, 0);
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();

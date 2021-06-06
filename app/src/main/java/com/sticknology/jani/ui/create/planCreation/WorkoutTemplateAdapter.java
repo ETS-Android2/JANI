@@ -2,6 +2,7 @@ package com.sticknology.jani.ui.create.planCreation;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +85,7 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
 
                 System.out.println("THIS IS WEEKPOSITION: " + WByWFragment.weekPosition);
 
-                PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
+                Log.e("week", "Testing logcat");
                 PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayIndex).addWorkout(mWorkouts.get(position));
 
                 if(PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayIndex).getTrainingDayWorkouts()
@@ -94,7 +95,9 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
                 }
 
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0, 0);
+
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
+                PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();

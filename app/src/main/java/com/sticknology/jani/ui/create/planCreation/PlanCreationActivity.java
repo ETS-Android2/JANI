@@ -37,7 +37,7 @@ public class PlanCreationActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
 
             //Create Fragment
-            PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0, 0);
+            PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
                     .add(R.id.fragment_container_create, planCreateInterFragment, null)
