@@ -51,7 +51,6 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-    public static WByWRunRevAdapter mRunAdapter;
     public static List<Workout>[] mWorkoutList = new List[7];
 
     private List<TrainingDay> mTrainingDayList;
@@ -80,6 +79,8 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
+        Log.e("test", "Got inside wbywrevadapter onbindviewholder");
+
         //Set Spinner for type of day
         Spinner dayType = holder.mDayTypeSpinner;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(holder.mContext,
@@ -89,19 +90,6 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
 
         //Create list for interior Recycler View
         mWorkoutList[position] = mTrainingDayList.get(position).getTrainingDayWorkouts();
-
-        /*
-        if(!mWorkoutList[position].get(0).getWorkoutName().equals(":;:")){
-
-            Log.d("debug", "Got Inside if onBindViewHolder WByWRevAdapter, ");
-
-            //Create RecyclerView for displaying currently added runs/workouts
-            RecyclerView revDay = (RecyclerView) holder.mInternalRecyclerView;
-            mRunAdapter = new WByWRunRevAdapter(WByWFragment.mTrainingWeek.getTrainingWeekDays().get(position).getTrainingDayWorkouts(), position);
-            revDay.setAdapter(mRunAdapter);
-            revDay.setLayoutManager(new LinearLayoutManager(holder.mContext));
-            mRunAdapter.notifyDataSetChanged();
-        }*/
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(holder.mInternalRecyclerView.getContext(),
                 LinearLayoutManager.VERTICAL, false);
@@ -115,32 +103,8 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
 
         //Sets the correct day for each rev item
         TextView dayName = holder.mDayName;
-        switch (position){
-            case 0:{
-                dayName.setText("Monday");
-                break;
-            } case 1:{
-                dayName.setText("Tuesday");
-                break;
-            } case 2:{
-                dayName.setText("Wednesday");
-                break;
-            } case 3:{
-                dayName.setText("Thursday");
-                break;
-            } case 4:{
-                dayName.setText("Friday");
-                break;
-            } case 5:{
-                dayName.setText("Saturday");
-                break;
-            } case 6:{
-                dayName.setText("Sunday");
-                break;
-            } default:{
-                dayName.setText("Something Broke");
-            }
-        }
+        String[] dayArray = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        dayName.setText(dayArray[position]);
 
         //Sets listener for the button to add an item to the day
         Button newItemButton = holder.mNewItemButton;

@@ -68,8 +68,13 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
 
         Log.e("test", "this is workout name being considered " + mWorkouts.get(position).getWorkoutName());
         if(!mWorkouts.get(position).getWorkoutName().equals(":;:")) {
+            Log.e("test", "getting inside if statement to manually inflate");
             holder.mName.setText(mWorkouts.get(position).getWorkoutName());
             holder.mDescript.setText(mWorkouts.get(position).getWorkoutType());
+
+            holder.mName.setVisibility(View.VISIBLE);
+            holder.mDescript.setVisibility(View.VISIBLE);
+            holder.mRemove.setVisibility(View.VISIBLE);
 
             holder.mRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,6 +82,7 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
 
                     WByWFragment.mTrainingWeek.getTrainingWeekDays().get(mDayPosition).removeWorkout(position);
                     WByWFragment.mTrainingWeek = new WByWDataHandler().fixTrainingWeek(WByWFragment.mTrainingWeek);
+                    WByWFragment.mWByWRevAdapter.notifyDataSetChanged();
                 }
             });
         } else {

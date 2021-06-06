@@ -1,6 +1,7 @@
 package com.sticknology.jani.ui.create.planCreation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,10 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
 
     public static TrainingWeek mTrainingWeek;
 
+    public static WeekByWeekRevAdapter mWByWRevAdapter;
+
     private Spinner weekSpinner;
     private ArrayAdapter<String> spinnerAdapter;
-    private WeekByWeekRevAdapter mWByWRevAdapter;
     private List<String> weeks;
     private int newWeekIndex;
 
@@ -126,15 +128,8 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
 
         System.out.println("THIS IS WEEK POSITION: " + weekPosition);
 
-        try {
-            mWByWRevAdapter.notifyDataSetChanged();
-            WeekByWeekRevAdapter.mRunAdapter.notifyDataSetChanged();
-        } catch (NullPointerException nullPointerException){
-            System.out.println("DID NOT UPDATE ADAPTERS");
-        }
-
-        new WByWDataHandler().printFilledPlan(PlanCreationActivity.mTrainingPlan);
-        new WByWDataHandler().printFilledWeek(WByWFragment.mTrainingWeek);
+        Log.e("test", "Adapter update got called");
+        mWByWRevAdapter.notifyDataSetChanged();
     }
 
     @Override
