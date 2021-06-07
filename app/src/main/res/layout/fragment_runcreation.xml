@@ -48,6 +48,16 @@
                 android:text="New Interval"
                 android:id="@+id/rc_button_newinterval"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create \n Template"/>
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rc_switch_template"/>
+
         </LinearLayout>
 
 

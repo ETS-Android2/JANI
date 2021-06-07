@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Interval {
 
-    private final String mDistance;
-    private final String mPace;
-    private final String mTime;
-    private final String mEffort;
+    private String mDistance;
+    private String mPace;
+    private String mTime;
+    private String mEffort;
 
     //Setter for instance construction
     public Interval(String distance, String pace, String time, String effort){
@@ -22,15 +22,23 @@ public class Interval {
         return mDistance;
     }
 
+    public void setIntervalDistance(String distance){mDistance = distance;}
+
     public String getIntervalPace(){
         return mPace;
     }
+
+    public void setIntervalPace(String pace){mPace = pace;}
 
     public String getIntervalTime(){
         return mTime;
     }
 
+    public void setIntervalTime(String time){mTime = time;}
+
     public String getIntervalEffort(){
         return mEffort;
     }
+
+    public void setIntervalEffort(String effort){mEffort = effort;}
 }

@@ -1,8 +1,11 @@
 package com.sticknology.jani.dataProcessing;
 
+import android.content.Context;
+
 import com.sticknology.jani.data.Interval;
 import com.sticknology.jani.data.ListCreation;
 import com.sticknology.jani.data.Run;
+import com.sticknology.jani.data.Workout;
 
 import java.util.ArrayList;
 
@@ -46,5 +49,20 @@ public class InterpretRun {
         }
 
         return new Run(intervalArrayList, name, descriptor, type);
+    }
+
+    public ArrayList<Run> getRunTemplates(Context context){
+
+        StandardReadWrite standardReadWrite = new StandardReadWrite();
+        String templates = standardReadWrite.readFileToString("run_templates.txt", context);
+        String[] runTemplates = templates.split("\n");
+        ArrayList<Run> runObjects = new ArrayList<>();
+
+        for(int i = 2; i < runTemplates.length; i++){
+
+            runObjects.add(getObjectRun(runTemplates[i]));
+        }
+
+        return runObjects;
     }
 }

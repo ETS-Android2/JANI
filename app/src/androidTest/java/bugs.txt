@@ -1,3 +1,0 @@
-Plan Creation:
-    After adding workout to other day, removing workout added to different day does not get removed
-    and crashes the activity.

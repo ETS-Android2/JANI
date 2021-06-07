@@ -1,29 +1,20 @@
 package com.sticknology.jani.ui.create.planCreation;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.TrainingPlan;
-import com.sticknology.jani.data.Types;
-import com.sticknology.jani.data.Workout;
-import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
-
-import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
+import com.sticknology.jani.data.Run;
 
 import java.util.List;
 
-public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplateAdapter.ViewHolder> {
+public class RunTemplateAdapter extends  RecyclerView.Adapter<RunTemplateAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -45,50 +36,50 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
         }
     }
 
-    private List<Workout> mWorkouts;
+    private List<Run> mRuns;
     private int mDayIndex;
 
-    public WorkoutTemplateAdapter(List<Workout> workouts, int day){
-        mWorkouts = workouts;
+    public RunTemplateAdapter(List<Run> runs, int day){
+        mRuns = runs;
         mDayIndex = day;
     }
 
     @Override
-    public WorkoutTemplateAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View workoutView = inflater.inflate(R.layout.item_workouttemplate_view, parent, false);
+        View runView = inflater.inflate(R.layout.item_workouttemplate_view, parent, false);
 
         // Return a new holder instance
-        WorkoutTemplateAdapter.ViewHolder viewHolder = new WorkoutTemplateAdapter.ViewHolder(workoutView);
+        RunTemplateAdapter.ViewHolder viewHolder = new RunTemplateAdapter.ViewHolder(runView);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull WorkoutTemplateAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
         TextView nameView = holder.mName;
         TextView typeView = holder.mType;
         TextView descriptorView = holder.mDescriptor;
-        nameView.setText(mWorkouts.get(position).getWorkoutName());
-        typeView.setText(mWorkouts.get(position).getWorkoutType());
-        descriptorView.setText(mWorkouts.get(position).getWorkoutDescriptor());
+        nameView.setText(mRuns.get(position).getRunName());
+        typeView.setText(mRuns.get(position).getRunType());
+        descriptorView.setText(mRuns.get(position).getRunDescriptor());
 
         Button addButton = holder.mAddButton;
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayIndex).addWorkout(mWorkouts.get(position));
+                PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayIndex).addRun(mRuns.get(position));
 
-                if(PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayIndex).getTrainingDayWorkouts()
-                        .get(0).getWorkoutName().equals(":;:")){
+                if(PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayIndex).getTrainingDayRuns()
+                        .get(0).getRunName().equals(":;:")){
 
-                    PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition,mDayIndex).removeWorkout(0);
+                    PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition,mDayIndex).removeRun(0);
                 }
 
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
@@ -99,13 +90,13 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();
                 PlanCreateInterFragment.viewPager2.setCurrentItem(1, false);
-
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mWorkouts.size();
+        return mRuns.size();
     }
+
 }

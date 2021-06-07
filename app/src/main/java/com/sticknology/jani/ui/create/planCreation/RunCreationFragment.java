@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import com.sticknology.jani.data.Interval;
 import com.sticknology.jani.data.ListCreation;
 import com.sticknology.jani.data.Run;
 import com.sticknology.jani.dataProcessing.InterpretRun;
+import com.sticknology.jani.dataProcessing.InterpretWorkout;
 import com.sticknology.jani.dataProcessing.StandardReadWrite;
 
 import java.util.ArrayList;
@@ -134,14 +136,49 @@ public class RunCreationFragment extends Fragment {
                     Spinner effortSpinner = mChild.findViewById(R.id.spinner_rc_intervalrev);
                     mEfforts[i] = effortSpinner.getSelectedItem().toString();
                 }
-
-                //Build interval list and save run
                 ListCreation listCreation = new ListCreation();
                 ArrayList<Interval> intervalArrayList = listCreation.createIntervalList(mDistance, mPace, mTime, mEfforts);
+
+                //Fix empty parameters
+                if(mName.equals("")){
+                    mName = " ";
+                }
+                if(mDescription.equals("")){
+                    mDescription = " ";
+                }
+                if(mType.equals("")){
+                    mType = " ";
+                }
+                for(int i = 0; i < intervalArrayList.size(); i++){
+                    if(intervalArrayList.get(i).getIntervalDistance().equals("")){
+                        intervalArrayList.get(i).setIntervalDistance(" ");
+                    }
+                    if(intervalArrayList.get(i).getIntervalEffort().equals("")){
+                        intervalArrayList.get(i).setIntervalEffort(" ");
+                    }
+                    if(intervalArrayList.get(i).getIntervalPace().equals("")){
+                        intervalArrayList.get(i).setIntervalPace(" ");
+                    }
+                    if(intervalArrayList.get(i).getIntervalTime().equals("")){
+                        intervalArrayList.get(i).setIntervalTime(" ");
+                    }
+                }
+
+                //Build interval list and save run
                 mSavedRun = new Run(intervalArrayList, mName, mDescription, mType);
-                PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayPosition).addRun(mSavedRun);
+
+                //Add to template file if check
+                Switch mSwitch = getView().findViewById(R.id.rc_switch_template);
+                if(mSwitch.isChecked()) {
+                    StandardReadWrite standardReadWrite = new StandardReadWrite();
+                    InterpretRun interpretRun = new InterpretRun();
+                    String workoutString = interpretRun.getStringRun(mSavedRun);
+                    standardReadWrite.appendText(workoutString,"run_templates.txt", getContext(), Context.MODE_APPEND);
+                }
+
 
                 //Move back to view
+                PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayPosition).addRun(mSavedRun);
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
                 PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
                 getActivity().getSupportFragmentManager().beginTransaction()
