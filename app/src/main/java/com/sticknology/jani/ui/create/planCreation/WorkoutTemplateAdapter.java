@@ -101,6 +101,7 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();
+                PlanCreateInterFragment.viewPager2.setCurrentItem(1, false);
 
             }
         });

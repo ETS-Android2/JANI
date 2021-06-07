@@ -13,11 +13,13 @@ import com.sticknology.jani.ui.create.ManageFragment;
 
 public class RunTemplateFragment extends Fragment {
 
+    private int mDayPosition;
 
-    public static RunTemplateFragment newInstance() {
+    public static RunTemplateFragment newInstance(int dayPosition) {
 
         RunTemplateFragment f = new RunTemplateFragment();
         Bundle b = new Bundle();
+        b.putInt("day", dayPosition);
 
         f.setArguments(b);
 
@@ -27,6 +29,7 @@ public class RunTemplateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        mDayPosition = getArguments().getInt("day");
         return inflater.inflate(R.layout.fragment_runtemplate, container, false);
     }
 
@@ -39,7 +42,7 @@ public class RunTemplateFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                RunCreationFragment runCreationFragment = new RunCreationFragment();
+                RunCreationFragment runCreationFragment = RunCreationFragment.newInstance(mDayPosition);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, runCreationFragment, null)
                         .commit();

@@ -21,7 +21,7 @@ public class PlanCreateInterFragment extends Fragment {
     private final String[] titlesV = {"Overview", "Week by Week"};
     private final String[] titlesT = {"Run", "Workout"};
 
-    private static ViewPager2 viewPager2;
+    public static ViewPager2 viewPager2;
     private static TabLayout tabLayout;
     private int mDayIndex;
 

@@ -96,7 +96,9 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
 
         layoutManager.setInitialPrefetchItemCount(WByWFragment.mTrainingWeek.getTrainingWeekDays().get(position).getTrainingDayWorkouts().size());
 
-        WByWRunRevAdapter childItemAdapter = new WByWRunRevAdapter(WByWFragment.mTrainingWeek.getTrainingWeekDays().get(position).getTrainingDayWorkouts(), position);
+        TrainingDay trainingDay = WByWFragment.mTrainingWeek.getTrainingWeekDays().get(position);
+
+        WByWRunRevAdapter childItemAdapter = new WByWRunRevAdapter(trainingDay.getTrainingDayWorkouts(), trainingDay.getTrainingDayRuns(), position);
         holder.mInternalRecyclerView.setLayoutManager(layoutManager);
         holder.mInternalRecyclerView.setAdapter(childItemAdapter);
         holder.mInternalRecyclerView.setRecycledViewPool(viewPool);

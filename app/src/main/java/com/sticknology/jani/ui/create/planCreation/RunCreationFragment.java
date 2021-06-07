@@ -29,6 +29,8 @@ public class RunCreationFragment extends Fragment {
     public static RunCreationRevAdapter mAdapter;
     public static Run mSavedRun;
 
+    private int mDayPosition;
+
     private String[] mDistance;
     private String[] mPace;
     private String[] mTime;
@@ -37,9 +39,21 @@ public class RunCreationFragment extends Fragment {
     private String mType;
     private String mDescription;
 
+    public static RunCreationFragment newInstance(int dayPosition){
+
+        RunCreationFragment f = new RunCreationFragment();
+        Bundle b = new Bundle();
+        b.putInt("day", dayPosition);
+
+        f.setArguments(b);
+
+        return f;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
+        mDayPosition = getArguments().getInt("day");
         return inflater.inflate(R.layout.fragment_runcreation, container, false);
     }
 
@@ -121,13 +135,18 @@ public class RunCreationFragment extends Fragment {
                     mEfforts[i] = effortSpinner.getSelectedItem().toString();
                 }
 
+                //Build interval list and save run
                 ListCreation listCreation = new ListCreation();
                 ArrayList<Interval> intervalArrayList = listCreation.createIntervalList(mDistance, mPace, mTime, mEfforts);
-
                 mSavedRun = new Run(intervalArrayList, mName, mDescription, mType);
-                String runString = new InterpretRun().getStringRun(mSavedRun);
-                StandardReadWrite standardReadWrite = new StandardReadWrite();
-                standardReadWrite.appendText(runString, "test.txt", getContext(), Context.MODE_APPEND);
+                PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayPosition).addRun(mSavedRun);
+
+                //Move back to view
+                PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, planCreateInterFragment, null)
+                        .commit();
             }
         });
 

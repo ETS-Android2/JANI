@@ -11,18 +11,19 @@ import java.util.List;
 
 public class WByWDataHandler {
 
-    /*
-    Essentially a workaround to "fix" the training week object before attempting to cast it back to a string
+    /* Essentially a workaround to "fix" the training week object before attempting to cast it back to a string
     Fixes the object/ensures it is string writeable and then returns a string version of the fixed object
     This ensures that in the process of editing the week, no interior list positions were left without a
-    placeholder which could cause issues in string casting
-    */
+    placeholder which could cause issues in string casting */
     public TrainingWeek fixTrainingWeek(TrainingWeek trainingWeekObject){
 
         ArrayList<TrainingDay> trainingDayList = trainingWeekObject.getTrainingWeekDays();
         for(int i = 0; i < 7; i++){
             if(trainingDayList.get(i).getTrainingDayWorkouts().size() == 0){
                 trainingDayList.get(i).getTrainingDayWorkouts().add(new ListCreation().createEmptyWorkoutList().get(0));
+            }
+            if(trainingDayList.get(i).getTrainingDayRuns().size() == 0){
+                trainingDayList.get(i).getTrainingDayRuns().add(new ListCreation().createEmptyRunList().get(0));
             }
         }
 

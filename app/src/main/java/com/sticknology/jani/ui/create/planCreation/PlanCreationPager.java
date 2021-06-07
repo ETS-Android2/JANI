@@ -23,7 +23,7 @@ public class PlanCreationPager extends FragmentStateAdapter {
         } else if(tabset == PlanCreationActivity.TABSET.VIEW && position == 1){
             return WByWFragment.newInstance();
         } else if(tabset == PlanCreationActivity.TABSET.TEMPLATES && position == 0){
-            return RunTemplateFragment.newInstance();
+            return RunTemplateFragment.newInstance(mDayIndex);
         } else if(tabset == PlanCreationActivity.TABSET.TEMPLATES && position == 1){
             return WorkoutTemplateFragment.newInstance(mDayIndex);
         } else{
