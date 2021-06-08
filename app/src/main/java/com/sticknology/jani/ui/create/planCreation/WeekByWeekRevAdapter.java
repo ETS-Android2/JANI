@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -23,7 +24,11 @@ import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.List;
+
+import static com.sticknology.jani.ui.create.planCreation.PlanCreationActivity.mTrainingPlan;
+import static com.sticknology.jani.ui.create.planCreation.WByWFragment.weekPosition;
 
 public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdapter.ViewHolder> {
 
@@ -79,14 +84,37 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
 
-        Log.e("test", "Got inside wbywrevadapter onbindviewholder");
-
         //Set Spinner for type of day
         Spinner dayType = holder.mDayTypeSpinner;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(holder.mContext,
                 R.array.daytype_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dayType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedType = dayType.getSelectedItem().toString();
+                mTrainingPlan.getTrainingDay(weekPosition, position).setTrainingDayType(selectedType);
+
+                System.out.println(new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlan));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         dayType.setAdapter(adapter);
+        //TODO: Make this code not suck
+        int dayIndex = 0;
+        String[] dayTypes = {"None", "Easy", "Recovery", "Workout", "Long Distance", "Training", "Off Day"};
+        for(int i = 0; i < dayTypes.length; i++){
+            if(dayTypes[i].equals(mTrainingPlan.getTrainingDay(weekPosition, position).getTrainingDayType())){
+                dayIndex = i;
+                break;
+            }
+        }
+        dayType.setSelection(dayIndex);
+
 
         //Create list for interior Recycler View
         mWorkoutList[position] = mTrainingDayList.get(position).getTrainingDayWorkouts();
@@ -115,7 +143,7 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
             public void onClick(View view) {
 
                 WByWFragment.mTrainingWeek = new WByWDataHandler().fixTrainingWeek(WByWFragment.mTrainingWeek);
-                PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().set(WByWFragment.weekPosition, WByWFragment.mTrainingWeek);
+                mTrainingPlan.getTrainingPlanWeeks().set(weekPosition, WByWFragment.mTrainingWeek);
 
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.TEMPLATES;

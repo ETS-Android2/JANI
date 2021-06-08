@@ -19,6 +19,7 @@
         <item>Threshold</item>
     </string-array>
     <string-array name="daytype_array">
+        <item>None</item>
         <item>Easy</item>
         <item>Recovery</item>
         <item>Workout</item>

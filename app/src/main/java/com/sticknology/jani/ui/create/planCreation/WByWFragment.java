@@ -125,10 +125,6 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
         }
         mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(i);
         weekPosition = i;
-
-        System.out.println("THIS IS WEEK POSITION: " + weekPosition);
-
-        Log.e("test", "Adapter update got called");
         mWByWRevAdapter.notifyDataSetChanged();
     }
 
