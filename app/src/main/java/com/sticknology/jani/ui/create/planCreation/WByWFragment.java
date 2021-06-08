@@ -28,9 +28,7 @@ import java.util.List;
 public class WByWFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     public static int weekPosition;
-
     public static TrainingWeek mTrainingWeek;
-
     public static WeekByWeekRevAdapter mWByWRevAdapter;
 
     private Spinner weekSpinner;
@@ -106,6 +104,10 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
                 if(currSelected == newWeekIndex){
                     weekSpinner.setSelection(newWeekIndex - 1);
                 }
+
+                weekPosition = weekSpinner.getSelectedItemPosition();
+                mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(weekPosition);
+                mWByWRevAdapter.notifyDataSetChanged();
             }
         });
     }
