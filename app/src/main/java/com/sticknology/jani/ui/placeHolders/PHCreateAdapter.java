@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
         public TextView planName;
         public TextView planGoal;
         public TextView planDescript;
+        public Button delPlan;
 
         public ViewHolder(View itemView) {
             // Stores the itemView in a public final member variable that can be used
@@ -29,6 +31,7 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
             planName = itemView.findViewById(R.id.rev_trainingplan_name);
             planGoal = itemView.findViewById(R.id.rev_trainingplan_goal);
             planDescript = itemView.findViewById(R.id.rev_trainingplan_descript);
+            delPlan = itemView.findViewById(R.id.rev_del_trainingplan);
 
         }
     }
@@ -65,6 +68,8 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
         goal.setText(mTrainingPlans.get(position).getTrainingPlanGoal());
         descript.setText(mTrainingPlans.get(position).getTrainingPlanDescriptor());
 
+        Button del = holder.delPlan;
+        del.setVisibility(View.GONE);
     }
 
     @Override

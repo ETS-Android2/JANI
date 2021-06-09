@@ -53,6 +53,7 @@ public class WorkoutTemplateFragment extends Fragment {
                 WorkoutCreationFragment workoutCreationFragment = WorkoutCreationFragment.newInstance(WByWFragment.weekPosition, mDayIndex);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, workoutCreationFragment, null)
+                        .addToBackStack("")
                         .commit();
             }
         });

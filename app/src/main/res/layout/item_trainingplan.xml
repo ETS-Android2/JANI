@@ -34,7 +34,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/rev_trainingplan"
+        android:id="@+id/rev_del_trainingplan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"

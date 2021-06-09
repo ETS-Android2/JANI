@@ -88,6 +88,7 @@ public class RunTemplateAdapter extends  RecyclerView.Adapter<RunTemplateAdapter
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
+                        .addToBackStack("")
                         .commit();
                 PlanCreateInterFragment.viewPager2.setCurrentItem(1, false);
             }

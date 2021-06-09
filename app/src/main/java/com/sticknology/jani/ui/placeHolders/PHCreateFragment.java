@@ -15,14 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.TrainingPlan;
+import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
+import com.sticknology.jani.dataProcessing.StandardReadWrite;
 import com.sticknology.jani.ui.create.planCreation.PlanCreationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PHCreateFragment extends Fragment {
-
-    //TODO: Reimplement recycler view for having multiple training plans
 
     public static PHCreateFragment newInstance(String text) {
 
@@ -57,6 +57,13 @@ public class PHCreateFragment extends Fragment {
         });
 
         List<TrainingPlan> trainingPlanList = new ArrayList<>();
+        String readPlanFile = new StandardReadWrite().readFileToString("training_plans.txt", getContext());
+        String[] readFileSplit = readPlanFile.split("\n");
+        for(int i = 0; i < readFileSplit.length; i++){
+            if(!readFileSplit[i].equals("") && !readFileSplit[i].equals(" ")){
+                trainingPlanList.add(new InterpretTrainingPlan().getTrainingPlanFromString(readFileSplit[i]));
+            }
+        }
         RecyclerView planRev = getView().findViewById(R.id.rev_manage);
         PHCreateAdapter phCreateAdapter = new PHCreateAdapter(trainingPlanList);
         planRev.setAdapter(phCreateAdapter);
