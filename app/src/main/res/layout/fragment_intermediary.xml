@@ -17,6 +17,12 @@
         android:id="@+id/inter_pager2"
         android:layout_weight="1"/>
 
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/ph_fragment_holder"/>
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="56dp"/>

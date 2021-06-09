@@ -16,8 +16,6 @@ public class StandardReadWrite {
 
     public void appendText(String content, String filename, Context context, int mode) {
 
-        System.out.println("Tried to write");
-
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, mode));
             outputStreamWriter.append("\n");
