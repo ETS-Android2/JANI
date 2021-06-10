@@ -1,5 +1,6 @@
 package com.sticknology.jani.ui.placeHolders;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.TrainingPlan;
+import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
+import com.sticknology.jani.dataProcessing.StandardReadWrite;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHolder> {
@@ -21,7 +30,8 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
         public TextView planName;
         public TextView planGoal;
         public TextView planDescript;
-        public Button delPlan;
+        public Button setActiveButton;
+        public Context mContext;
 
         public ViewHolder(View itemView) {
             // Stores the itemView in a public final member variable that can be used
@@ -31,7 +41,8 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
             planName = itemView.findViewById(R.id.rev_trainingplan_name);
             planGoal = itemView.findViewById(R.id.rev_trainingplan_goal);
             planDescript = itemView.findViewById(R.id.rev_trainingplan_descript);
-            delPlan = itemView.findViewById(R.id.rev_del_trainingplan);
+            setActiveButton = itemView.findViewById(R.id.rev_setactive_trainingplan);
+            mContext = itemView.getContext();
 
         }
     }
@@ -68,8 +79,28 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
         goal.setText(mTrainingPlans.get(position).getTrainingPlanGoal());
         descript.setText(mTrainingPlans.get(position).getTrainingPlanDescriptor());
 
-        Button del = holder.delPlan;
-        del.setVisibility(View.GONE);
+        Button setActive = holder.setActiveButton;
+        setActive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Date currentDate = Calendar.getInstance().getTime();
+                DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                String dateString = dateFormat.format(currentDate);
+
+                try {
+                    PrintWriter writer = new PrintWriter("active_plan.txt");
+                    writer.print("");
+                    writer.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                new StandardReadWrite().appendText(dateString, "active_plan.txt", holder.mContext, Activity.MODE_APPEND);
+                String planString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlans.get(position));
+                new StandardReadWrite().appendText(planString, "active_plan.txt", holder.mContext, Activity.MODE_APPEND);
+            }
+        });
     }
 
     @Override

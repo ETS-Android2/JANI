@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="20dp"
-        android:text="Day Type"/>
+        android:text="Day Type"
+        android:id="@+id/ph_day_type"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,13 +30,15 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Previous"/>
+            android:text="Previous"
+            android:id="@+id/ph_day_previous"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Next"/>
+            android:text="Next"
+            android:id="@+id/ph_day_next"/>
 
     </LinearLayout>
 
@@ -43,22 +46,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:text="Runs:"/>
+        android:text="Runs:"
+        android:id="@+id/ph_day_rtitle"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="No Runs"
+        android:id="@+id/ph_day_runs"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:text="Workouts:"/>
+        android:text="Workouts:"
+        android:id="@+id/ph_day_wtitle"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-
+        android:layout_height="wrap_content"
+        android:text="No Workouts"
+        android:id="@+id/ph_day_workouts"/>
 
 </LinearLayout>

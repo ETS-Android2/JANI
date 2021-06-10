@@ -1,12 +1,9 @@
 package com.sticknology.jani.ui.placeHolders;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,23 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.TrainingDay;
-import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.data.Workout;
-import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
-import com.sticknology.jani.ui.create.planCreation.PlanCreateInterFragment;
-import com.sticknology.jani.ui.create.planCreation.PlanCreationActivity;
-import com.sticknology.jani.ui.create.planCreation.WByWDataHandler;
-import com.sticknology.jani.ui.create.planCreation.WByWFragment;
-import com.sticknology.jani.ui.create.planCreation.WByWRunRevAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
-
-import static com.sticknology.jani.ui.create.planCreation.PlanCreationActivity.mTrainingPlan;
-import static com.sticknology.jani.ui.create.planCreation.WByWFragment.weekPosition;
 
 public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder> {
 
@@ -45,6 +30,7 @@ public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder
         public TextView mDayName;
         public Button mNewItemButton;
         public RecyclerView mRecyclerView;
+        public TextView mDayTypeText;
 
         public ViewHolder(View itemView){
 
@@ -56,6 +42,7 @@ public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder
             mDayName = itemView.findViewById(R.id.wbyw_rev_text_dayname);
             mNewItemButton = itemView.findViewById(R.id.wbyw_rev_newitem);
             mRecyclerView = itemView.findViewById(R.id.wbyw_rev_rev);
+            mDayTypeText = itemView.findViewById(R.id.wbyw_daytype_text);
         }
     }
 
@@ -68,7 +55,7 @@ public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder
 
     public PHPlanAdapter(){
 
-        mTrainingDayList = WByWFragment.mTrainingWeek.getTrainingWeekDays();
+        mTrainingDayList = PlanPHFragment.trainingWeek.getTrainingWeekDays();
     }
 
     @Override
@@ -91,22 +78,10 @@ public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder
 
         //Set Spinner for type of day
         Spinner dayType = holder.mDayTypeSpinner;
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(holder.mContext,
-                R.array.daytype_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dayType.setAdapter(adapter);
-        //TODO: Make this code not suck
-        int dayIndex = 0;
-        String[] dayTypes = {"None", "Easy", "Recovery", "Workout", "Long Distance", "Training", "Off Day"};
-        for(int i = 0; i < dayTypes.length; i++){
-            if(dayTypes[i].equals(mTrainingPlan.getTrainingDay(weekPosition, position).getTrainingDayType())){
-                dayIndex = i;
-                break;
-            }
-        }
-        dayType.setSelection(dayIndex);
-        dayType.setEnabled(false);
+        dayType.setVisibility(View.GONE);
 
+        TextView dayTypeText = holder.mDayTypeText;
+        dayTypeText.setText(mTrainingDayList.get(position).getTrainingDayType());
 
         //Create list for interior Recycler View
         mWorkoutList[position] = mTrainingDayList.get(position).getTrainingDayWorkouts();
@@ -114,11 +89,11 @@ public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder
         LinearLayoutManager layoutManager = new LinearLayoutManager(holder.mInternalRecyclerView.getContext(),
                 LinearLayoutManager.VERTICAL, false);
 
-        layoutManager.setInitialPrefetchItemCount(WByWFragment.mTrainingWeek.getTrainingWeekDays().get(position).getTrainingDayWorkouts().size());
+        layoutManager.setInitialPrefetchItemCount(PlanPHFragment.trainingWeek.getTrainingWeekDays().get(position).getTrainingDayWorkouts().size());
 
-        TrainingDay trainingDay = WByWFragment.mTrainingWeek.getTrainingWeekDays().get(position);
+        TrainingDay trainingDay = PlanPHFragment.trainingWeek.getTrainingWeekDays().get(position);
 
-        WByWRunRevAdapter childItemAdapter = new WByWRunRevAdapter(trainingDay.getTrainingDayWorkouts(), trainingDay.getTrainingDayRuns(), position);
+        PHPlanInternalAdapter childItemAdapter = new PHPlanInternalAdapter(trainingDay.getTrainingDayWorkouts(), trainingDay.getTrainingDayRuns(), position);
         holder.mInternalRecyclerView.setLayoutManager(layoutManager);
         holder.mInternalRecyclerView.setAdapter(childItemAdapter);
         holder.mInternalRecyclerView.setRecycledViewPool(viewPool);

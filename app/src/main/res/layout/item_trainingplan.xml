@@ -34,12 +34,12 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/rev_del_trainingplan"
+        android:id="@+id/rev_setactive_trainingplan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textSize="10sp"
-        android:text="Delete"/>
+        android:text="Set Active"/>
 
 </LinearLayout>

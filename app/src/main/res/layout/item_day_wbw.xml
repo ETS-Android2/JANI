@@ -12,6 +12,11 @@
         android:id="@+id/wbyw_rev_text_dayname"
         android:textSize="20dp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/wbyw_daytype_text"/>
+    
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

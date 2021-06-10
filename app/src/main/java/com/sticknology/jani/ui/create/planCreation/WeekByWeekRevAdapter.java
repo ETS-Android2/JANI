@@ -1,7 +1,6 @@
 package com.sticknology.jani.ui.create.planCreation;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.TrainingDay;
-import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.data.Workout;
 import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
 
 import static com.sticknology.jani.ui.create.planCreation.PlanCreationActivity.mTrainingPlan;
@@ -40,6 +36,7 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
         public TextView mDayName;
         public Button mNewItemButton;
         public RecyclerView mRecyclerView;
+        public TextView mDayTypeDisp;
 
         public ViewHolder(View itemView){
 
@@ -51,6 +48,7 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
             mDayName = itemView.findViewById(R.id.wbyw_rev_text_dayname);
             mNewItemButton = itemView.findViewById(R.id.wbyw_rev_newitem);
             mRecyclerView = itemView.findViewById(R.id.wbyw_rev_rev);
+            mDayTypeDisp = itemView.findViewById(R.id.wbyw_daytype_text);
         }
     }
 
@@ -83,6 +81,10 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
+
+        //Hide textview used instead of spinner for display
+        TextView dayTypeTextView = holder.mDayTypeDisp;
+        dayTypeTextView.setVisibility(View.GONE);
 
         //Set Spinner for type of day
         Spinner dayType = holder.mDayTypeSpinner;

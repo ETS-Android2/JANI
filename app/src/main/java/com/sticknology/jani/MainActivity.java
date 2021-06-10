@@ -1,8 +1,7 @@
 package com.sticknology.jani;
 
 import android.os.Bundle;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -10,16 +9,72 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.sticknology.jani.dataProcessing.InterpretWorkout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.sticknology.jani.data.TrainingPlan;
+import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
+import com.sticknology.jani.dataProcessing.StandardReadWrite;
 import com.sticknology.jani.databinding.ActivityMainBinding;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+    public static TrainingPlan aTrainingPlan;
+    public static int activeDayIndex;
+    public static int aDay;
+    public static int aWeek;
+    public static int dayNameIndex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String readActive = new StandardReadWrite().readFileToString("active_plan.txt", this);
+        String[] activeArray = readActive.split("\n");
+        if(activeArray.length == 4){
+
+            String startDate = activeArray[2];
+            aTrainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(activeArray[3]);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+            Long diff = 0L;
+            try {
+                Date firstDate = sdf.parse(startDate);
+                String dayofweek = android.text.format.DateFormat.format("EEEE", firstDate).toString();
+                String[] dayArray = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+                for(int i = 0; i < dayArray.length; i++){
+                    if(dayofweek.equals(dayArray[i])){
+                        dayNameIndex = i;
+                    }
+                }
+                Date secondDate = Calendar.getInstance().getTime();
+                long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+                diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            activeDayIndex = diff.intValue();
+
+            aDay = activeDayIndex % 7;
+            aWeek = activeDayIndex / 7;
+
+        } else{
+            aTrainingPlan = null;
+            activeDayIndex = 0;
+            aDay = 0;
+            aWeek = 0;
+        }
+
+        Log.d("test", new InterpretTrainingPlan().getStringFromTrainingPlan(aTrainingPlan));
+        Log.d("test", String.valueOf(activeDayIndex));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
