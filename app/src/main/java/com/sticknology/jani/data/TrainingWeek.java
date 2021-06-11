@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 public class TrainingWeek {
 
+    //Object Variables
     private final ArrayList<TrainingDay> mTrainingDays;
     private String mType;
     private String mDescriptor;
     private String mStartDay;
 
+    //Object Creation Method
     public TrainingWeek(ArrayList<TrainingDay> trainingDays, String type,
                         String descriptor, String startDay){
 
@@ -19,9 +21,7 @@ public class TrainingWeek {
     }
 
     //Only Getters and Setters Below Here
-    public ArrayList<TrainingDay> getTrainingWeekDays(){
-        return mTrainingDays;
-    }
+    public ArrayList<TrainingDay> getTrainingWeekDays(){return mTrainingDays;}
 
     public String getTrainingWeekType(){return mType;}
 

@@ -1,7 +1,6 @@
 package com.sticknology.jani.ui.create.planCreation;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.ListCreation;
-import com.sticknology.jani.data.TrainingPlan;
+import com.sticknology.jani.data.EmptyObjects;
 import com.sticknology.jani.data.TrainingWeek;
-import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -123,7 +120,7 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
             spinnerAdapter.notifyDataSetChanged();
             newWeekIndex++;
 
-            PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().add(new ListCreation().createEmptyTrainingWeek());
+            PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().add(new EmptyObjects().createEmptyTrainingWeek());
         }
         mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(i);
         weekPosition = i;

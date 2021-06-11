@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.sticknology.jani.MainActivity;
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 import com.sticknology.jani.dataProcessing.StandardReadWrite;
 
@@ -26,9 +25,6 @@ public class EditOverviewFragment extends Fragment {
     public static EditOverviewFragment newInstance() {
 
         EditOverviewFragment f = new EditOverviewFragment();
-        Bundle b = new Bundle();
-
-        f.setArguments(b);
 
         return f;
     }
@@ -46,25 +42,18 @@ public class EditOverviewFragment extends Fragment {
         EditText nameText = getView().findViewById(R.id.pc_edittext_planname);
         EditText goalText = getView().findViewById(R.id.pc_edittext_plangoal);
         EditText descriptText = getView().findViewById(R.id.pc_edittext_plandescript);
-        if(!mTrainingPlan.getTrainingPlanName().equals(" ") && !mTrainingPlan.getTrainingPlanName().equals(":;:")) {
-            nameText.setText(mTrainingPlan.getTrainingPlanName());
-        }
-        if(!mTrainingPlan.getTrainingPlanGoal().equals(" ") && !mTrainingPlan.getTrainingPlanGoal().equals(":;:")) {
-            goalText.setText(mTrainingPlan.getTrainingPlanGoal());
-        }
-        if(!mTrainingPlan.getTrainingPlanDescriptor().equals(" ") && !mTrainingPlan.getTrainingPlanDescriptor().equals(":;:")){
-            descriptText.setText(mTrainingPlan.getTrainingPlanDescriptor());
-        }
+
+        //Set Text for When Navigated Back To Fragment
+        nameText.setText(mTrainingPlan.getTrainingPlanName());
+        goalText.setText(mTrainingPlan.getTrainingPlanGoal());
+        descriptText.setText(mTrainingPlan.getTrainingPlanDescriptor());
+
+        //Set Listeners for Updating TrainingPlan Object
         nameText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -73,14 +62,9 @@ public class EditOverviewFragment extends Fragment {
         });
         goalText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -89,14 +73,9 @@ public class EditOverviewFragment extends Fragment {
         });
         descriptText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -104,26 +83,18 @@ public class EditOverviewFragment extends Fragment {
             }
         });
 
-
+        //Set Behavior for Saving Plan
         Button savePlan = getView().findViewById(R.id.pc_button_saveplan);
         savePlan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String name = nameText.getText().toString();
-                String goal = goalText.getText().toString();
-                String descript = descriptText.getText().toString();
-
-                TrainingPlan trainingPlan = mTrainingPlan;
-
-
-                //trainingPlan.setTrainingPlanGoal(goal);
-                //trainingPlan.setTrainingPlanDescriptor(descript);
-
-                String planString = new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlan);
+                //Save TrainingPlan to File
+                String planString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlan);
                 StandardReadWrite standardReadWrite = new StandardReadWrite();
                 standardReadWrite.appendText(planString, "training_plans.txt", getContext(), Activity.MODE_APPEND);
 
+                //Launches Back to MainActivity
                 Intent newMainActivity = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                 startActivity(newMainActivity);
             }

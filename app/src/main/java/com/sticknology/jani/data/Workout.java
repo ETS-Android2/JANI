@@ -2,10 +2,12 @@ package com.sticknology.jani.data;
 
 public class Workout {
 
+    //Object Variables
     private String mName;
     private String mType;
     private String mDescriptor;
 
+    //Object Creation Method
     public Workout(String name, String type, String descriptor){
 
         mName = name;

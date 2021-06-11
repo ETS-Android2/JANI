@@ -1,7 +1,6 @@
 package com.sticknology.jani.ui.create.planCreation;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.ListCreation;
 import com.sticknology.jani.data.Run;
-import com.sticknology.jani.data.TrainingDay;
 import com.sticknology.jani.data.Workout;
 
 import org.jetbrains.annotations.NotNull;

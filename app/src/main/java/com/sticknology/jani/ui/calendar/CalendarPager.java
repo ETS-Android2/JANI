@@ -3,9 +3,11 @@ package com.sticknology.jani.ui.calendar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.sticknology.jani.ui.plan.FutureFragment;
-import com.sticknology.jani.ui.plan.OverviewFragment;
-import com.sticknology.jani.ui.plan.PastFragment;
+//---------------------------------------------------------
+//---------------------------------------------------------
+//                 Currently Unused
+//---------------------------------------------------------
+//---------------------------------------------------------
 
 public class CalendarPager extends FragmentStateAdapter {
 
@@ -18,18 +20,10 @@ public class CalendarPager extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         switch (position){
-            case 0:{
-                return DayFragment.newInstance("Day");
-            }
-            case 1:{
-                return WeekFragment.newInstance("Week");
-            }
-            case 2: {
-                return MonthFragment.newInstance("Month");
-            }
-            default:{
-                return DayFragment.newInstance("Day, default");
-            }
+            case 0: return DayFragment.newInstance("Day");
+            case 1: return WeekFragment.newInstance("Week");
+            case 2: return MonthFragment.newInstance("Month");
+            default: return DayFragment.newInstance("Day, default");
         }
     }
 

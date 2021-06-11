@@ -1,13 +1,12 @@
 package com.sticknology.jani.ui.create.planCreation;
 
-import com.sticknology.jani.data.ListCreation;
+import com.sticknology.jani.data.EmptyObjects;
 import com.sticknology.jani.data.TrainingDay;
 import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.data.TrainingWeek;
 import com.sticknology.jani.data.Workout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WByWDataHandler {
 
@@ -20,10 +19,10 @@ public class WByWDataHandler {
         ArrayList<TrainingDay> trainingDayList = trainingWeekObject.getTrainingWeekDays();
         for(int i = 0; i < 7; i++){
             if(trainingDayList.get(i).getTrainingDayWorkouts().size() == 0){
-                trainingDayList.get(i).getTrainingDayWorkouts().add(new ListCreation().createEmptyWorkoutList().get(0));
+                trainingDayList.get(i).getTrainingDayWorkouts().add(new EmptyObjects().createEmptyWorkoutList().get(0));
             }
             if(trainingDayList.get(i).getTrainingDayRuns().size() == 0){
-                trainingDayList.get(i).getTrainingDayRuns().add(new ListCreation().createEmptyRunList().get(0));
+                trainingDayList.get(i).getTrainingDayRuns().add(new EmptyObjects().createEmptyRunList().get(0));
             }
         }
 

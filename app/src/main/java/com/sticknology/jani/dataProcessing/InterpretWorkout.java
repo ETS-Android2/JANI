@@ -10,11 +10,8 @@ public class InterpretWorkout {
 
     public String getStringWorkout(Workout workout){
 
-        String name = workout.getWorkoutName();
-        String type = workout.getWorkoutType();
-        String descriptor = workout.getWorkoutDescriptor();
-
-        return name + "&!&" + type + "&!&" + descriptor;
+        return workout.getWorkoutName() + "&!&" + workout.getWorkoutType() + "&!&"
+                + workout.getWorkoutDescriptor();
     }
 
     public Workout getWorkoutFromString(String workoutString){
@@ -23,20 +20,16 @@ public class InterpretWorkout {
         return new Workout(splitString[0], splitString[1], splitString[2]);
     }
 
-    public ArrayList<Workout> getWorkoutTemplates(Context context){
+    public ArrayList<Workout> getWorkoutTemplates(Context c){
 
-        StandardReadWrite standardReadWrite = new StandardReadWrite();
-        String templates = standardReadWrite.readFileToString("workout_templates.txt", context);
-        String[] workoutTemplates = templates.split("\n");
+        String temps = new StandardReadWrite().readFileToString("workout_templates.txt", c);
+
+        String[] workoutTemplates = temps.split("\n");
         ArrayList<Workout> workoutObjects = new ArrayList<>();
-
-        for(int i = 0; i < workoutTemplates.length; i++){
-            System.out.println(workoutTemplates[i]);
-            String[] workoutStrings = workoutTemplates[i].split("(&!&)");
-            if(workoutStrings.length == 3) {
-                Workout nextTemplate = new Workout(workoutStrings[0], workoutStrings[1], workoutStrings[2]);
-                workoutObjects.add(nextTemplate);
-            }
+        //Starting i = 1 because of blank line at start of file
+        for(int i = 1; i < workoutTemplates.length; i++){
+            String[] wStrings = workoutTemplates[i].split("(&!&)");
+            workoutObjects.add(new Workout(wStrings[0], wStrings[1], wStrings[2]));
         }
 
         return workoutObjects;

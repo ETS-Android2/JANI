@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 public class TrainingDay {
 
-    private ArrayList<Run> mRuns;
-    private ArrayList<Workout> mWorkouts;
+    //Component Variables
+    private final ArrayList<Run> mRuns;
+    private final ArrayList<Workout> mWorkouts;
     private String mType;
     private String mDescriptor;
 
+    //Object Creation Method
     public TrainingDay(ArrayList<Run> runs, ArrayList<Workout> workouts, String type, String descriptor){
 
         mRuns = runs;
@@ -17,12 +19,12 @@ public class TrainingDay {
         mDescriptor = descriptor;
     }
 
-    //Add/Remove for Run List
+    //Add and Remove for Run List
     public void removeRun(int pos){mRuns.remove(pos);}
 
     public void addRun(Run run){mRuns.add(run);}
 
-    //Add/Remove for Workout List
+    //Add and Remove for Workout List
     public void removeWorkout(int pos){mWorkouts.remove(pos);}
 
     public void addWorkout(Workout workout){mWorkouts.add(workout);}

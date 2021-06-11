@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.sticknology.jani.R;
 
-import java.time.Month;
+//---------------------------------------------------------
+//---------------------------------------------------------
+//                 Currently Unused
+//---------------------------------------------------------
+//---------------------------------------------------------
 
 public class MonthFragment extends Fragment {
 
@@ -18,8 +21,6 @@ public class MonthFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_month, container, false);
 
-        TextView tv = (TextView) v.findViewById(R.id.textView1);
-        tv.setText(getArguments().getString("msg"));
         return v;
     }
 

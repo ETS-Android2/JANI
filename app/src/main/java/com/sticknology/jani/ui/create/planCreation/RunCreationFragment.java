@@ -16,11 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
+import com.sticknology.jani.data.EmptyObjects;
 import com.sticknology.jani.data.Interval;
-import com.sticknology.jani.data.ListCreation;
 import com.sticknology.jani.data.Run;
 import com.sticknology.jani.dataProcessing.InterpretRun;
-import com.sticknology.jani.dataProcessing.InterpretWorkout;
 import com.sticknology.jani.dataProcessing.StandardReadWrite;
 
 import java.util.ArrayList;
@@ -32,11 +31,6 @@ public class RunCreationFragment extends Fragment {
     public static Run mSavedRun;
 
     private int mDayPosition;
-
-    private String[] mDistance;
-    private String[] mPace;
-    private String[] mTime;
-    private String[] mEfforts;
     private String mName;
     private String mType;
     private String mDescription;
@@ -74,7 +68,7 @@ public class RunCreationFragment extends Fragment {
 
         //Create RecyclerView for Adding New Intervals
         RecyclerView revRunCreationInterval = (RecyclerView) getView().findViewById(R.id.rc_rev_interval);
-        mIntervalList = new ListCreation().createEmptyInterval();
+        mIntervalList = new EmptyObjects().createEmptyInterval();
         RunCreationRevAdapter runCreationRevAdapter = new RunCreationRevAdapter(mIntervalList);
         revRunCreationInterval.setAdapter(runCreationRevAdapter);
         revRunCreationInterval.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -88,7 +82,7 @@ public class RunCreationFragment extends Fragment {
             public void onClick(View view) {
 
                 int curSize = runCreationRevAdapter.getItemCount();
-                ArrayList<Interval> newItems = new ListCreation().createEmptyInterval();
+                ArrayList<Interval> newItems = new EmptyObjects().createEmptyInterval();
                 mIntervalList.addAll(newItems);
                 runCreationRevAdapter.notifyItemRangeInserted(curSize, newItems.size());
             }
@@ -110,62 +104,41 @@ public class RunCreationFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                int currLength = runCreationRevAdapter.getItemCount();
-
+                //Set Run Description parameters
                 EditText nameEditText = getView().findViewById(R.id.run_name_edit);
                 mName = nameEditText.getText().toString();
+                if(mName.equals("")){mName = " ";}
                 EditText descriptionEditText = getView().findViewById(R.id.run_descript_edit);
                 mDescription = descriptionEditText.getText().toString();
+                if(mDescription.equals("")){mDescription = " ";}
                 Spinner typeSpinner = getView().findViewById(R.id.spinner_runtype);
                 mType = typeSpinner.getSelectedItem().toString();
+                if(mType.equals("")){mType = " ";}
 
-                mDistance = new String[currLength];
-                mPace = new String[currLength];
-                mTime = new String[currLength];
-                mEfforts = new String[currLength];
-
-                for(int i = 0; i < currLength; i++){
+                //Create List of Intervals
+                ArrayList<Interval> intervalList = new ArrayList<>();
+                for(int i = 0; i < runCreationRevAdapter.getItemCount(); i++){
                     //Todo: Find out why it breaks if there are multiple intervals
                     View mChild = revRunCreationInterval.getChildAt(i);
                     EditText paceEditText = mChild.findViewById(R.id.rc_rev_pace);
-                    mPace[i] = paceEditText.getText().toString();
                     EditText timeEditText = mChild.findViewById(R.id.rc_rev_time);
-                    mTime[i] = timeEditText.getText().toString();
                     EditText distanceEditText = mChild.findViewById(R.id.rc_rev_distance);
-                    mDistance[i] = distanceEditText.getText().toString();
                     Spinner effortSpinner = mChild.findViewById(R.id.spinner_rc_intervalrev);
-                    mEfforts[i] = effortSpinner.getSelectedItem().toString();
-                }
-                ListCreation listCreation = new ListCreation();
-                ArrayList<Interval> intervalArrayList = listCreation.createIntervalList(mDistance, mPace, mTime, mEfforts);
 
-                //Fix empty parameters
-                if(mName.equals("")){
-                    mName = " ";
-                }
-                if(mDescription.equals("")){
-                    mDescription = " ";
-                }
-                if(mType.equals("")){
-                    mType = " ";
-                }
-                for(int i = 0; i < intervalArrayList.size(); i++){
-                    if(intervalArrayList.get(i).getIntervalDistance().equals("")){
-                        intervalArrayList.get(i).setIntervalDistance(" ");
-                    }
-                    if(intervalArrayList.get(i).getIntervalEffort().equals("")){
-                        intervalArrayList.get(i).setIntervalEffort(" ");
-                    }
-                    if(intervalArrayList.get(i).getIntervalPace().equals("")){
-                        intervalArrayList.get(i).setIntervalPace(" ");
-                    }
-                    if(intervalArrayList.get(i).getIntervalTime().equals("")){
-                        intervalArrayList.get(i).setIntervalTime(" ");
-                    }
+                    String iPace = paceEditText.getText().toString();
+                    if(iPace.equals("")){iPace = " ";}
+                    String iTime = timeEditText.getText().toString();
+                    if(iTime.equals("")){iTime = " ";}
+                    String iDistance = distanceEditText.getText().toString();
+                    if(iDistance.equals("")){iDistance = " ";}
+                    String iEffort = effortSpinner.getSelectedItem().toString();
+                    if(iEffort.equals("")){iEffort = " ";}
+
+                    intervalList.add(new Interval(iDistance, iPace, iTime, iEffort));
                 }
 
                 //Build interval list and save run
-                mSavedRun = new Run(intervalArrayList, mName, mDescription, mType);
+                mSavedRun = new Run(intervalList, mName, mDescription, mType);
 
                 //Add to template file if check
                 Switch mSwitch = getView().findViewById(R.id.rc_switch_template);
@@ -175,7 +148,6 @@ public class RunCreationFragment extends Fragment {
                     String workoutString = interpretRun.getStringRun(mSavedRun);
                     standardReadWrite.appendText(workoutString,"run_templates.txt", getContext(), Context.MODE_APPEND);
                 }
-
 
                 //Move back to view
                 PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayPosition).addRun(mSavedRun);

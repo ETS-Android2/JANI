@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 public class TrainingPlan {
 
-    private ArrayList<TrainingWeek> mTrainingWeeks;
+    //Object Component Variables
+    private final ArrayList<TrainingWeek> mTrainingWeeks;
     private String mName;
     private String mDescriptor;
     private String mStartDate;
     private String mEndDate;
     private String mGoal;
 
+    //Object Creation Method
     public TrainingPlan(ArrayList<TrainingWeek> trainingWeeks, String name, String goal,
                         String descriptor, String startDate, String endDate){
 
@@ -29,8 +31,8 @@ public class TrainingPlan {
 
     //Modifying TrainingWeek Arraylist
     public void addWeek(){
-        ListCreation listCreation = new ListCreation();
-        mTrainingWeeks.add(listCreation.createEmptyTrainingWeek());
+        EmptyObjects emptyObjects = new EmptyObjects();
+        mTrainingWeeks.add(emptyObjects.createEmptyTrainingWeek());
     }
 
     public void removeWeek(int pos){mTrainingWeeks.remove(pos);}
