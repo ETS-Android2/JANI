@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import com.sticknology.jani.MainActivity;
@@ -39,12 +40,19 @@ public class EditOverviewFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
+        ActionBar actionBar = ((PlanCreationActivity) getActivity()).getSupportActionBar();
+        actionBar.setTitle("Overview");
+
         EditText nameText = getView().findViewById(R.id.pc_edittext_planname);
         EditText goalText = getView().findViewById(R.id.pc_edittext_plangoal);
         EditText descriptText = getView().findViewById(R.id.pc_edittext_plandescript);
 
         //Set Text for When Navigated Back To Fragment
-        nameText.setText(mTrainingPlan.getTrainingPlanName());
+        if(!mTrainingPlan.getTrainingPlanName().equals(":;:")) {
+            nameText.setText(mTrainingPlan.getTrainingPlanName());
+        } else {
+            nameText.setText("");
+        }
         goalText.setText(mTrainingPlan.getTrainingPlanGoal());
         descriptText.setText(mTrainingPlan.getTrainingPlanDescriptor());
 

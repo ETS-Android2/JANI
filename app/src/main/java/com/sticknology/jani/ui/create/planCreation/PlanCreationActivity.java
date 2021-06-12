@@ -1,5 +1,7 @@
 package com.sticknology.jani.ui.create.planCreation;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +22,8 @@ public class PlanCreationActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plancreation);
+        getSupportActionBar().setTitle("Create");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#002C47")));
 
         if (mTrainingPlan == null) mTrainingPlan = new EmptyObjects().createEmptyTrainingPlan();
 

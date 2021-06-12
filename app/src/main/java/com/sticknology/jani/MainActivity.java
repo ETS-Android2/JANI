@@ -1,7 +1,8 @@
 package com.sticknology.jani;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -9,7 +10,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 import com.sticknology.jani.dataProcessing.StandardReadWrite;
@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#002C47")));
 
         String readActive = new StandardReadWrite().readFileToString("active_plan.txt", this);
         String[] activeArray = readActive.split("\n");
@@ -73,13 +75,9 @@ public class MainActivity extends AppCompatActivity {
             aWeek = 0;
         }
 
-        Log.d("test", new InterpretTrainingPlan().getStringFromTrainingPlan(aTrainingPlan));
-        Log.d("test", String.valueOf(activeDayIndex));
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(

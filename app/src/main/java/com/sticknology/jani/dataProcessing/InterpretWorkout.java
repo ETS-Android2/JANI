@@ -27,7 +27,8 @@ public class InterpretWorkout {
         String[] workoutTemplates = temps.split("\n");
         ArrayList<Workout> workoutObjects = new ArrayList<>();
         //Starting i = 1 because of blank line at start of file
-        for(int i = 1; i < workoutTemplates.length; i++){
+        for(int i = 2; i < workoutTemplates.length; i++){
+            System.out.println(workoutTemplates[i]);
             String[] wStrings = workoutTemplates[i].split("(&!&)");
             workoutObjects.add(new Workout(wStrings[0], wStrings[1], wStrings[2]));
         }

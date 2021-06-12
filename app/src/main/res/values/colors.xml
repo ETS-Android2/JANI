@@ -7,4 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="theme1">#002C47</color>
+    <color name="theme4">#73ACD0</color>
+    <color name="theme5">#CADBE6</color>
+    <color name="theme3">#007BC7</color>
+    <color name="theme2">#005B94</color>
+    <color name="actionbar">#001E30</color>
 </resources>
+
+<!--
+#002C47
+#73ACD0
+#CADBE6
+#007BC7
+#005B94
+-->
