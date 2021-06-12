@@ -18,7 +18,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu"
-        app:itemIconTint="@color/theme2"/>
+        app:backgroundTint="@color/theme1"
+        app:itemIconTint="@color/bottom_nav_theme"
+        app:itemTextColor="@color/bottom_nav_theme"/>
 
     <fragment
         android:id="@+id/nav_host_fragment_activity_main"
