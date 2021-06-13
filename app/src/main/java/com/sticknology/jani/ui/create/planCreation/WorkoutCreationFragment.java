@@ -14,10 +14,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.TrainingDay;
-import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.data.Workout;
-import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 import com.sticknology.jani.dataProcessing.InterpretWorkout;
 import com.sticknology.jani.dataProcessing.StandardReadWrite;
 
@@ -62,6 +59,19 @@ public class WorkoutCreationFragment extends Fragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         workoutTypeSpinner.setAdapter(dataAdapter);
 
+        Button cancel = getView().findViewById(R.id.wc_wc_buttoncancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, planCreateInterFragment, null)
+                        .commit();
+            }
+        });
+
         Button saveWorkout = getView().findViewById(R.id.wc_wc_buttonsave);
         saveWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +110,6 @@ public class WorkoutCreationFragment extends Fragment {
                 }
 
                 //Navigation back to overview
-                //TODO: Make navigation back to weekbyweek
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
                 PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
                 getActivity().getSupportFragmentManager().beginTransaction()

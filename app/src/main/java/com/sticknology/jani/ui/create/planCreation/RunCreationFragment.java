@@ -88,6 +88,7 @@ public class RunCreationFragment extends Fragment {
                 runCreationRevAdapter.notifyDataSetChanged();
             }
         });
+        newIntervalButton.setVisibility(View.GONE);
 
         //Setting up Cancel Button Listener
         Button cancelButton = getView().findViewById(R.id.rc_button_cancel);

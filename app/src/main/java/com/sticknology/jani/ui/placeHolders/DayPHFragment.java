@@ -1,7 +1,6 @@
 package com.sticknology.jani.ui.placeHolders;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,8 +84,6 @@ public class DayPHFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Log.d("test", "showday before functions: " + String.valueOf(showDay));
-                Log.d("test", "showweek before functions: " + String.valueOf(showWeek));
                 System.out.println(MainActivity.aTrainingPlan.getTrainingPlanWeeks().size() + "This is trianing weeks size");
 
                 if(!(showDay+1 == 7 && showWeek+1 == MainActivity.aTrainingPlan.getTrainingPlanWeeks().size())){
@@ -98,9 +95,6 @@ public class DayPHFragment extends Fragment {
                     updateDayNameIndex(true);
                     setDayView();
                 }
-
-                Log.d("test", "showday after functions: " + String.valueOf(showDay));
-                Log.d("test", "showweek after functions: " + String.valueOf(showWeek));
             }
         });
 
@@ -156,7 +150,7 @@ public class DayPHFragment extends Fragment {
             localWorkouts.setVisibility(View.VISIBLE);
             String workoutBuildString = "";
             for (int i = 0; i < workoutList.size(); i++) {
-                workoutBuildString += "\n" + workoutList.get(i).getWorkoutName();
+                workoutBuildString += workoutList.get(i).getWorkoutName();
                 workoutBuildString += "\n" + workoutList.get(i).getWorkoutType();
                 workoutBuildString += "\n" + workoutList.get(i).getWorkoutDescriptor() + "\n";
             }
@@ -173,16 +167,12 @@ public class DayPHFragment extends Fragment {
             localRTitle.setText("Runs:");
             String runBuildString = "";
             for (int i = 0; i < runList.size(); i++) {
-                runBuildString += "\n" + runList.get(i).getRunName();
-                runBuildString += "\n" + runList.get(i).getRunType();
+                runBuildString += runList.get(i).getRunName() + ":  " + runList.get(i).getRunType();
                 runBuildString += "\n" + runList.get(i).getRunDescriptor();
-                runBuildString += "\nRun Invervals: ";
                 List<Interval> intervalList = runList.get(i).getRunIntervals();
                 for(int u = 0; i < intervalList.size(); i++){
-                    runBuildString += "\n" + "Interval Effort: " + intervalList.get(u).getIntervalEffort();
-                    runBuildString += "\n" + "Interval Distance: " + intervalList.get(u).getIntervalDistance();
-                    runBuildString += "\n" + "Interval Pace: " + intervalList.get(u).getIntervalPace();
-                    runBuildString += "\n" + "Interval Time: " + intervalList.get(u).getIntervalTime() + "\n";
+                    runBuildString += "\n" + "Effort: " + intervalList.get(u).getIntervalEffort() + "   Distance: " + intervalList.get(u).getIntervalDistance();
+                    runBuildString += "\n" + "Pace: " + intervalList.get(u).getIntervalPace() + "   Time: " + intervalList.get(u).getIntervalTime() + "\n";
                 }
             }
 

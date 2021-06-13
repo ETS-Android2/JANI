@@ -76,6 +76,7 @@ public class RunCreationRevAdapter extends RecyclerView.Adapter<RunCreationRevAd
                 }
             }
         });
+        rcDeleteButton.setVisibility(View.GONE);
     }
 
     @Override
