@@ -68,6 +68,11 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ph_day_listrun"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

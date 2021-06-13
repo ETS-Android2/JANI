@@ -3,6 +3,7 @@ package com.sticknology.jani;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -49,16 +50,18 @@ public class MainActivity extends AppCompatActivity {
             Long diff = 0L;
             try {
                 Date firstDate = sdf.parse(startDate);
-                String dayofweek = android.text.format.DateFormat.format("EEEE", firstDate).toString();
-                String[] dayArray = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-                for(int i = 0; i < dayArray.length; i++){
-                    if(dayofweek.equals(dayArray[i])){
-                        dayNameIndex = i;
-                    }
-                }
                 Date secondDate = Calendar.getInstance().getTime();
                 long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
                 diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                String dayofweek = android.text.format.DateFormat.format("EEEE", secondDate).toString();
+                String[] dayArray = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+                for(int i = 0; i < dayArray.length; i++){
+                    if(dayofweek.equals(dayArray[i])){
+
+                        dayNameIndex = i;
+                        Log.d("dayNameIndex", "this is dayNameIndex: " + dayNameIndex);
+                    }
+                }
             } catch (ParseException e) {
                 e.printStackTrace();
             }

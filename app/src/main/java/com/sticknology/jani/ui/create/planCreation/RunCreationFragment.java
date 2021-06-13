@@ -95,6 +95,12 @@ public class RunCreationFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                //Move back to view
+                PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, planCreateInterFragment, null)
+                        .commit();
             }
         });
 
@@ -158,6 +164,5 @@ public class RunCreationFragment extends Fragment {
                         .commit();
             }
         });
-
     }
 }
