@@ -74,7 +74,6 @@ public class PlanPHFragment extends Fragment implements AdapterView.OnItemSelect
             for(int i = 0; i < weekSize; i++){
                 weeks.add("Week " + (i+1));
             }
-            weeks.add("Add Week");
             spinnerAdapter = new ArrayAdapter<String>(getActivity(),
                     android.R.layout.simple_spinner_item, weeks);
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

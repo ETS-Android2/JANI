@@ -9,17 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Day Title"
-        android:textSize="30dp"
+        android:textSize="35sp"
         android:textAlignment="center"
-        android:id="@+id/ph_day_title"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:text="Day Type"
-        android:id="@+id/ph_day_type"/>
+        android:id="@+id/ph_day_title"
+        android:textColor="@color/actionbar"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,34 +26,73 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Previous"
-            android:id="@+id/ph_day_previous"/>
+            android:id="@+id/ph_day_previous"
+            android:background="@color/theme3" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/theme1"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Next"
-            android:id="@+id/ph_day_next"/>
+            android:id="@+id/ph_day_next"
+            android:background="@color/theme3"/>
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:text="Day Type"
+        android:id="@+id/ph_day_type"
+        android:paddingTop="10dp"
+        android:textColor="@color/theme1"
+        android:paddingBottom="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/theme4"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
         android:text="Runs:"
-        android:id="@+id/ph_day_rtitle"/>
+        android:id="@+id/ph_day_rtitle"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="No Runs"
-        android:id="@+id/ph_day_runs"/>
+        android:id="@+id/ph_day_runs"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="10dp"
+        android:textSize="18sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/theme4"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:paddingTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="25sp"
         android:text="Workouts:"
         android:id="@+id/ph_day_wtitle"/>
 
@@ -66,6 +100,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="No Workouts"
-        android:id="@+id/ph_day_workouts"/>
+        android:id="@+id/ph_day_workouts"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textSize="18sp"/>
 
 </LinearLayout>

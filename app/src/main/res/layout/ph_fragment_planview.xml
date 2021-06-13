@@ -11,14 +11,16 @@
         android:text="Title"
         android:textSize="30dp"
         android:textAlignment="center"
-        android:id="@+id/ph_plan_title"/>
+        android:id="@+id/ph_plan_title"
+        android:textColor="@color/actionbar"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Goal"
         android:textAlignment="center"
-        android:id="@+id/ph_plan_goal"/>
+        android:id="@+id/ph_plan_goal"
+        android:textColor="@color/actionbar"/>
 
     <Spinner
         android:layout_width="match_parent"

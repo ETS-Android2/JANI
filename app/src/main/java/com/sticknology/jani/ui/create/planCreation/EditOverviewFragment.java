@@ -41,7 +41,6 @@ public class EditOverviewFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ActionBar actionBar = ((PlanCreationActivity) getActivity()).getSupportActionBar();
-        actionBar.setTitle("Overview");
 
         EditText nameText = getView().findViewById(R.id.pc_edittext_planname);
         EditText goalText = getView().findViewById(R.id.pc_edittext_plangoal);

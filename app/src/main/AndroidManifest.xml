@@ -12,7 +12,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main">
+            android:label="JANI">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -21,7 +21,7 @@
 
         <activity
             android:name=".ui.create.planCreation.PlanCreationActivity"
-            android:label="PlanCreationActivity">
+            android:label="Create Plan">
         </activity>
 
     </application>

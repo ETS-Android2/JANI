@@ -59,7 +59,6 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
         mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(weekPosition);
 
         ActionBar actionBar = ((PlanCreationActivity) getActivity()).getSupportActionBar();
-        actionBar.setTitle("Week View");
 
         //Create RecyclerView for Displaying Days in Week
         RecyclerView revDay = (RecyclerView) getView().findViewById(R.id.pc_rev_dayholder);

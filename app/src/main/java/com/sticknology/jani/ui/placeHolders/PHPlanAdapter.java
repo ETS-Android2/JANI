@@ -81,7 +81,7 @@ public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder
         dayType.setVisibility(View.GONE);
 
         TextView dayTypeText = holder.mDayTypeText;
-        dayTypeText.setText(mTrainingDayList.get(position).getTrainingDayType());
+        dayTypeText.setText("Day Type: " + mTrainingDayList.get(position).getTrainingDayType());
 
         //Create list for interior Recycler View
         mWorkoutList[position] = mTrainingDayList.get(position).getTrainingDayWorkouts();

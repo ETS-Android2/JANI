@@ -164,7 +164,7 @@ public class DayPHFragment extends Fragment {
             localWorkouts.setText(workoutBuildString);
         } else{
             localWorkouts.setVisibility(View.GONE);
-            localWTitle.setText("No Workouts");
+            localWTitle.setText("No Workouts Today");
         }
 
         List<Run> runList = currentDay.getTrainingDayRuns();
@@ -189,7 +189,7 @@ public class DayPHFragment extends Fragment {
             localRuns.setText(runBuildString);
         } else{
             localRuns.setVisibility(View.GONE);
-            localRTitle.setText("No Workouts");
+            localRTitle.setText("No Runs Today");
         }
     }
 }
