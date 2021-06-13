@@ -12,8 +12,8 @@ import com.sticknology.jani.data.TrainingPlan;
 
 public class PlanCreationActivity extends AppCompatActivity {
 
-    protected enum TABSET {VIEW, TEMPLATES}
-    protected static TABSET currentTabSet = TABSET.VIEW;
+    public enum TABSET {VIEW, TEMPLATES}
+    public static TABSET currentTabSet = TABSET.VIEW;
 
     public static TrainingPlan mTrainingPlan;
 

@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/wbyw_layout"
     android:orientation="vertical">
 
-    <!--TODO: need to insert spinner here,
-    first need to figure out how to do so programmatically -->
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Delete Week"
-        android:id="@+id/wbyw_button_delete"/>
+        android:id="@+id/wbyw_button_delete"
+        android:background="@color/theme3"/>
 
 </LinearLayout>

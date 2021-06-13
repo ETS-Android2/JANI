@@ -5,17 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Day Title"
-        android:textSize="35sp"
-        android:textAlignment="center"
-        android:id="@+id/ph_day_title"
-        android:textColor="@color/actionbar"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,22 +12,30 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:text="Previous"
+            android:text="Prev"
+            style="?attr/materialButtonOutlinedStyle"
             android:id="@+id/ph_day_previous"
             android:background="@color/theme3" />
 
-        <View
-            android:layout_width="4dp"
-            android:layout_height="match_parent"
-            android:background="@color/theme1"/>
-
-        <Button
+        <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:text="Day Title"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            android:id="@+id/ph_day_title"
+            android:textColor="@color/actionbar"
+            android:paddingTop="10dp" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
             android:text="Next"
+            style="?attr/materialButtonOutlinedStyle"
             android:id="@+id/ph_day_next"
             android:background="@color/theme3"/>
 
@@ -48,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="25dp"
+        android:textSize="18sp"
         android:text="Day Type"
         android:id="@+id/ph_day_type"
         android:paddingTop="10dp"
@@ -63,7 +60,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:text="Runs:"
         android:id="@+id/ph_day_rtitle"
         android:paddingStart="10dp"
@@ -79,7 +76,7 @@
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:paddingBottom="10dp"
-        android:textSize="18sp"/>
+        android:textSize="17sp"/>
 
     <View
         android:layout_width="match_parent"
@@ -92,7 +89,8 @@
         android:paddingTop="10dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:textSize="25sp"
+        android:paddingBottom="10dp"
+        android:textSize="20sp"
         android:text="Workouts:"
         android:id="@+id/ph_day_wtitle"/>
 
@@ -103,6 +101,6 @@
         android:id="@+id/ph_day_workouts"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        android:textSize="18sp"/>
+        android:textSize="17sp"/>
 
 </LinearLayout>

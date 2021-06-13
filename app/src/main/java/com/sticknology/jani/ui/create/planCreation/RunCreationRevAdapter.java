@@ -12,11 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.Interval;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class RunCreationRevAdapter extends RecyclerView.Adapter<RunCreationRevAdapter.ViewHolder> {
 
@@ -36,10 +33,8 @@ public class RunCreationRevAdapter extends RecyclerView.Adapter<RunCreationRevAd
         }
     }
 
-    private List<Interval> mIntervals;
+    public RunCreationRevAdapter() {
 
-    public RunCreationRevAdapter(List<Interval> intervalList) {
-        mIntervals = intervalList;
     }
 
     @Override
@@ -69,27 +64,23 @@ public class RunCreationRevAdapter extends RecyclerView.Adapter<RunCreationRevAd
 
         Button rcDeleteButton = holder.rcDeleteButton;
 
-        //Set so that first interval does not have delete button
-        //Todo: Make so that you can delete first item if there are multiple items
-        if(position == 0){
-            rcDeleteButton.setVisibility(View.GONE);
-        }
-
         //Set listener for removing item
         rcDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                RunCreationRevAdapter runCreationRevAdapter = RunCreationFragment.mAdapter;
-                mIntervals.remove(position -1);
-                runCreationRevAdapter.notifyItemRemoved(position);
+                if(RunCreationFragment.mIntervalList.size() != 1) {
+                    RunCreationRevAdapter runCreationRevAdapter = RunCreationFragment.mAdapter;
+                    RunCreationFragment.mIntervalList.remove(position);
+                    runCreationRevAdapter.notifyDataSetChanged();
+                }
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mIntervals.size();
+        return RunCreationFragment.mIntervalList.size();
     }
 
 

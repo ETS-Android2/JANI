@@ -45,8 +45,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/wbyw_rev_spinner_daytype"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="@color/theme4"/>
+        android:layout_marginEnd="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -64,7 +63,11 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Add Item"
-            android:id="@+id/wbyw_rev_newitem"/>
+            android:id="@+id/wbyw_rev_newitem"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/actionbar" />
 
     </LinearLayout>
 

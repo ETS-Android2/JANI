@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:textSize="30dp"
         android:text="Welcome to the Beta!"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:layout_width="match_parent"

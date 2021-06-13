@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class RunCreationFragment extends Fragment {
 
-    ArrayList<Interval> mIntervalList;
+    public static ArrayList<Interval> mIntervalList;
     public static RunCreationRevAdapter mAdapter;
     public static Run mSavedRun;
 
@@ -49,6 +49,9 @@ public class RunCreationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
+        if(mIntervalList == null){
+            mIntervalList = new EmptyObjects().createEmptyInterval();
+        }
         mDayPosition = getArguments().getInt("day");
         return inflater.inflate(R.layout.fragment_runcreation, container, false);
     }
@@ -69,7 +72,7 @@ public class RunCreationFragment extends Fragment {
         //Create RecyclerView for Adding New Intervals
         RecyclerView revRunCreationInterval = (RecyclerView) getView().findViewById(R.id.rc_rev_interval);
         mIntervalList = new EmptyObjects().createEmptyInterval();
-        RunCreationRevAdapter runCreationRevAdapter = new RunCreationRevAdapter(mIntervalList);
+        RunCreationRevAdapter runCreationRevAdapter = new RunCreationRevAdapter();
         revRunCreationInterval.setAdapter(runCreationRevAdapter);
         revRunCreationInterval.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
@@ -81,15 +84,12 @@ public class RunCreationFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                int curSize = runCreationRevAdapter.getItemCount();
-                ArrayList<Interval> newItems = new EmptyObjects().createEmptyInterval();
-                mIntervalList.addAll(newItems);
-                runCreationRevAdapter.notifyItemRangeInserted(curSize, newItems.size());
+                mIntervalList.add(new EmptyObjects().createEmptyInterval().get(0));
+                runCreationRevAdapter.notifyDataSetChanged();
             }
         });
 
         //Setting up Cancel Button Listener
-        //TODO: Add full functionality here
         Button cancelButton = getView().findViewById(R.id.rc_button_cancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override

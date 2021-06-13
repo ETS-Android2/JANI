@@ -79,7 +79,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Delete Interval"
-            android:id="@+id/rc_rev_button_delete"/>
+            android:id="@+id/rc_rev_button_delete"
+            style="?attr/materialButtonOutlinedStyle"/>
 
     </LinearLayout>
 

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_calendar"
         android:name="com.sticknology.jani.IntermediaryFragment"
-        android:label="@string/title_calendar"
+        android:label="Day"
         tools:layout="@layout/fragment_intermediary" >
         <argument
             android:name="Category"
@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/navigation_plan"
         android:name="com.sticknology.jani.IntermediaryFragment"
-        android:label="@string/title_plan"
+        android:label="Week"
         tools:layout="@layout/fragment_intermediary">
         <argument
             android:name="Category"
@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.sticknology.jani.IntermediaryFragment"
-        android:label="@string/title_dashboard"
+        android:label="About"
         tools:layout="@layout/fragment_intermediary" >
         <argument
             android:name="Category"

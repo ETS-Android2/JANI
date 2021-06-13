@@ -3,42 +3,61 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Filler Text"
-            android:id="@+id/wov_name"
-            android:textSize="20dp"/>
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/wov_type"
-            android:text="Filler Text"
-            android:textSize="20dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Filler Text"
+                android:id="@+id/wov_name"
+                android:textSize="20dp"
+                android:textColor="@color/actionbar"/>
 
-        <TextView
-            android:layout_width="match_parent"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/wov_type"
+                android:text="Filler Text"
+                android:textSize="18dp"
+                android:textColor="@color/theme2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Filler Text"
+                android:id="@+id/wov_description"
+                android:textSize="18dp"
+                android:textColor="@color/theme2"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Filler Text"
-            android:id="@+id/wov_description"
-            android:textSize="20dp"/>
+            android:text="Add"
+            android:layout_gravity="center"
+            android:id="@+id/wov_button_add"
+            android:layout_marginRight="10dp"/>
 
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:layout_gravity="center"
-        android:id="@+id/wov_button_add"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/theme3"/>
 
 </LinearLayout>
