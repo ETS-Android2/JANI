@@ -1,8 +1,6 @@
 package com.sticknology.jani.ui.create.planCreation;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
-import com.sticknology.jani.data.TrainingPlan;
-import com.sticknology.jani.data.Types;
 import com.sticknology.jani.data.Workout;
-import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -45,8 +39,8 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
         }
     }
 
-    private List<Workout> mWorkouts;
-    private int mDayIndex;
+    private final List<Workout> mWorkouts;
+    private final int mDayIndex;
 
     public WorkoutTemplateAdapter(List<Workout> workouts, int day){
         mWorkouts = workouts;

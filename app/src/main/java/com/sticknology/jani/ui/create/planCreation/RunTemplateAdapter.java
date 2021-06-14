@@ -36,8 +36,8 @@ public class RunTemplateAdapter extends  RecyclerView.Adapter<RunTemplateAdapter
         }
     }
 
-    private List<Run> mRuns;
-    private int mDayIndex;
+    private final List<Run> mRuns;
+    private final int mDayIndex;
 
     public RunTemplateAdapter(List<Run> runs, int day){
         mRuns = runs;

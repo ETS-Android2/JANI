@@ -49,7 +49,7 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
         }
     }
 
-    private List<TrainingPlan> mTrainingPlans;
+    private final List<TrainingPlan> mTrainingPlans;
 
     public PHCreateAdapter(List<TrainingPlan> trainingPlans) {
         mTrainingPlans = trainingPlans;

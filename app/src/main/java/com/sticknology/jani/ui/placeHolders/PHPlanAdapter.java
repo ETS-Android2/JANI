@@ -46,11 +46,11 @@ public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder
         }
     }
 
-    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+    private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
     public static List<Workout>[] mWorkoutList = new List[7];
 
-    private List<TrainingDay> mTrainingDayList;
+    private final List<TrainingDay> mTrainingDayList;
 
 
     public PHPlanAdapter(){

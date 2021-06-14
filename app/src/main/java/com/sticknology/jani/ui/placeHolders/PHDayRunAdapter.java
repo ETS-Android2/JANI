@@ -37,7 +37,7 @@ public class PHDayRunAdapter extends RecyclerView.Adapter<PHDayRunAdapter.ViewHo
         }
     }
 
-    private ArrayList<Run> mRuns;
+    private final ArrayList<Run> mRuns;
 
     public PHDayRunAdapter(ArrayList<Run> runs) {
         mRuns = runs;

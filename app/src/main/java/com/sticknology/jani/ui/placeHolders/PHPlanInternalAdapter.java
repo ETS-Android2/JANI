@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.Run;
 import com.sticknology.jani.data.Workout;
-import com.sticknology.jani.ui.create.planCreation.WByWDataHandler;
-import com.sticknology.jani.ui.create.planCreation.WByWFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,9 +35,9 @@ public class PHPlanInternalAdapter extends RecyclerView.Adapter<PHPlanInternalAd
         }
     }
 
-    private List<Workout> mWorkouts;
-    private List<Run> mRuns;
-    private int mDayPosition;
+    private final List<Workout> mWorkouts;
+    private final List<Run> mRuns;
+    private final int mDayPosition;
 
     public PHPlanInternalAdapter(List<Workout> workoutList, List<Run> runList, int dayPosition){
 

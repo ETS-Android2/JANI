@@ -10,10 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.sticknology.jani.ui.calendar.CalendarPager;
 import com.sticknology.jani.ui.create.CreatePager;
-import com.sticknology.jani.ui.create.planCreation.PlanCreateInterFragment;
 import com.sticknology.jani.ui.placeHolders.AboutPHFragment;
 import com.sticknology.jani.ui.placeHolders.DayPHFragment;
 import com.sticknology.jani.ui.placeHolders.PHCreateFragment;
@@ -23,10 +21,10 @@ import com.sticknology.jani.ui.profile.ProfilePager;
 
 public class IntermediaryFragment extends Fragment {
 
-    private String[] titlesCalendar = new String[]{"Day", "Week", "Month"};
-    private String[] titlesPlan = new String[]{"Past", "Overview", "Future"};
-    private String[] titlesCreate = new String[]{"Manage", "Export"};
-    private String[] titlesProfile = new String[]{"Stats", "Preferences", "About"};
+    private final String[] titlesCalendar = new String[]{"Day", "Week", "Month"};
+    private final String[] titlesPlan = new String[]{"Past", "Overview", "Future"};
+    private final String[] titlesCreate = new String[]{"Manage", "Export"};
+    private final String[] titlesProfile = new String[]{"Stats", "Preferences", "About"};
 
     private CalendarPager calendarPager;
     private PlanPager planPager;

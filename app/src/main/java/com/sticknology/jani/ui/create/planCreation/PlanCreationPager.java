@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 public class PlanCreationPager extends FragmentStateAdapter {
 
     private static final int NUM_TABS = 2;
-    private int mDayIndex;
+    private final int mDayIndex;
 
     public PlanCreationPager(Fragment fragment, int day) {
         super(fragment);

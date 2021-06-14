@@ -35,9 +35,9 @@ public class WByWRunRevAdapter extends RecyclerView.Adapter<WByWRunRevAdapter.Vi
         }
     }
 
-    private List<Workout> mWorkouts;
-    private List<Run> mRuns;
-    private int mDayPosition;
+    private final List<Workout> mWorkouts;
+    private final List<Run> mRuns;
+    private final int mDayPosition;
 
     public WByWRunRevAdapter(List<Workout> workoutList, List<Run> runList, int dayPosition){
 
