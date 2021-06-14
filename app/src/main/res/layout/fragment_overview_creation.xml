@@ -78,11 +78,27 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Training Plan"
-        android:id="@+id/pc_button_saveplan"
-        android:background="@color/theme3"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/pc_button_cancelplan"
+            android:background="@color/theme3"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Save Training Plan"
+            android:id="@+id/pc_button_saveplan"
+            android:background="@color/theme3"/>
+
+    </LinearLayout>
 
 </LinearLayout>

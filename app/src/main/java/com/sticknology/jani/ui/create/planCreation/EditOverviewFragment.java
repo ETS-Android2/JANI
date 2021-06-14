@@ -99,9 +99,19 @@ public class EditOverviewFragment extends Fragment {
                 //Save TrainingPlan to File
                 String planString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlan);
                 StandardReadWrite standardReadWrite = new StandardReadWrite();
-                standardReadWrite.appendText(planString, "training_plans.txt", getContext(), Activity.MODE_APPEND);
+                standardReadWrite.appendText(planString, "training_plans.txt", getContext(), Activity.MODE_APPEND, true);
 
                 //Launches Back to MainActivity
+                Intent newMainActivity = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                startActivity(newMainActivity);
+            }
+        });
+
+        //Set Behavior for Cancel Button
+        Button cancelPlan = getView().findViewById(R.id.pc_button_cancelplan);
+        cancelPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent newMainActivity = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                 startActivity(newMainActivity);
             }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "641964373055",
+    "project_id": "jani-run",
+    "storage_bucket": "jani-run.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641964373055:android:1508345f7fb640a930348a",
+        "android_client_info": {
+          "package_name": "com.sticknology.jani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641964373055-en0kd5aas4ibkgjd2rss9h09ov2bgguo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4ufjWKNwyZjUSzzaKiu4tXySHhA0-s30"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641964373055-en0kd5aas4ibkgjd2rss9h09ov2bgguo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

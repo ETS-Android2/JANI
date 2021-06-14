@@ -3,8 +3,6 @@ package com.sticknology.jani.dataProcessing;
 import android.content.Context;
 import android.util.Log;
 
-import com.sticknology.jani.data.Run;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,11 +12,13 @@ import java.io.OutputStreamWriter;
 
 public class StandardReadWrite {
 
-    public void appendText(String content, String filename, Context context, int mode) {
+    public void appendText(String content, String filename, Context context, int mode, boolean newline) {
 
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, mode));
-            outputStreamWriter.append("\n");
+            if(newline) {
+                outputStreamWriter.append("\n");
+            }
             outputStreamWriter.append(content);
             outputStreamWriter.close();
         }

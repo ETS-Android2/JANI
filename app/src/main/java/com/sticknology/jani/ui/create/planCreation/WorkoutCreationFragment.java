@@ -98,7 +98,7 @@ public class WorkoutCreationFragment extends Fragment {
                     StandardReadWrite standardReadWrite = new StandardReadWrite();
                     InterpretWorkout interpretWorkout = new InterpretWorkout();
                     String workoutString = interpretWorkout.getStringWorkout(workout);
-                    standardReadWrite.appendText(workoutString,"workout_templates.txt", getContext(), Context.MODE_APPEND);
+                    standardReadWrite.appendText(workoutString,"workout_templates.txt", getContext(), Context.MODE_APPEND, true);
                 }
 
                 //Add Workout to Training Plan

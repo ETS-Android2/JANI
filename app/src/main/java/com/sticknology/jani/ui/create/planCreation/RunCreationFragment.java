@@ -153,7 +153,7 @@ public class RunCreationFragment extends Fragment {
                     StandardReadWrite standardReadWrite = new StandardReadWrite();
                     InterpretRun interpretRun = new InterpretRun();
                     String workoutString = interpretRun.getStringRun(mSavedRun);
-                    standardReadWrite.appendText(workoutString,"run_templates.txt", getContext(), Context.MODE_APPEND);
+                    standardReadWrite.appendText(workoutString,"run_templates.txt", getContext(), Context.MODE_APPEND, true);
                 }
 
                 //Move back to view

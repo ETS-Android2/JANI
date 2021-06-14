@@ -16,6 +16,7 @@ import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 import com.sticknology.jani.dataProcessing.StandardReadWrite;
 import com.sticknology.jani.databinding.ActivityMainBinding;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#002C47")));
 
+
         String readActive = new StandardReadWrite().readFileToString("active_plan.txt", this);
         String[] activeArray = readActive.split("\n");
-        if(activeArray.length == 4){
+        if (activeArray.length == 4) {
 
             String startDate = activeArray[2];
             aTrainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(activeArray[3]);
@@ -55,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
                 diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
                 String dayofweek = android.text.format.DateFormat.format("EEEE", secondDate).toString();
                 String[] dayArray = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-                for(int i = 0; i < dayArray.length; i++){
-                    if(dayofweek.equals(dayArray[i])){
+                for (int i = 0; i < dayArray.length; i++) {
+                    if (dayofweek.equals(dayArray[i])) {
 
                         dayNameIndex = i;
                         Log.d("dayNameIndex", "this is dayNameIndex: " + dayNameIndex);
@@ -71,12 +73,13 @@ public class MainActivity extends AppCompatActivity {
             aDay = activeDayIndex % 7;
             aWeek = activeDayIndex / 7;
 
-        } else{
+        } else {
             aTrainingPlan = null;
             activeDayIndex = 0;
             aDay = 0;
             aWeek = 0;
         }
+
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -89,6 +92,20 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        //Creating and setting files if they are not already present
+        if(!(new File(this.getFilesDir(), "active_plan.txt").exists())){
+            new StandardReadWrite().appendText("VERSION:1.0", "active_plan.txt", this, MainActivity.MODE_APPEND, false);
+        }
+        if(!(new File(this.getFilesDir(), "run_templates.txt").exists())){
+            new StandardReadWrite().appendText("VERSION:1.0", "run_templates.txt", this, MainActivity.MODE_APPEND, false);
+        }
+        if(!(new File(this.getFilesDir(), "workout_templates.txt").exists())){
+            new StandardReadWrite().appendText("VERSION:1.0", "workout_templates.txt", this, MainActivity.MODE_APPEND, false);
+        }
+        if(!(new File(this.getFilesDir(), "training_plans.txt").exists())){
+            new StandardReadWrite().appendText("VERSION:1.0", "training_plans.txt", this, MainActivity.MODE_APPEND, false);
+        }
     }
 
 }

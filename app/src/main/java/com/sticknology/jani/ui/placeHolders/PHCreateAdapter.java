@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sticknology.jani.MainActivity;
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.TrainingPlan;
 import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
@@ -96,9 +98,14 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
                     e.printStackTrace();
                 }
 
-                new StandardReadWrite().appendText(dateString, "active_plan.txt", holder.mContext, Activity.MODE_APPEND);
+                new StandardReadWrite().appendText(dateString, "active_plan.txt", holder.mContext, Activity.MODE_APPEND, true);
                 String planString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlans.get(position));
-                new StandardReadWrite().appendText(planString, "active_plan.txt", holder.mContext, Activity.MODE_APPEND);
+                new StandardReadWrite().appendText(planString, "active_plan.txt", holder.mContext, Activity.MODE_APPEND, true);
+                MainActivity.aTrainingPlan = mTrainingPlans.get(position);
+
+                Toast toast = Toast.makeText(holder.mContext, "Set Plan As Active", Toast.LENGTH_SHORT);
+                toast.show();
+
             }
         });
     }

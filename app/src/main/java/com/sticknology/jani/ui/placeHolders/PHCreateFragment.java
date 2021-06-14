@@ -58,10 +58,8 @@ public class PHCreateFragment extends Fragment {
         List<TrainingPlan> trainingPlanList = new ArrayList<>();
         String readPlanFile = new StandardReadWrite().readFileToString("training_plans.txt", getContext());
         String[] readFileSplit = readPlanFile.split("\n");
-        for(int i = 0; i < readFileSplit.length; i++){
-            if(!readFileSplit[i].equals("") && !readFileSplit[i].equals(" ")){
-                trainingPlanList.add(new InterpretTrainingPlan().getTrainingPlanFromString(readFileSplit[i]));
-            }
+        for(int i = 2; i < readFileSplit.length; i++){
+            trainingPlanList.add(new InterpretTrainingPlan().getTrainingPlanFromString(readFileSplit[i]));
         }
         RecyclerView planRev = getView().findViewById(R.id.rev_manage);
         PHCreateAdapter phCreateAdapter = new PHCreateAdapter(trainingPlanList);

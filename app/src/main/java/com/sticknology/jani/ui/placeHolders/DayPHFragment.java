@@ -152,7 +152,7 @@ public class DayPHFragment extends Fragment {
             for (int i = 0; i < workoutList.size(); i++) {
                 workoutBuildString += workoutList.get(i).getWorkoutName();
                 workoutBuildString += "\n" + workoutList.get(i).getWorkoutType();
-                workoutBuildString += "\n" + workoutList.get(i).getWorkoutDescriptor() + "\n";
+                workoutBuildString += "\n" + workoutList.get(i).getWorkoutDescriptor() + "\n\n";
             }
 
             localWorkouts.setText(workoutBuildString);

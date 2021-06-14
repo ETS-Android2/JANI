@@ -6,8 +6,8 @@ public class InterpretInterval {
 
     public String getIntervalString(Interval interval){
 
-        return interval.getIntervalDistance() + "&<&" + interval.getIntervalTime() + "&<&"
-                + interval.getIntervalPace() + "&<&" + interval.getIntervalEffort();
+        return interval.getIntervalDistance() + "&<&" + interval.getIntervalPace() + "&<&"
+                + interval.getIntervalTime() + "&<&" + interval.getIntervalEffort();
     }
 
     public Interval getIntervalObject(String input){
