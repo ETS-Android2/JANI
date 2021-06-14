@@ -12,14 +12,26 @@ import java.io.OutputStreamWriter;
 
 public class StandardReadWrite {
 
-    public void appendText(String content, String filename, Context context, int mode, boolean newline) {
+    public void appendText(String content, String filename, Context context, boolean newline) {
 
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, mode));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_APPEND));
             if(newline) {
                 outputStreamWriter.append("\n");
             }
             outputStreamWriter.append(content);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    public void writeFile(String content, String filename, Context context){
+
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(filename, Context.MODE_PRIVATE));
+            outputStreamWriter.write(content);
             outputStreamWriter.close();
         }
         catch (IOException e) {

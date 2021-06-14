@@ -65,6 +65,8 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
     @Override
     public void onBindViewHolder(@NonNull @NotNull WorkoutTemplateAdapter.ViewHolder holder, int position) {
 
+        System.out.println("THIS IS INSIDE BINDVIEWHOLDER");
+
         TextView nameView = holder.mName;
         TextView typeView = holder.mType;
         TextView descriptorView = holder.mDescriptor;
@@ -73,6 +75,7 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
         descriptorView.setText(mWorkouts.get(position).getWorkoutDescriptor());
 
         Button addButton = holder.mAddButton;
+        addButton.setText("Add");
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,6 +103,6 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
 
     @Override
     public int getItemCount() {
-        return mWorkouts.size();
+        return WorkoutTemplateFragment.workoutList.size();
     }
 }

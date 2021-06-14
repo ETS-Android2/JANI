@@ -1,6 +1,5 @@
 package com.sticknology.jani.ui.placeHolders;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,9 +97,10 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
                     e.printStackTrace();
                 }
 
-                new StandardReadWrite().appendText(dateString, "active_plan.txt", holder.mContext, Activity.MODE_APPEND, true);
+                //TODO: Merge the two writes together
+                new StandardReadWrite().appendText(dateString, "active_plan.txt", holder.mContext, true);
                 String planString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlans.get(position));
-                new StandardReadWrite().appendText(planString, "active_plan.txt", holder.mContext, Activity.MODE_APPEND, true);
+                new StandardReadWrite().appendText(planString, "active_plan.txt", holder.mContext, true);
                 MainActivity.aTrainingPlan = mTrainingPlans.get(position);
 
                 Toast toast = Toast.makeText(holder.mContext, "Set Plan As Active", Toast.LENGTH_SHORT);

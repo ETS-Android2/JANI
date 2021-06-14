@@ -10,13 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.ui.create.planCreation.PlanCreationActivity;
-
-import java.util.ArrayList;
 
 public class ManageFragment extends Fragment {
 
@@ -60,6 +56,6 @@ public class ManageFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.manage_nav_menu, menu);
+        inflater.inflate(R.menu.delete_button_menu, menu);
     }
 }

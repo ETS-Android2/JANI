@@ -95,16 +95,16 @@ public class MainActivity extends AppCompatActivity {
 
         //Creating and setting files if they are not already present
         if(!(new File(this.getFilesDir(), "active_plan.txt").exists())){
-            new StandardReadWrite().appendText("VERSION:1.0", "active_plan.txt", this, MainActivity.MODE_APPEND, false);
+            new StandardReadWrite().appendText("VERSION:1.0", "active_plan.txt", this, false);
         }
         if(!(new File(this.getFilesDir(), "run_templates.txt").exists())){
-            new StandardReadWrite().appendText("VERSION:1.0", "run_templates.txt", this, MainActivity.MODE_APPEND, false);
+            new StandardReadWrite().appendText("VERSION:1.0", "run_templates.txt", this, false);
         }
         if(!(new File(this.getFilesDir(), "workout_templates.txt").exists())){
-            new StandardReadWrite().appendText("VERSION:1.0", "workout_templates.txt", this, MainActivity.MODE_APPEND, false);
+            new StandardReadWrite().appendText("VERSION:1.0", "workout_templates.txt", this, false);
         }
         if(!(new File(this.getFilesDir(), "training_plans.txt").exists())){
-            new StandardReadWrite().appendText("VERSION:1.0", "training_plans.txt", this, MainActivity.MODE_APPEND, false);
+            new StandardReadWrite().appendText("VERSION:1.0", "training_plans.txt", this, false);
         }
     }
 

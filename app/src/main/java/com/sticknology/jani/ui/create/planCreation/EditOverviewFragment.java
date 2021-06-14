@@ -1,6 +1,5 @@
 package com.sticknology.jani.ui.create.planCreation;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -99,7 +98,7 @@ public class EditOverviewFragment extends Fragment {
                 //Save TrainingPlan to File
                 String planString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlan);
                 StandardReadWrite standardReadWrite = new StandardReadWrite();
-                standardReadWrite.appendText(planString, "training_plans.txt", getContext(), Activity.MODE_APPEND, true);
+                standardReadWrite.appendText(planString, "training_plans.txt", getContext(), true);
 
                 //Launches Back to MainActivity
                 Intent newMainActivity = new Intent(getActivity().getApplicationContext(), MainActivity.class);

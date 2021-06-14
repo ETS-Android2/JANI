@@ -1,6 +1,5 @@
 package com.sticknology.jani.ui.create.planCreation;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -153,7 +152,7 @@ public class RunCreationFragment extends Fragment {
                     StandardReadWrite standardReadWrite = new StandardReadWrite();
                     InterpretRun interpretRun = new InterpretRun();
                     String workoutString = interpretRun.getStringRun(mSavedRun);
-                    standardReadWrite.appendText(workoutString,"run_templates.txt", getContext(), Context.MODE_APPEND, true);
+                    standardReadWrite.appendText(workoutString,"run_templates.txt", getContext(), true);
                 }
 
                 //Move back to view

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class EmptyObjects {
 
+    //Create Empty Objects and Lists to be used in creating default states of each object
+
     public ArrayList<Interval> createEmptyInterval(){
 
         ArrayList<Interval> intervalArrayList = new ArrayList<Interval>();

@@ -1,6 +1,5 @@
 package com.sticknology.jani.ui.create.planCreation;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,7 +97,7 @@ public class WorkoutCreationFragment extends Fragment {
                     StandardReadWrite standardReadWrite = new StandardReadWrite();
                     InterpretWorkout interpretWorkout = new InterpretWorkout();
                     String workoutString = interpretWorkout.getStringWorkout(workout);
-                    standardReadWrite.appendText(workoutString,"workout_templates.txt", getContext(), Context.MODE_APPEND, true);
+                    standardReadWrite.appendText(workoutString,"workout_templates.txt", getContext(), true);
                 }
 
                 //Add Workout to Training Plan
@@ -118,4 +117,6 @@ public class WorkoutCreationFragment extends Fragment {
             }
         });
     }
+
+
 }
