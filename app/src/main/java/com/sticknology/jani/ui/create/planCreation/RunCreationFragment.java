@@ -157,6 +157,10 @@ public class RunCreationFragment extends Fragment {
 
                 //Move back to view
                 PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayPosition).addRun(mSavedRun);
+                if(PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayPosition).getTrainingDayRuns().get(0).getRunName().equals(":;:")){
+                    PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayPosition).removeRun(0);
+                }
+
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
                 PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
                 getActivity().getSupportFragmentManager().beginTransaction()

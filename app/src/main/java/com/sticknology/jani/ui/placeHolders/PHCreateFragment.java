@@ -96,7 +96,7 @@ public class PHCreateFragment extends Fragment {
                 nowDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //Sets the version of the template file
+                        //Sets the version of the file
                         String build = getString(R.string.file_encoding);
 
                         trainingPlanList.remove(index);
@@ -115,31 +115,26 @@ public class PHCreateFragment extends Fragment {
             return true;
         } else if(item.getItemId() == R.id.abar_plan_edit) {
 
-            /*//Iterate through child items of recycler view, index based off of adapter
+            //Iterate through child items of recycler view, index based off of adapter
             for(int i = 0; i < phCreateAdapter.getItemCount(); i++){
                 //Get Child View, update text and set listener for items
                 View mChild = planRev.getChildAt(i);
                 Button nowDelete = mChild.findViewById(R.id.rev_setactive_trainingplan);
-                nowDelete.setText("Delete");
+                nowDelete.setText("Edit");
                 int index = i;
                 nowDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //Sets the version of the template file
-                        String build = getString(R.string.file_encoding);
 
-                        trainingPlanList.remove(index);
-                        for(int u = 0; u < trainingPlanList.size(); u++){
-                            build += "\n" + new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlanList.get(u));
-                        }
-                        new StandardReadWrite().writeFile(build, "training_plans.txt", getContext());
-                        //trainingPlanList = new InterpretTrainingPlan().getRunTemplates(getContext());
-                        //System.err.println("THIS IS SIZE: " + runList.size());
-                        phCreateAdapter.notifyDataSetChanged();
+                        Intent newPlanActivity = new Intent(getActivity().getApplicationContext(), PlanCreationActivity.class);
+                        Bundle b = new Bundle();
+                        b.putString("plan", new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlanList.get(index)));
+                        newPlanActivity.putExtras(b);
+                        startActivity(newPlanActivity);
 
                     }
                 });
-            }*/
+            }
 
             return true;
         } else {

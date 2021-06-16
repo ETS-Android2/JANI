@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.EmptyObjects;
 import com.sticknology.jani.data.TrainingPlan;
+import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 
 public class PlanCreationActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class PlanCreationActivity extends AppCompatActivity {
     public static TABSET currentTabSet = TABSET.VIEW;
 
     public static TrainingPlan mTrainingPlan;
+    public static boolean isEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,12 @@ public class PlanCreationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_plancreation);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#002C47")));
 
-        if (mTrainingPlan == null) mTrainingPlan = new EmptyObjects().createEmptyTrainingPlan();
+        Bundle b = getIntent().getExtras();
+        if(b != null){
+            mTrainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(b.getString("plan"));
+        } else {
+            mTrainingPlan = new EmptyObjects().createEmptyTrainingPlan();
+        }
 
         //Starts fragment
         if (savedInstanceState == null) {

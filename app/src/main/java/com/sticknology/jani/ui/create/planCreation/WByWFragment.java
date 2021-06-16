@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,8 +46,6 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        System.out.println("GOT IN ONCREATEVIEW WBYWFRAG");
-
         return inflater.inflate(R.layout.fragment_wbyw, container, false);
     }
 
@@ -57,8 +54,6 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
         super.onViewCreated(view, savedInstanceState);
 
         mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(weekPosition);
-
-        ActionBar actionBar = ((PlanCreationActivity) getActivity()).getSupportActionBar();
 
         //Create RecyclerView for Displaying Days in Week
         RecyclerView revDay = (RecyclerView) getView().findViewById(R.id.pc_rev_dayholder);

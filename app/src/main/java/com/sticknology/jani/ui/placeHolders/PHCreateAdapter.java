@@ -99,9 +99,9 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
                 }
 
                 //TODO: Merge the two writes together
-                new StandardReadWrite().appendText(dateString, "active_plan.txt", holder.mContext, true);
                 String planString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlans.get(position));
-                new StandardReadWrite().appendText(planString, "active_plan.txt", holder.mContext, true);
+                String build = holder.mContext.getString(R.string.file_encoding) + "\n" + dateString + "\n" + planString;
+                new StandardReadWrite().writeFile(build, "active_plan.txt", holder.mContext);
                 MainActivity.aTrainingPlan = mTrainingPlans.get(position);
 
                 Toast toast = Toast.makeText(holder.mContext, "Set Plan As Active", Toast.LENGTH_SHORT);

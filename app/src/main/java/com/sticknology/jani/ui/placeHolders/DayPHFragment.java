@@ -15,6 +15,7 @@ import com.sticknology.jani.data.Interval;
 import com.sticknology.jani.data.Run;
 import com.sticknology.jani.data.TrainingDay;
 import com.sticknology.jani.data.Workout;
+import com.sticknology.jani.dataProcessing.InterpretRun;
 
 import java.util.List;
 
@@ -162,6 +163,9 @@ public class DayPHFragment extends Fragment {
         }
 
         List<Run> runList = currentDay.getTrainingDayRuns();
+        for(int i = 0; i < runList.size(); i++){
+            System.out.println("THIS IS RUNLIST: " + new InterpretRun().getStringRun(runList.get(i)));
+        }
         if(!runList.get(0).getRunName().equals(":;:")) {
             localRuns.setVisibility(View.VISIBLE);
             localRTitle.setText("Runs:");

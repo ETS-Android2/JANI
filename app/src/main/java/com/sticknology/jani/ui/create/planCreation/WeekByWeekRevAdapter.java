@@ -1,6 +1,7 @@
 package com.sticknology.jani.ui.create.planCreation;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.data.TrainingDay;
-import com.sticknology.jani.data.Workout;
-import com.sticknology.jani.dataProcessing.InterpretTrainingPlan;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 import static com.sticknology.jani.ui.create.planCreation.PlanCreationActivity.mTrainingPlan;
 import static com.sticknology.jani.ui.create.planCreation.WByWFragment.weekPosition;
@@ -54,14 +51,9 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
 
     private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-    public static List<Workout>[] mWorkoutList = new List[7];
-
-    private final List<TrainingDay> mTrainingDayList;
-
 
     public WeekByWeekRevAdapter(){
 
-        mTrainingDayList = WByWFragment.mTrainingWeek.getTrainingWeekDays();
     }
 
     @Override
@@ -96,8 +88,6 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedType = dayType.getSelectedItem().toString();
                 mTrainingPlan.getTrainingDay(weekPosition, position).setTrainingDayType(selectedType);
-
-                System.out.println(new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlan));
             }
 
             @Override
@@ -119,14 +109,14 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
 
 
         //Create list for interior Recycler View
-        mWorkoutList[position] = mTrainingDayList.get(position).getTrainingDayWorkouts();
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(holder.mInternalRecyclerView.getContext(),
                 LinearLayoutManager.VERTICAL, false);
 
         layoutManager.setInitialPrefetchItemCount(WByWFragment.mTrainingWeek.getTrainingWeekDays().get(position).getTrainingDayWorkouts().size());
 
         TrainingDay trainingDay = WByWFragment.mTrainingWeek.getTrainingWeekDays().get(position);
+
+        Log.d("edit", trainingDay.getTrainingDayRuns().get(0).getRunName());
 
         WByWRunRevAdapter childItemAdapter = new WByWRunRevAdapter(trainingDay.getTrainingDayWorkouts(), trainingDay.getTrainingDayRuns(), position);
         holder.mInternalRecyclerView.setLayoutManager(layoutManager);
@@ -147,10 +137,13 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
                 WByWFragment.mTrainingWeek = new WByWDataHandler().fixTrainingWeek(WByWFragment.mTrainingWeek);
                 mTrainingPlan.getTrainingPlanWeeks().set(weekPosition, WByWFragment.mTrainingWeek);
 
+                //Prepare for transaction
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.TEMPLATES;
                 PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment
                         .newInstance(position);
+
+                //Fragment Transaction
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .addToBackStack("")
@@ -161,6 +154,6 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
 
     @Override
     public int getItemCount() {
-        return mTrainingDayList.size();
+        return WByWFragment.mTrainingWeek.getTrainingWeekDays().size();
     }
 }
