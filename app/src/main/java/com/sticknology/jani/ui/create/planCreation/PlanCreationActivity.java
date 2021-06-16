@@ -17,7 +17,9 @@ public class PlanCreationActivity extends AppCompatActivity {
     public static TABSET currentTabSet = TABSET.VIEW;
 
     public static TrainingPlan mTrainingPlan;
+
     public static boolean isEdit;
+    public static int editPlanIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,11 @@ public class PlanCreationActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         if(b != null){
             mTrainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(b.getString("plan"));
+            editPlanIndex = b.getInt("index");
+            isEdit = true;
         } else {
             mTrainingPlan = new EmptyObjects().createEmptyTrainingPlan();
+            isEdit = false;
         }
 
         //Starts fragment

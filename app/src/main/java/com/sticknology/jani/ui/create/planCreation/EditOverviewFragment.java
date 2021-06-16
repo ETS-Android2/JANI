@@ -95,10 +95,31 @@ public class EditOverviewFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                //Save TrainingPlan to File
                 String planString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlan);
                 StandardReadWrite standardReadWrite = new StandardReadWrite();
-                standardReadWrite.appendText(planString, "training_plans.txt", getContext(), true);
+
+                System.out.println("THIS IS SAVE BOOLEAN  " + PlanCreationActivity.isEdit);
+
+                if(!PlanCreationActivity.isEdit) {
+                    //Save TrainingPlan to File
+                    standardReadWrite.appendText(planString, "training_plans.txt", getContext(), true);
+                } else {
+                    System.out.println("GOT INSIDE THE CORRECT SAVE CODE");
+                    //Replace Edited Plan and Save to File
+                    String tplanfile = standardReadWrite.readFileToString("training_plans.txt", getContext());
+                    String[] fileSplit = tplanfile.split("\n");
+                    //Plus 2 to index bc of blank line and version line?
+                    fileSplit[PlanCreationActivity.editPlanIndex +2] = planString;
+                    StringBuilder build = new StringBuilder();
+                    //i = 1 because of
+                    for(int i = 1; i < fileSplit.length; i++){
+                        build.append(fileSplit[i]);
+                        if(i < fileSplit.length-1){
+                            build.append("\n");
+                        }
+                    }
+                    standardReadWrite.writeFile(build.toString(), "training_plans.txt", getContext());
+                }
 
                 //Launches Back to MainActivity
                 Intent newMainActivity = new Intent(getActivity().getApplicationContext(), MainActivity.class);

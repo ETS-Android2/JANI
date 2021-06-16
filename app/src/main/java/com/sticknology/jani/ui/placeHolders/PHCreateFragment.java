@@ -104,8 +104,6 @@ public class PHCreateFragment extends Fragment {
                             build += "\n" + new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlanList.get(u));
                         }
                         new StandardReadWrite().writeFile(build, "training_plans.txt", getContext());
-                        //trainingPlanList = new InterpretTrainingPlan().getRunTemplates(getContext());
-                        //System.err.println("THIS IS SIZE: " + runList.size());
                         phCreateAdapter.notifyDataSetChanged();
 
                     }
@@ -129,6 +127,7 @@ public class PHCreateFragment extends Fragment {
                         Intent newPlanActivity = new Intent(getActivity().getApplicationContext(), PlanCreationActivity.class);
                         Bundle b = new Bundle();
                         b.putString("plan", new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlanList.get(index)));
+                        b.putInt("index", index);
                         newPlanActivity.putExtras(b);
                         startActivity(newPlanActivity);
 
