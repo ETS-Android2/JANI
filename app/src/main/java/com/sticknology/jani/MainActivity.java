@@ -48,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
             String startDate = activeArray[2];
             aTrainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(activeArray[3]);
 
+            String[] tplans = new StandardReadWrite().readFileToString("training_plans.txt", this).split("\n");
+            for(int i = 2; i < tplans.length; i++){
+                if(new InterpretTrainingPlan().getTrainingPlanFromString(tplans[i]).getTrainingPlanActive().equals("ACTIVE")){
+                    aTrainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(tplans[i]);
+                }
+            }
+
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
             Long diff = 0L;
             try {

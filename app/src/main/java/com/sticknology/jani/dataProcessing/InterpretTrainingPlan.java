@@ -11,7 +11,7 @@ public class InterpretTrainingPlan {
 
         //Initial Details
         String build = tPlan.getTrainingPlanName() + "&`&" + tPlan.getTrainingPlanDescriptor()
-                + "&`&" + tPlan.getTrainingPlanStartDate() + "&`&" + tPlan.getTrainingPlanEndDate()
+                + "&`&" + tPlan.getTrainingPlanActive() + "&`&" + tPlan.getTrainingPlanEndDate()
                 + "&`&" + tPlan.getTrainingPlanGoal() + "&`&";
 
         //TrainingWeek List

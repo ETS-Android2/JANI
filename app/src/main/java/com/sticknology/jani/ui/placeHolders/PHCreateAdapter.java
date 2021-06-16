@@ -98,12 +98,34 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
                     e.printStackTrace();
                 }
 
-                //TODO: Merge the two writes together
+                //Writing The File
+                //Removes active tag from any other training plan
+                for(int i = 0; i < mTrainingPlans.size(); i++){
+                    if(mTrainingPlans.get(i).getTrainingPlanActive().equals("ACTIVE")){
+                        mTrainingPlans.get(i).setTrainingPlanActive(" ");
+                    }
+                }
+                //Applies active tag for selected training plan
+                TrainingPlan trainingPlan = mTrainingPlans.get(position);
+                trainingPlan.setTrainingPlanActive("ACTIVE");
+
+                //Build string and write
+                String buildN = holder.mContext.getString(R.string.file_encoding) + "\n";
+                for(int i = 0; i < mTrainingPlans.size(); i++){
+                    buildN += new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlans.get(i));
+                    if(i < mTrainingPlans.size()-1){
+                        buildN += "\n";
+                    }
+                }
+                new StandardReadWrite().writeFile(buildN, "training_plans.txt", holder.mContext);
+
+                //Below is legacy code for creating active_plan.txt
                 String planString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlans.get(position));
                 String build = holder.mContext.getString(R.string.file_encoding) + "\n" + dateString + "\n" + planString;
                 new StandardReadWrite().writeFile(build, "active_plan.txt", holder.mContext);
                 MainActivity.aTrainingPlan = mTrainingPlans.get(position);
 
+                //Shows toast for visual confirmation that plan was activated
                 Toast toast = Toast.makeText(holder.mContext, "Set Plan As Active", Toast.LENGTH_SHORT);
                 toast.show();
 

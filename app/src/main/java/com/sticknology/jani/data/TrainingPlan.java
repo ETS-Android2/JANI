@@ -8,18 +8,18 @@ public class TrainingPlan {
     private final ArrayList<TrainingWeek> mTrainingWeeks;
     private String mName;
     private String mDescriptor;
-    private String mStartDate;
+    private String mIsActive;
     private String mEndDate;
     private String mGoal;
 
     //Object Creation Method
     public TrainingPlan(ArrayList<TrainingWeek> trainingWeeks, String name, String goal,
-                        String descriptor, String startDate, String endDate){
+                        String descriptor, String isActive, String endDate){
 
         mTrainingWeeks = trainingWeeks;
         mName = name;
         mDescriptor = descriptor;
-        mStartDate = startDate;
+        mIsActive = isActive;
         mEndDate = endDate;
         mGoal = goal;
     }
@@ -52,9 +52,9 @@ public class TrainingPlan {
 
     public void setTrainingPlanGoal(String goal){mGoal = goal;}
 
-    public String getTrainingPlanStartDate(){return mStartDate;}
+    public String getTrainingPlanActive(){return mIsActive;}
 
-    public void setTrainingPlanStartDate(String startDate){mStartDate = startDate;}
+    public void setTrainingPlanActive(String isActive){mIsActive = isActive;}
 
     public String getTrainingPlanEndDate(){return mEndDate;}
 
