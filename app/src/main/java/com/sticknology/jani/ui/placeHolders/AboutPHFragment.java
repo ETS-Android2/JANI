@@ -23,6 +23,7 @@ public class AboutPHFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
+        setHasOptionsMenu(false);
         return inflater.inflate(R.layout.ph_fragment_about, container, false);
     }
 

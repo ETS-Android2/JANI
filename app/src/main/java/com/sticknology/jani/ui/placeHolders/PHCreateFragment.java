@@ -3,9 +3,6 @@ package com.sticknology.jani.ui.placeHolders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,7 +39,7 @@ public class PHCreateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_manage, container, false);
     }
 
@@ -50,6 +47,9 @@ public class PHCreateFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState){
 
         super.onViewCreated(view, savedInstanceState);
+
+        //Reload Options Menu
+        getActivity().invalidateOptionsMenu();
 
         //Set Listener for Bottom Button To Create New Plan
         Button newButton = getView().findViewById(R.id.button_new_plan_manage);
@@ -73,72 +73,59 @@ public class PHCreateFragment extends Fragment {
         phCreateAdapter = new PHCreateAdapter(trainingPlanList);
         planRev.setAdapter(phCreateAdapter);
         planRev.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        //Clear previous menu as reusing
-        menu.clear();
-        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.plan_bar_menu, menu);
-    }
+        //Setting Edit/Delete Functionality
+        Button edit = getView().findViewById(R.id.button_edit_manage);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+                //Iterate through child items of recycler view, index based off of adapter
+                for(int i = 0; i < phCreateAdapter.getItemCount(); i++){
+                    //Get Child View, update text and set listener for items
+                    View mChild = planRev.getChildAt(i);
+                    int index = i;
 
-        if(item.getItemId() == R.id.abar_plan_edit) {
+                    //Setup Edit Button
+                    Button nowEdit = mChild.findViewById(R.id.rev_trainingplan_b1);
+                    nowEdit.setText("Edit");
+                    nowEdit.setVisibility(View.VISIBLE);
+                    nowEdit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-            //Iterate through child items of recycler view, index based off of adapter
-            for(int i = 0; i < phCreateAdapter.getItemCount(); i++){
-                //Get Child View, update text and set listener for items
-                View mChild = planRev.getChildAt(i);
-                int index = i;
+                            Intent newPlanActivity = new Intent(getActivity().getApplicationContext(), PlanCreationActivity.class);
+                            Bundle b = new Bundle();
+                            b.putString("plan", new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlanList.get(index)));
+                            b.putInt("index", index);
+                            newPlanActivity.putExtras(b);
+                            startActivity(newPlanActivity);
 
-                //Setup Edit Button
-                Button nowEdit = mChild.findViewById(R.id.rev_trainingplan_b1);
-                nowEdit.setText("Edit");
-                nowEdit.setVisibility(View.VISIBLE);
-                nowEdit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        Intent newPlanActivity = new Intent(getActivity().getApplicationContext(), PlanCreationActivity.class);
-                        Bundle b = new Bundle();
-                        b.putString("plan", new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlanList.get(index)));
-                        b.putInt("index", index);
-                        newPlanActivity.putExtras(b);
-                        startActivity(newPlanActivity);
-
-                    }
-                });
-
-                //Setup Delete Button
-                Button nowDelete = mChild.findViewById(R.id.rev_trainingplan_b2);
-                nowDelete.setText("Delete");
-                nowDelete.setVisibility(View.VISIBLE);
-                nowDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //Sets the version of the file
-                        String build = getString(R.string.file_encoding);
-
-                        trainingPlanList.remove(index);
-                        for(int u = 0; u < trainingPlanList.size(); u++){
-                            build += "\n" + new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlanList.get(u));
                         }
-                        new StandardReadWrite().writeFile(build, "training_plans.txt", getContext());
-                        phCreateAdapter.notifyDataSetChanged();
+                    });
 
-                    }
-                });
+                    //Setup Delete Button
+                    Button nowDelete = mChild.findViewById(R.id.rev_trainingplan_b2);
+                    nowDelete.setText("Delete");
+                    nowDelete.setVisibility(View.VISIBLE);
+                    nowDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //Sets the version of the file
+                            String build = getString(R.string.file_encoding);
+
+                            trainingPlanList.remove(index);
+                            for(int u = 0; u < trainingPlanList.size(); u++){
+                                build += "\n" + new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlanList.get(u));
+                            }
+                            new StandardReadWrite().writeFile(build, "training_plans.txt", getContext());
+                            phCreateAdapter.notifyDataSetChanged();
+
+                        }
+                    });
+                }
             }
-
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-
+        });
     }
 }
 
