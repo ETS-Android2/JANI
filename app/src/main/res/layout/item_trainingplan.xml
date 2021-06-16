@@ -1,45 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/rev_trainingplan_name"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Plan Name"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Goal"
-            android:id="@+id/rev_trainingplan_goal"/>
+            <TextView
+                android:id="@+id/rev_trainingplan_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Plan Name"/>
 
-        <TextView
-            android:layout_width="match_parent"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Goal"
+                android:id="@+id/rev_trainingplan_goal"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rev_trainingplan_descript"
+                android:text="Description"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/rev_trainingplan_b1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rev_trainingplan_descript"
-            android:text="Description"/>
+            android:textSize="12sp"
+            android:layout_marginRight="15dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:id="@+id/rev_trainingplan_b2"/>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/rev_setactive_trainingplan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:textSize="10sp"
-        android:text="Set Active"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/theme3"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
 
 </LinearLayout>

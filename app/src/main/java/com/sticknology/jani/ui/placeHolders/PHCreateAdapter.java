@@ -31,7 +31,8 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
         public TextView planName;
         public TextView planGoal;
         public TextView planDescript;
-        public Button setActiveButton;
+        public Button buttonOne;
+        public Button buttonTwo;
         public Context mContext;
 
         public ViewHolder(View itemView) {
@@ -42,7 +43,8 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
             planName = itemView.findViewById(R.id.rev_trainingplan_name);
             planGoal = itemView.findViewById(R.id.rev_trainingplan_goal);
             planDescript = itemView.findViewById(R.id.rev_trainingplan_descript);
-            setActiveButton = itemView.findViewById(R.id.rev_setactive_trainingplan);
+            buttonOne = itemView.findViewById(R.id.rev_trainingplan_b1);
+            buttonTwo = itemView.findViewById(R.id.rev_trainingplan_b2);
             mContext = itemView.getContext();
 
         }
@@ -80,9 +82,12 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
         goal.setText(mTrainingPlans.get(position).getTrainingPlanGoal());
         descript.setText(mTrainingPlans.get(position).getTrainingPlanDescriptor());
 
-        Button setActive = holder.setActiveButton;
-        setActive.setText("Set Active");
-        setActive.setOnClickListener(new View.OnClickListener() {
+        Button bTwo = holder.buttonTwo;
+        bTwo.setVisibility(View.GONE);
+
+        Button bOne = holder.buttonOne;
+        bOne.setText("Set Active");
+        bOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

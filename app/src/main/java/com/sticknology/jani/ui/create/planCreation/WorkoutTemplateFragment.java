@@ -79,6 +79,7 @@ public class WorkoutTemplateFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         super.onCreateOptionsMenu(menu, inflater);
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.delete_button_menu, menu);

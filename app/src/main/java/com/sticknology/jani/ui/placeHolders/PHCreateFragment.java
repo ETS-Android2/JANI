@@ -78,6 +78,8 @@ public class PHCreateFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        //Clear previous menu as reusing
+        menu.clear();
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.plan_bar_menu, menu);
     }
@@ -85,14 +87,36 @@ public class PHCreateFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.abar_plan_delete){
+        if(item.getItemId() == R.id.abar_plan_edit) {
+
             //Iterate through child items of recycler view, index based off of adapter
             for(int i = 0; i < phCreateAdapter.getItemCount(); i++){
                 //Get Child View, update text and set listener for items
                 View mChild = planRev.getChildAt(i);
-                Button nowDelete = mChild.findViewById(R.id.rev_setactive_trainingplan);
-                nowDelete.setText("Delete");
                 int index = i;
+
+                //Setup Edit Button
+                Button nowEdit = mChild.findViewById(R.id.rev_trainingplan_b1);
+                nowEdit.setText("Edit");
+                nowEdit.setVisibility(View.VISIBLE);
+                nowEdit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent newPlanActivity = new Intent(getActivity().getApplicationContext(), PlanCreationActivity.class);
+                        Bundle b = new Bundle();
+                        b.putString("plan", new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlanList.get(index)));
+                        b.putInt("index", index);
+                        newPlanActivity.putExtras(b);
+                        startActivity(newPlanActivity);
+
+                    }
+                });
+
+                //Setup Delete Button
+                Button nowDelete = mChild.findViewById(R.id.rev_trainingplan_b2);
+                nowDelete.setText("Delete");
+                nowDelete.setVisibility(View.VISIBLE);
                 nowDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -105,31 +129,6 @@ public class PHCreateFragment extends Fragment {
                         }
                         new StandardReadWrite().writeFile(build, "training_plans.txt", getContext());
                         phCreateAdapter.notifyDataSetChanged();
-
-                    }
-                });
-            }
-
-            return true;
-        } else if(item.getItemId() == R.id.abar_plan_edit) {
-
-            //Iterate through child items of recycler view, index based off of adapter
-            for(int i = 0; i < phCreateAdapter.getItemCount(); i++){
-                //Get Child View, update text and set listener for items
-                View mChild = planRev.getChildAt(i);
-                Button nowDelete = mChild.findViewById(R.id.rev_setactive_trainingplan);
-                nowDelete.setText("Edit");
-                int index = i;
-                nowDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        Intent newPlanActivity = new Intent(getActivity().getApplicationContext(), PlanCreationActivity.class);
-                        Bundle b = new Bundle();
-                        b.putString("plan", new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlanList.get(index)));
-                        b.putInt("index", index);
-                        newPlanActivity.putExtras(b);
-                        startActivity(newPlanActivity);
 
                     }
                 });
