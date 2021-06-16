@@ -70,6 +70,7 @@ public class RunTemplateAdapter extends  RecyclerView.Adapter<RunTemplateAdapter
         descriptorView.setText(mRuns.get(position).getRunDescriptor());
 
         Button addButton = holder.mAddButton;
+        addButton.setText("Add");
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +98,7 @@ public class RunTemplateAdapter extends  RecyclerView.Adapter<RunTemplateAdapter
 
     @Override
     public int getItemCount() {
-        return mRuns.size();
+        return RunTemplateFragment.runList.size();
     }
 
 }

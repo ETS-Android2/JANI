@@ -81,6 +81,7 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
         descript.setText(mTrainingPlans.get(position).getTrainingPlanDescriptor());
 
         Button setActive = holder.setActiveButton;
+        setActive.setText("Set Active");
         setActive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +113,6 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return mTrainingPlans.size();
+        return PHCreateFragment.trainingPlanList.size();
     }
 }

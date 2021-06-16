@@ -99,7 +99,7 @@ public class WorkoutTemplateFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         //Sets the version of the template file
-                        String build = "Version:1.0";
+                        String build = getString(R.string.file_encoding);;
 
                         workoutList.remove(index);
                         for(int u = 0; u < workoutList.size(); u++){

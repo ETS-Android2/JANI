@@ -5,4 +5,5 @@
     <string name="title_plan">Plan</string>
     <string name="title_dashboard">Profile</string>
     <string name="title_notifications">Create</string>
+    <string name="file_encoding">Version:1.0</string>
 </resources>
