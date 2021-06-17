@@ -3,7 +3,6 @@ package com.sticknology.jani;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -55,30 +54,67 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
+            long diffInMillies = -1;
+            Date secondDate = Calendar.getInstance().getTime();
+
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-            Long diff = 0L;
+
             try {
                 Date firstDate = sdf.parse(startDate);
-                Date secondDate = Calendar.getInstance().getTime();
-                long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
-                diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if(diffInMillies < aTrainingPlan.getTrainingPlanWeeks().size()*(6.048*(10^8))) {
+
+                Long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
                 String dayofweek = android.text.format.DateFormat.format("EEEE", secondDate).toString();
                 String[] dayArray = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
                 for (int i = 0; i < dayArray.length; i++) {
                     if (dayofweek.equals(dayArray[i])) {
 
                         dayNameIndex = i;
-                        Log.d("dayNameIndex", "this is dayNameIndex: " + dayNameIndex);
                     }
                 }
-            } catch (ParseException e) {
-                e.printStackTrace();
+
+                activeDayIndex = diff.intValue();
+
+                aDay = activeDayIndex % 7;
+                aWeek = activeDayIndex / 7;
+
             }
+            //Else is run if there is no time left in current training plan
+            else {
+                //Delete active plan file
+                File planFile = new File("active_plan.txt");
+                planFile.delete();
 
-            activeDayIndex = diff.intValue();
+                //Remove Active Tag From TrainingPlan
+                for(int i = 2; i < tplans.length; i++){
+                    TrainingPlan trainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(tplans[i]);
+                    if(trainingPlan.getTrainingPlanActive().equals("ACTIVE")){
+                        trainingPlan.setTrainingPlanActive(" ");
+                        tplans[i] = new InterpretTrainingPlan().getStringFromTrainingPlan(trainingPlan);
+                    }
+                }
 
-            aDay = activeDayIndex % 7;
-            aWeek = activeDayIndex / 7;
+                String build = "";
+                for(int i = 0; i < tplans.length; i++){
+                    build += tplans[i];
+                    if(i < tplans.length-1){
+                        build += "\n";
+                    }
+                }
+
+                new StandardReadWrite().writeFile(build, "training_plans", this);
+
+                aTrainingPlan = null;
+                activeDayIndex = 0;
+                aDay = 0;
+                aWeek = 0;
+            }
 
         } else {
             aTrainingPlan = null;
