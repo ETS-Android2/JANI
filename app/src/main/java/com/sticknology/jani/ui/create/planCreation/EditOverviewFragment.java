@@ -95,16 +95,20 @@ public class EditOverviewFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                for(int i = 0; i < mTrainingPlan.getTrainingPlanWeeks().size(); i++){
+                    for(int u = 0; u < 7; u++){
+                        if(mTrainingPlan.getTrainingDay(i, u).getTrainingDayType().matches("(:;:)|(None)")){
+                            mTrainingPlan.getTrainingDay(i, u).setTrainingDayType(" ");
+                        }
+                    }
+                }
                 String planString = new InterpretTrainingPlan().getStringFromTrainingPlan(mTrainingPlan);
                 StandardReadWrite standardReadWrite = new StandardReadWrite();
-
-                System.out.println("THIS IS SAVE BOOLEAN  " + PlanCreationActivity.isEdit);
 
                 if(!PlanCreationActivity.isEdit) {
                     //Save TrainingPlan to File
                     standardReadWrite.appendText(planString, "training_plans.txt", getContext(), true);
                 } else {
-                    System.out.println("GOT INSIDE THE CORRECT SAVE CODE");
                     //Replace Edited Plan and Save to File
                     String tplanfile = standardReadWrite.readFileToString("training_plans.txt", getContext());
                     String[] fileSplit = tplanfile.split("\n");

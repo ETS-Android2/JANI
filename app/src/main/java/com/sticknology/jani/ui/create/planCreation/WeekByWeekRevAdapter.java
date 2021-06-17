@@ -1,7 +1,6 @@
 package com.sticknology.jani.ui.create.planCreation;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,6 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
     }
 
     private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-
 
     public WeekByWeekRevAdapter(){
 
@@ -116,8 +114,6 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
 
         TrainingDay trainingDay = WByWFragment.mTrainingWeek.getTrainingWeekDays().get(position);
 
-        Log.d("edit", trainingDay.getTrainingDayRuns().get(0).getRunName());
-
         WByWRunRevAdapter childItemAdapter = new WByWRunRevAdapter(trainingDay.getTrainingDayWorkouts(), trainingDay.getTrainingDayRuns(), position);
         holder.mInternalRecyclerView.setLayoutManager(layoutManager);
         holder.mInternalRecyclerView.setAdapter(childItemAdapter);
@@ -141,7 +137,7 @@ public class WeekByWeekRevAdapter extends RecyclerView.Adapter<WeekByWeekRevAdap
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.TEMPLATES;
                 PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment
-                        .newInstance(position);
+                        .newInstance(position, 0);
 
                 //Fragment Transaction
                 planCreationActivity.getSupportFragmentManager().beginTransaction()

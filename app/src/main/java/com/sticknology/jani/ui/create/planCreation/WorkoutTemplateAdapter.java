@@ -88,7 +88,7 @@ public class WorkoutTemplateAdapter extends RecyclerView.Adapter<WorkoutTemplate
 
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
 
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0, 1);
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)

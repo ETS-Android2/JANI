@@ -16,18 +16,21 @@ import static com.sticknology.jani.ui.create.planCreation.PlanCreationActivity.c
 
 public class PlanCreateInterFragment extends Fragment {
 
+    public static int mPagerPosition;
+    public static ViewPager2 viewPager2;
+
     private final String[] titlesV = {"Overview", "Week by Week"};
     private final String[] titlesT = {"Run", "Workout"};
-
-    public static ViewPager2 viewPager2;
     private static TabLayout tabLayout;
     private int mDayIndex;
 
-    public static PlanCreateInterFragment newInstance(int day) {
+
+    public static PlanCreateInterFragment newInstance(int day, int pagerPosition) {
 
         PlanCreateInterFragment f = new PlanCreateInterFragment();
         Bundle b = new Bundle();
         b.putInt("day", day);
+        b.putInt("pagerPosition", pagerPosition);
 
         f.setArguments(b);
 
@@ -39,6 +42,7 @@ public class PlanCreateInterFragment extends Fragment {
 
         Bundle bundle = getArguments();
         mDayIndex = bundle.getInt("day");
+        mPagerPosition = bundle.getInt("pagerPosition");
 
         return inflater.inflate(R.layout.fragment_plancreation_inter, container, false);
     }
@@ -48,12 +52,14 @@ public class PlanCreateInterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewPager2 = getView().findViewById(R.id.pager_plancreation);
         tabLayout = getView().findViewById(R.id.tab_plancreation);
-
         setTabs(viewPager2, tabLayout);
+        if(mPagerPosition == 1){
+            viewPager2.setCurrentItem(1, false);
+            mPagerPosition = 0;
+        }
     }
 
     protected void setTabs(ViewPager2 viewPager2, TabLayout tabLayout){
-
 
         PlanCreationPager planCreationPager = new PlanCreationPager(this, mDayIndex);
         viewPager2.setAdapter(planCreationPager);

@@ -143,7 +143,14 @@ public class DayPHFragment extends Fragment {
         localDayTitle.setText(dayArray[dayName]);
 
         TrainingDay currentDay = MainActivity.aTrainingPlan.getTrainingDay(showWeek, showDay);
-        localDayType.setText(currentDay.getTrainingDayType());
+
+        //Sets Training Day Type
+        if(!currentDay.getTrainingDayType().equals(" ")) {
+            localDayType.setVisibility(View.VISIBLE);
+            localDayType.setText(currentDay.getTrainingDayType());
+        } else {
+            localDayType.setVisibility(View.GONE);
+        }
 
         List<Workout> workoutList = currentDay.getTrainingDayWorkouts();
         if(!workoutList.get(0).getWorkoutName().equals(":;:")) {

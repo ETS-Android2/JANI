@@ -1,6 +1,7 @@
 package com.sticknology.jani.ui.create.planCreation;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,8 @@ public class RunTemplateAdapter extends  RecyclerView.Adapter<RunTemplateAdapter
             @Override
             public void onClick(View view) {
 
+                Log.d("pager", "Adding run");
+
                 PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayIndex).addRun(mRuns.get(position));
 
                 if(PlanCreationActivity.mTrainingPlan.getTrainingDay(WByWFragment.weekPosition, mDayIndex).getTrainingDayRuns()
@@ -85,13 +88,13 @@ public class RunTemplateAdapter extends  RecyclerView.Adapter<RunTemplateAdapter
 
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
 
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0, 1);
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.mContext;
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .addToBackStack("")
                         .commit();
-                PlanCreateInterFragment.viewPager2.setCurrentItem(1, false);
+                PlanCreateInterFragment.viewPager2.setCurrentItem(1, true);
             }
         });
     }

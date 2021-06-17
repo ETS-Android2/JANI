@@ -97,7 +97,7 @@ public class RunCreationFragment extends Fragment {
 
                 //Move back to view
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0, 1);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();
@@ -162,7 +162,7 @@ public class RunCreationFragment extends Fragment {
                 }
 
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0, 1);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();

@@ -64,7 +64,7 @@ public class WorkoutCreationFragment extends Fragment {
             public void onClick(View view) {
 
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0, 1);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();
@@ -110,7 +110,7 @@ public class WorkoutCreationFragment extends Fragment {
 
                 //Navigation back to overview
                 PlanCreationActivity.currentTabSet = PlanCreationActivity.TABSET.VIEW;
-                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0);
+                PlanCreateInterFragment planCreateInterFragment = PlanCreateInterFragment.newInstance(0, 1);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, planCreateInterFragment, null)
                         .commit();
