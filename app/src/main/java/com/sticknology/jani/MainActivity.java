@@ -3,6 +3,7 @@ package com.sticknology.jani;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -16,6 +17,8 @@ import com.sticknology.jani.dataProcessing.StandardReadWrite;
 import com.sticknology.jani.databinding.ActivityMainBinding;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
             String[] tplans = new StandardReadWrite().readFileToString("training_plans.txt", this).split("\n");
             for(int i = 2; i < tplans.length; i++){
+                Log.d("tplans", "THIS IS TPLANS(I): " + tplans[i]);
                 if(new InterpretTrainingPlan().getTrainingPlanFromString(tplans[i]).getTrainingPlanActive().equals("ACTIVE")){
                     aTrainingPlan = new InterpretTrainingPlan().getTrainingPlanFromString(tplans[i]);
                 }
@@ -67,9 +71,12 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if(diffInMillies < aTrainingPlan.getTrainingPlanWeeks().size()*(6.048*(10^8))) {
+            Long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+            //Default if trainingplan should still be active
+            System.out.println("THIS IS DIFF: " + diff.intValue() + " AND THIS IS PLAN SIZE: " + (aTrainingPlan.getTrainingPlanWeeks().size()*7));
+            if(aTrainingPlan.getTrainingPlanWeeks().size()*7 > diff.intValue() || diffInMillies!= -1) {
 
-                Long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
                 String dayofweek = android.text.format.DateFormat.format("EEEE", secondDate).toString();
                 String[] dayArray = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
                 for (int i = 0; i < dayArray.length; i++) {
@@ -87,9 +94,15 @@ public class MainActivity extends AppCompatActivity {
             }
             //Else is run if there is no time left in current training plan
             else {
-                //Delete active plan file
-                File planFile = new File("active_plan.txt");
-                planFile.delete();
+
+                //Clears active plan file if it exists
+                try {
+                    PrintWriter writer = new PrintWriter("active_plan.txt");
+                    writer.print(getString(R.string.file_encoding));
+                    writer.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
 
                 //Remove Active Tag From TrainingPlan
                 for(int i = 2; i < tplans.length; i++){
@@ -101,14 +114,15 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 String build = "";
-                for(int i = 0; i < tplans.length; i++){
+                //Starts i = 1 due to empty string being left from split on string
+                for(int i = 1; i < tplans.length; i++){
                     build += tplans[i];
                     if(i < tplans.length-1){
                         build += "\n";
                     }
                 }
 
-                new StandardReadWrite().writeFile(build, "training_plans", this);
+                new StandardReadWrite().writeFile(build, "training_plans.txt", this);
 
                 aTrainingPlan = null;
                 activeDayIndex = 0;
@@ -116,14 +130,16 @@ public class MainActivity extends AppCompatActivity {
                 aWeek = 0;
             }
 
-        } else {
+        }
+        //Occurs if there is no full file for active trainingplan
+        else {
             aTrainingPlan = null;
             activeDayIndex = 0;
             aDay = 0;
             aWeek = 0;
         }
 
-
+        //Inflate Activity and Set View
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -137,17 +153,18 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         //Creating and setting files if they are not already present
+        String fileVersion = getString(R.string.file_encoding);
         if(!(new File(this.getFilesDir(), "active_plan.txt").exists())){
-            new StandardReadWrite().appendText("VERSION:1.0", "active_plan.txt", this, false);
+            new StandardReadWrite().appendText(fileVersion, "active_plan.txt", this, false);
         }
         if(!(new File(this.getFilesDir(), "run_templates.txt").exists())){
-            new StandardReadWrite().appendText("VERSION:1.0", "run_templates.txt", this, false);
+            new StandardReadWrite().appendText(fileVersion, "run_templates.txt", this, false);
         }
         if(!(new File(this.getFilesDir(), "workout_templates.txt").exists())){
-            new StandardReadWrite().appendText("VERSION:1.0", "workout_templates.txt", this, false);
+            new StandardReadWrite().appendText(fileVersion, "workout_templates.txt", this, false);
         }
         if(!(new File(this.getFilesDir(), "training_plans.txt").exists())){
-            new StandardReadWrite().appendText("VERSION:1.0", "training_plans.txt", this, false);
+            new StandardReadWrite().appendText(fileVersion, "training_plans.txt", this, false);
         }
     }
 

@@ -85,16 +85,19 @@ public class PHCreateAdapter extends RecyclerView.Adapter<PHCreateAdapter.ViewHo
         Button bTwo = holder.buttonTwo;
         bTwo.setVisibility(View.GONE);
 
+        //Button Click Listener for Setting Plan as Active
         Button bOne = holder.buttonOne;
         bOne.setText("Set Active");
         bOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                //Gets current date
                 Date currentDate = Calendar.getInstance().getTime();
                 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 String dateString = dateFormat.format(currentDate);
 
+                //Clears active plan file if it exists
                 try {
                     PrintWriter writer = new PrintWriter("active_plan.txt");
                     writer.print("");
