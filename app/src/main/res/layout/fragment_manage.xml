@@ -14,7 +14,8 @@
         android:id="@+id/rev_manage"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:contentDescription="List of Training Plans"/>
 
     <Button
         android:layout_width="match_parent"

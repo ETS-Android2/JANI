@@ -29,7 +29,6 @@ public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder
         public RecyclerView mInternalRecyclerView;
         public TextView mDayName;
         public Button mNewItemButton;
-        public RecyclerView mRecyclerView;
         public TextView mDayTypeText;
 
         public ViewHolder(View itemView){
@@ -41,7 +40,6 @@ public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder
             mInternalRecyclerView = itemView.findViewById(R.id.wbyw_rev_rev);
             mDayName = itemView.findViewById(R.id.wbyw_rev_text_dayname);
             mNewItemButton = itemView.findViewById(R.id.wbyw_rev_newitem);
-            mRecyclerView = itemView.findViewById(R.id.wbyw_rev_rev);
             mDayTypeText = itemView.findViewById(R.id.wbyw_daytype_text);
         }
     }
@@ -58,6 +56,7 @@ public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder
         mTrainingDayList = PlanPHFragment.trainingWeek.getTrainingWeekDays();
     }
 
+    @NotNull
     @Override
     public PHPlanAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
 
@@ -67,10 +66,7 @@ public class PHPlanAdapter extends RecyclerView.Adapter<PHPlanAdapter.ViewHolder
         // Inflate the custom layout
         View intervalView = inflater.inflate(R.layout.item_day_wbw, parent, false);
 
-        // Return a new holder instance
-        PHPlanAdapter.ViewHolder viewHolder = new PHPlanAdapter.ViewHolder(intervalView);
-
-        return viewHolder;
+        return new PHPlanAdapter.ViewHolder(intervalView);
     }
 
     @Override

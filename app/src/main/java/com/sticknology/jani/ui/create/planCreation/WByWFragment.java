@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -83,24 +84,33 @@ public class WByWFragment extends Fragment implements AdapterView.OnItemSelected
             @Override
             public void onClick(View view) {
 
-                int currSelected = weekSpinner.getSelectedItemPosition();
-                weeks.remove(currSelected);
-                newWeekIndex--;
+                if(newWeekIndex != 1) {
 
-                PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().remove(currSelected);
+                    int currSelected = weekSpinner.getSelectedItemPosition();
+                    weeks.remove(currSelected);
+                    newWeekIndex--;
 
-                for(int i = currSelected; i < newWeekIndex; i++){
-                    weeks.set(i, "Week " + (i+1));
+                    PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().remove(currSelected);
+
+                    for (int i = currSelected; i < newWeekIndex; i++) {
+                        weeks.set(i, "Week " + (i + 1));
+                    }
+
+                    spinnerAdapter.notifyDataSetChanged();
+                    if (currSelected == newWeekIndex) {
+                        weekSpinner.setSelection(newWeekIndex - 1);
+                    }
+
+                    weekPosition = weekSpinner.getSelectedItemPosition();
+                    mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(weekPosition);
+                    mWByWRevAdapter.notifyDataSetChanged();
+                    Toast newToast = Toast.makeText(getContext(), "Deleted Week", Toast.LENGTH_SHORT);
+                    newToast.show();
                 }
-
-                spinnerAdapter.notifyDataSetChanged();
-                if(currSelected == newWeekIndex){
-                    weekSpinner.setSelection(newWeekIndex - 1);
+                else {
+                    Toast newToast = Toast.makeText(getContext(), "Cannot Delete Only Week", Toast.LENGTH_SHORT);
+                    newToast.show();
                 }
-
-                weekPosition = weekSpinner.getSelectedItemPosition();
-                mTrainingWeek = PlanCreationActivity.mTrainingPlan.getTrainingPlanWeeks().get(weekPosition);
-                mWByWRevAdapter.notifyDataSetChanged();
             }
         });
     }

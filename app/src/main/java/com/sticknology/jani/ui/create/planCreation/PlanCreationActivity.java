@@ -1,9 +1,9 @@
 package com.sticknology.jani.ui.create.planCreation;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sticknology.jani.R;
@@ -21,12 +21,12 @@ public class PlanCreationActivity extends AppCompatActivity {
     public static boolean isEdit;
     public static int editPlanIndex;
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plancreation);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#002C47")));
 
         Bundle b = getIntent().getExtras();
         if(b != null){

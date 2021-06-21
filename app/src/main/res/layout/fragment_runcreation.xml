@@ -89,15 +89,15 @@
             android:layout_height="wrap_content"
             android:text="Cancel"
             android:id="@+id/rc_button_cancel"
-            android:background="@color/theme4"/>
+            android:background="@color/theme4"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Save Run and Add"
-            android:id="@+id/rc_button_save"
-            android:background="@color/theme3"/>
+            android:id="@+id/rc_button_save" />
 
     </LinearLayout>
 

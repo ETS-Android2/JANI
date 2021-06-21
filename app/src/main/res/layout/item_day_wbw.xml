@@ -45,7 +45,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/wbyw_rev_spinner_daytype"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"/>
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

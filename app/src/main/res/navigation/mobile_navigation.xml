@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_calendar">
+    app:startDestination="@+id/navigation_profile">
 
     <fragment
         android:id="@+id/navigation_calendar"
         android:name="com.sticknology.jani.IntermediaryFragment"
         android:label="Day"
-        tools:layout="@layout/fragment_intermediary" >
+        tools:layout="@layout/fragment_intermediary">
         <argument
             android:name="Category"
             app:argType="string"

@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toTopOf="@+id/button_newrun_template"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="-32dp" />
+        tools:layout_editor_absoluteX="-32dp"
+        android:contentDescription="List of Running Templates"/>
 
     <Button
         android:layout_width="match_parent"

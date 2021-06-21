@@ -10,7 +10,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/wc_button_newworkout"
         android:id="@+id/wc_rev_wov"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:contentDescription="List of Workout Templates"/>
 
     <Button
         android:layout_width="match_parent"
