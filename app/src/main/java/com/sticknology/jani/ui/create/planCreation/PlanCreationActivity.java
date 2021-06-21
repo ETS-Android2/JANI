@@ -1,9 +1,7 @@
 package com.sticknology.jani.ui.create.planCreation;
 
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sticknology.jani.R;
@@ -21,7 +19,6 @@ public class PlanCreationActivity extends AppCompatActivity {
     public static boolean isEdit;
     public static int editPlanIndex;
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

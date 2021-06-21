@@ -1,11 +1,8 @@
 package com.sticknology.jani;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -35,25 +32,9 @@ public class MainActivity extends AppCompatActivity {
     public static int aWeek;
     public static int dayNameIndex;
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Strict Mode stuff
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectNetwork()   // or .detectAll() for all detectable problems
-                .penaltyLog()
-                .build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectLeakedSqlLiteObjects()
-                .detectLeakedClosableObjects()
-                .penaltyLog()
-                .detectNonSdkApiUsage()
-                .build());
-        //End Strict Mode Stuff
-
-        //Actual code below
 
         if(new File(this.getFilesDir(), "active_plan.txt").exists()) {
             String readActive = new StandardReadWrite().readFileToString("active_plan.txt", this);
