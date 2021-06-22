@@ -17,6 +17,7 @@ import com.sticknology.jani.R;
 import com.sticknology.jani.data.Run;
 import com.sticknology.jani.dataProcessing.InterpretRun;
 import com.sticknology.jani.dataProcessing.StandardReadWrite;
+import com.sticknology.jani.run2.FragDispRun2;
 
 import java.util.ArrayList;
 
@@ -55,10 +56,14 @@ public class RunTemplateFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                RunCreationFragment runCreationFragment = RunCreationFragment.newInstance(mDayPosition);
+                /*RunCreationFragment runCreationFragment = RunCreationFragment.newInstance(mDayPosition);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, runCreationFragment, null)
-                        .commit();
+                        .commit();*/
+
+                FragDispRun2 newFrag = FragDispRun2.newInstance(true);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, newFrag, null).commit();
             }
         });
 

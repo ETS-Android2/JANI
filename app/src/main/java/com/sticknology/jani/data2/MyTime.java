@@ -11,6 +11,29 @@ public class MyTime {
         mSeconds = seconds;
     }
 
+    //Get displayable string form
+    public String getDispString(){
+
+        String build = "";
+        if(mHours != 0){
+            build += mHours + ":";
+        }
+
+        if(String.valueOf(mMinutes).length() == 2){
+            build += mMinutes + ":";
+        } else {
+            build += 0 + mMinutes + ":";
+        }
+
+        if(String.valueOf(mSeconds).length() == 2){
+            build += mSeconds;
+        } else {
+            build += 0 + mSeconds;
+        }
+
+        return build;
+    }
+
     //Convert to comparable form
     public int getTimeSeconds(){
         return mHours*3600 + mMinutes*60 + mSeconds;

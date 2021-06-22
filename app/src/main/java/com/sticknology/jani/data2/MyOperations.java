@@ -5,7 +5,7 @@ import static com.sticknology.jani.data2.Distance.defaultUnit;
 public class MyOperations {
 
     //Convert from comparable time form back to object
-    public static MyTime getTimeObject(int duration){
+    public MyTime getTimeObject(int duration){
         int hours = duration / 3600;
         int minutes = duration % 3600;
         int seconds = duration % 60;
