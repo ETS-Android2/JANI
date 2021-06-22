@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.sticknology.jani.R;
@@ -78,7 +78,7 @@ public class WorkoutCreationFragment extends Fragment {
 
                 System.out.println("SAVING NEW WORKOUT");
 
-                Switch templateSwitch = getView().findViewById(R.id.wc_wc_switchtemplate);
+                SwitchCompat templateSwitch = getView().findViewById(R.id.wc_wc_switchtemplate);
                 TextView workoutName = getView().findViewById(R.id.wc_wc_workoutname);
                 TextView workoutDescript = getView().findViewById(R.id.wc_wc_workoutdescript);
 
