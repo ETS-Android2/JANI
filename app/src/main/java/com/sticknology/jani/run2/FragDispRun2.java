@@ -8,12 +8,16 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.data2.Distance;
+import com.sticknology.jani.data2.MyTime;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 
 public class FragDispRun2 extends Fragment {
 
@@ -21,10 +25,10 @@ public class FragDispRun2 extends Fragment {
     public static Run2 dispRun;
 
     //Adapter
-    public AdapterDispRun2 dispAdapter;
+    public static AdapterDispRun2 dispAdapter;
 
     //Needed ui component initialization
-    private TextView dispName, dispType, dispNotes, labelData, dispData;
+    private TextView dispName, dispType, dispNotes, labelDist, labelTime, labelPace;
     private CardView header;
     private RecyclerView intervalRev;
 
@@ -48,6 +52,11 @@ public class FragDispRun2 extends Fragment {
         if(dispRun == null){
             dispRun = new Run2(null, null, null, null,
                     null, null, null);
+            ArrayList<Interval2> intervalList = new ArrayList<>();
+            dispRun.setIntervals(intervalList);
+            MyTime blankTime = new MyTime(0, 0, 0);
+            Distance zeroDistance = new Distance(0, Distance.defaultUnit);
+            dispRun.getIntervals().add(new Interval2(zeroDistance, "EFFORT", blankTime, blankTime));
         }
 
         //Inflate view with proper layout xml
@@ -63,8 +72,9 @@ public class FragDispRun2 extends Fragment {
         dispName = getView().findViewById(R.id.run2_disp_name);
         dispType = getView().findViewById(R.id.run2_disp_type);
         dispNotes = getView().findViewById(R.id.run2_disp_notes);
-        dispData = getView().findViewById(R.id.run2_disp_data);
-        labelData = getView().findViewById(R.id.run2_disp_datalabels);
+        labelDist = getView().findViewById(R.id.run2_disp_distance);
+        labelTime = getView().findViewById(R.id.run2_disp_time);
+        labelPace = getView().findViewById(R.id.run2_disp_apace);
         //Containers
         header = getView().findViewById(R.id.run2_disp_header);
         //RecyclerView
@@ -100,12 +110,13 @@ public class FragDispRun2 extends Fragment {
         updateRunData();
 
         //Create recyclerview
+        dispAdapter = new AdapterDispRun2();
+        intervalRev.setAdapter(dispAdapter);
+        intervalRev.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     //Update the text inside of the header for run display
     public void updateRunData(){
-
-        labelData.setText("Distance: \nTime: \nAverage Pace: ");
 
         String totalDistance = "";
         String totalTime = "";
@@ -113,7 +124,7 @@ public class FragDispRun2 extends Fragment {
 
         //If run object has interval list filled
         if(dispRun.getIntervals() != null){
-            totalDistance += dispRun.getDistance() + " " + Distance.defaultUnit.toString();
+            totalDistance += dispRun.getDistance() + " " + "mi";
             totalTime += dispRun.getTotalTime().getDispString();
             averagePace += dispRun.getAveragePace().getDispString();
 
@@ -125,7 +136,8 @@ public class FragDispRun2 extends Fragment {
             averagePace += "0:00";
         }
 
-        String build = totalDistance + "\n" + totalTime + "\n" + averagePace;
-        dispData.setText(build);
+        labelDist.setText(totalDistance);
+        labelTime.setText(totalTime);
+        labelPace.setText(averagePace);
     }
 }

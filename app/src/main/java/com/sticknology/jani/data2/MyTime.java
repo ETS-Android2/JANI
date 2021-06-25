@@ -19,16 +19,16 @@ public class MyTime {
             build += mHours + ":";
         }
 
-        if(String.valueOf(mMinutes).length() == 2){
+        if(mMinutes >= 10){
             build += mMinutes + ":";
         } else {
-            build += 0 + mMinutes + ":";
+            build += "0" + mMinutes + ":";
         }
 
-        if(String.valueOf(mSeconds).length() == 2){
+        if(mSeconds >= 10){
             build += mSeconds;
         } else {
-            build += 0 + mSeconds;
+            build += "0" + mSeconds;
         }
 
         return build;

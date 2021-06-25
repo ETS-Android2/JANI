@@ -51,7 +51,7 @@ public class Distance {
     //Returns proper string to display along with distance based on enum
     public String getDistanceUnitString(DUnits distanceUnit){
         if (distanceUnit == DUnits.KM) return "km";
-        else if (distanceUnit == DUnits.MILES) return "miles";
+        else if (distanceUnit == DUnits.MILES) return "mi";
         else if (distanceUnit == DUnits.M) return "m";
         else return "";
     }

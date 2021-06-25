@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         //Strict Mode stuff
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectNetwork()   // or .detectAll() for all detectable problems
