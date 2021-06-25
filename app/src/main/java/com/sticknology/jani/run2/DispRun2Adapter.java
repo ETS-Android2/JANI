@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Hashtable;
 
-public class AdapterDispRun2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DispRun2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //String identifiers to get textview from hashtable for IntervalHolder
     private final String cardLabel = "cardLabel", intervalTime = "intervalTime",
@@ -64,7 +64,7 @@ public class AdapterDispRun2 extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemViewType(int position) {
 
-        if (position < FragDispRun2.dispRun.getIntervals().size()) return 0;
+        if (position < DispRun2Fragment.dispRun.getIntervals().size()) return 0;
         else return 1;
     }
 
@@ -110,7 +110,7 @@ public class AdapterDispRun2 extends RecyclerView.Adapter<RecyclerView.ViewHolde
         testLabel.setText("Interval " + (position+1));
 
         //Get interval object for current position
-        Interval2 cardInterval = FragDispRun2.dispRun.getIntervals().get(position);
+        Interval2 cardInterval = DispRun2Fragment.dispRun.getIntervals().get(position);
 
         //Setting display data for the card
         textViewMap.get(intervalDistance).setText(String.valueOf(cardInterval.getDistance().getDoubleDistance()));
@@ -129,7 +129,7 @@ public class AdapterDispRun2 extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             public void onClick(View view) {
                 addBlankInterval();
-                FragDispRun2.dispAdapter.notifyItemInserted(FragDispRun2.dispRun.getIntervals().size());
+                DispRun2Fragment.dispAdapter.notifyItemInserted(DispRun2Fragment.dispRun.getIntervals().size());
             }
         });
 
@@ -146,13 +146,13 @@ public class AdapterDispRun2 extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void addBlankInterval(){
         MyTime blankTime = new MyTime(0, 0, 0);
         Distance zeroDistance = new Distance(0, Distance.defaultUnit);
-        FragDispRun2.dispRun.getIntervals().add(new Interval2(zeroDistance, "NA", blankTime, blankTime));
+        DispRun2Fragment.dispRun.getIntervals().add(new Interval2(zeroDistance, "NA", blankTime, blankTime));
     }
 
     @Override
     public int getItemCount() {
-        if(FragDispRun2.dispRun.getIntervals() != null){
-            return FragDispRun2.dispRun.getIntervals().size() +1;
+        if(DispRun2Fragment.dispRun.getIntervals() != null){
+            return DispRun2Fragment.dispRun.getIntervals().size() +1;
         }
         else {
             return 2;

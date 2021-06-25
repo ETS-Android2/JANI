@@ -19,20 +19,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class FragDispRun2 extends Fragment {
+public class DispRun2Fragment extends Fragment {
 
     //Fragment variables
     public static Run2 dispRun;
 
     //Adapter
-    public static AdapterDispRun2 dispAdapter;
+    public static DispRun2Adapter dispAdapter;
 
     //Needed ui component initialization
     private TextView dispName, dispType, dispNotes, labelDist, labelTime, labelPace;
     private CardView header;
     private RecyclerView intervalRev;
 
-    public static FragDispRun2 newInstance(Boolean isEditable) {
+    public static DispRun2Fragment newInstance(Boolean isEditable) {
 
         Bundle args = new Bundle();
         //This boolean is used to determine whether or not edit protocols should be in place for
@@ -40,7 +40,7 @@ public class FragDispRun2 extends Fragment {
         //to effectively switch modes)
         args.putBoolean("isEditable", isEditable);
 
-        FragDispRun2 fragment = new FragDispRun2();
+        DispRun2Fragment fragment = new DispRun2Fragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -107,10 +107,23 @@ public class FragDispRun2 extends Fragment {
             dispNotes.setText("Tap to Add Notes");
         }
 
+        //Update run data for totals bar
         updateRunData();
 
+        //Set Listener for header
+        CardView cardView = getView().findViewById(R.id.run2_disp_header);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditRun2Fragment newFrag = new EditRun2Fragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, newFrag, null)
+                        .addToBackStack("").commit();
+            }
+        });
+
         //Create recyclerview
-        dispAdapter = new AdapterDispRun2();
+        dispAdapter = new DispRun2Adapter();
         intervalRev.setAdapter(dispAdapter);
         intervalRev.setLayoutManager(new LinearLayoutManager(getContext()));
     }
