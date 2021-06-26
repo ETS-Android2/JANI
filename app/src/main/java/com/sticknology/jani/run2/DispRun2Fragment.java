@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,9 +25,6 @@ public class DispRun2Fragment extends Fragment {
     //Adapter
     public static DispRun2Adapter dispAdapter;
 
-    //Needed ui component initialization
-    private TextView dispName, dispType, dispNotes, labelDist, labelTime, labelPace;
-    private CardView header;
     private RecyclerView intervalRev;
 
     public static DispRun2Fragment newInstance(Boolean isEditable) {
@@ -67,90 +62,10 @@ public class DispRun2Fragment extends Fragment {
     public void onViewCreated(@NotNull View v, Bundle savedInstanceState){
         super.onViewCreated(v, savedInstanceState);
 
-        //Find all ui components needed
-        //Text Fields
-        dispName = getView().findViewById(R.id.run2_disp_name);
-        dispType = getView().findViewById(R.id.run2_disp_type);
-        dispNotes = getView().findViewById(R.id.run2_disp_notes);
-        labelDist = getView().findViewById(R.id.run2_disp_distance);
-        labelTime = getView().findViewById(R.id.run2_disp_time);
-        labelPace = getView().findViewById(R.id.run2_disp_apace);
-        //Containers
-        header = getView().findViewById(R.id.run2_disp_header);
-        //RecyclerView
-        intervalRev = getView().findViewById(R.id.run2_disp_rev);
-
-        //Create display for header
-        //Set name/title of run
-        if(dispRun.getTitle() != null){
-            dispName.setText(dispRun.getTitle());
-        } else {
-            dispName.setText("Tap to Set Title");
-        }
-
-        //Set type text or make invisible if type is also title
-        String type = dispRun.getType();;
-        if(type != null && !type.equals(dispRun.getTitle())){
-            dispType.setVisibility(View.VISIBLE);
-            dispType.setText(type);
-        } else if (type == null){
-            dispType.setVisibility(View.VISIBLE);
-            dispType.setText("Tap to Set Type");
-        } else {
-            dispType.setVisibility(View.GONE);
-        }
-
-        //Set text for notes
-        if(dispRun.getNotes() != null){
-            dispNotes.setText(dispRun.getNotes());
-        } else {
-            dispNotes.setText("Tap to Add Notes");
-        }
-
-        //Update run data for totals bar
-        updateRunData();
-
-        //Set Listener for header
-        CardView cardView = getView().findViewById(R.id.run2_disp_header);
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditRun2Fragment newFrag = new EditRun2Fragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container_create, newFrag, null)
-                        .addToBackStack("").commit();
-            }
-        });
-
         //Create recyclerview
+        intervalRev = getView().findViewById(R.id.run2_disp_rev);
         dispAdapter = new DispRun2Adapter();
         intervalRev.setAdapter(dispAdapter);
         intervalRev.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
-
-    //Update the text inside of the header for run display
-    public void updateRunData(){
-
-        String totalDistance = "";
-        String totalTime = "";
-        String averagePace = "";
-
-        //If run object has interval list filled
-        if(dispRun.getIntervals() != null){
-            totalDistance += dispRun.getDistance() + " " + "mi";
-            totalTime += dispRun.getTotalTime().getDispString();
-            averagePace += dispRun.getAveragePace().getDispString();
-
-        }
-        //If there is no filled run object
-        else {
-            totalDistance += 0;
-            totalTime += "00:00";
-            averagePace += "0:00";
-        }
-
-        labelDist.setText(totalDistance);
-        labelTime.setText(totalTime);
-        labelPace.setText(averagePace);
     }
 }
