@@ -2,7 +2,6 @@ package com.sticknology.jani;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        /*
         //Strict Mode stuff
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectNetwork()   // or .detectAll() for all detectable problems
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 .detectNonSdkApiUsage()
                 .build());
         //End Strict Mode Stuff
+         */
 
         //Actual code below
 
@@ -86,10 +86,10 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
                 //Default if trainingplan should still be active
-                System.out.println("THIS IS DIFF: " + diff.intValue() + " AND THIS IS PLAN SIZE: " + (aTrainingPlan.getTrainingPlanWeeks().size()*7));
-                if(aTrainingPlan.getTrainingPlanWeeks().size()*7 > diff.intValue() || diffInMillies!= -1) {
+                System.out.println("THIS IS DIFF: " + (int) diff + " AND THIS IS PLAN SIZE: " + (aTrainingPlan.getTrainingPlanWeeks().size()*7));
+                if(aTrainingPlan.getTrainingPlanWeeks().size()*7 > (int) diff || diffInMillies!= -1) {
 
 
                     String dayofweek = android.text.format.DateFormat.format("EEEE", secondDate).toString();
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
 
-                    activeDayIndex = diff.intValue();
+                    activeDayIndex = (int) diff;
 
                     aDay = activeDayIndex % 7;
                     aWeek = activeDayIndex / 7;

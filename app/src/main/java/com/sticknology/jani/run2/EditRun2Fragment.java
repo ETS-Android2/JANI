@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.ui.create.planCreation.PlanCreationActivity;
-import com.sticknology.jani.uiCommon.DistancePicker;
+import com.sticknology.jani.uiCommon.TwoNumberPicker;
 
 public class EditRun2Fragment extends Fragment {
 
@@ -51,8 +51,8 @@ public class EditRun2Fragment extends Fragment {
         if(mEditType.equals("INTERVAL")){
             //Set up distance picker
             Button distanceButton = getView().findViewById(R.id.run2_edit_distance);
-            DistancePicker distancePicker = new DistancePicker();
-            distancePicker.distanceDialog(distanceButton, getView(), getActivity(), getContext());
+            TwoNumberPicker twoNumberPicker = new TwoNumberPicker();
+            twoNumberPicker.distanceDialog(distanceButton, getView(), getActivity(), getContext(), "Distance");
         }
     }
 
