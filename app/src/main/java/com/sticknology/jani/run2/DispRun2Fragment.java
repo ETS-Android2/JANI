@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.data2.Distance;
+import com.sticknology.jani.data2.Interval2;
 import com.sticknology.jani.data2.MyTime;
+import com.sticknology.jani.data2.Run2;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,9 +24,8 @@ public class DispRun2Fragment extends Fragment {
     //Fragment variables
     public static Run2 dispRun;
 
-    //Adapter
+    //Rev
     public static DispRun2Adapter dispAdapter;
-
     private RecyclerView intervalRev;
 
     public static DispRun2Fragment newInstance(Boolean isEditable) {
@@ -51,7 +52,7 @@ public class DispRun2Fragment extends Fragment {
             dispRun.setIntervals(intervalList);
             MyTime blankTime = new MyTime(0, 0, 0);
             Distance zeroDistance = new Distance(0, Distance.defaultUnit);
-            dispRun.getIntervals().add(new Interval2(zeroDistance, "EFFORT", blankTime, blankTime));
+            dispRun.getIntervals().add(new Interval2(zeroDistance, "NA", blankTime, blankTime));
         }
 
         //Inflate view with proper layout xml

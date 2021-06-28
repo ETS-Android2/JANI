@@ -1,7 +1,4 @@
-package com.sticknology.jani.run2;
-
-import com.sticknology.jani.data2.Distance;
-import com.sticknology.jani.data2.MyTime;
+package com.sticknology.jani.data2;
 
 public class Interval2 {
 

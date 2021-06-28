@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sticknology.jani.R;
@@ -21,12 +22,18 @@ public class PlanCreationActivity extends AppCompatActivity {
     public static boolean isEdit;
     public static int editPlanIndex;
 
+    //top bar reference
+    public static ActionBar createBar;
+
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plancreation);
+
+        //initialize actionbar
+        createBar = getSupportActionBar();
 
         Bundle b = getIntent().getExtras();
         if(b != null){

@@ -7,122 +7,165 @@
     android:layout_marginBottom="10dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:focusable="true">
+    android:focusable="true"
+    android:id="@+id/run2_disp_interval">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp">
-
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Interval 1"
-            android:textStyle="bold"
-            android:id="@+id/run2_interval_label"/>
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Interval 1"
+                android:textStyle="bold"
+                android:id="@+id/run2_interval_label"/>
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Distance"
-                    android:textAlignment="center"/>
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Distance"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:id="@+id/run2_interval_distance"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Distance"
+                        android:textAlignment="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Distance"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:id="@+id/run2_interval_distance"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/theme5"
+                        android:layout_marginVertical="5dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Time"
+                        android:textAlignment="center"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Time Val"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textAlignment="center"
+                        android:id="@+id/run2_interval_time"/>
+
+                </LinearLayout>
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/theme5"
-                    android:layout_marginVertical="5dp"/>
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/theme5" />
 
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Time"
-                    android:textAlignment="center"/>
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Time Val"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
-                    android:id="@+id/run2_interval_time"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Effort"
+                        android:textAlignment="center"/>
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Effort"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textAlignment="center"
+                        android:id="@+id/run2_interval_effort"/>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/theme5" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/theme5"
+                        android:layout_marginVertical="5dp"/>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pace"
+                        android:textAlignment="center"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Effort"
-                    android:textAlignment="center"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pace"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textAlignment="center"
+                        android:id="@+id/run2_interval_pace"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Effort"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
-                    android:id="@+id/run2_interval_effort"/>
+                </LinearLayout>
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/theme5"
-                    android:layout_marginVertical="5dp"/>
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/theme5" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pace"
-                    android:textAlignment="center"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pace"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
-                    android:id="@+id/run2_interval_pace"/>
+                    <Button
+                        android:layout_width="50dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        app:icon="@drawable/ic_baseline_keyboard_arrow_up_24"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        app:iconSize="40dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/run2_interval_up"/>
+
+                    <Button
+                        android:layout_width="50dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        app:icon="@drawable/ic_baseline_keyboard_arrow_down_24"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        app:iconSize="40dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/run2_interval_down"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
+
+
 
     </LinearLayout>
 

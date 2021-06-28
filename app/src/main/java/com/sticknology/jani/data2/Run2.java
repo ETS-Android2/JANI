@@ -1,8 +1,6 @@
-package com.sticknology.jani.run2;
+package com.sticknology.jani.data2;
 
 import com.sticknology.jani.data.Workout;
-import com.sticknology.jani.data2.MyOperations;
-import com.sticknology.jani.data2.MyTime;
 
 import java.util.ArrayList;
 

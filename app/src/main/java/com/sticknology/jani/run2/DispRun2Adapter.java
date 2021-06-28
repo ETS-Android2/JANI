@@ -1,18 +1,15 @@
 package com.sticknology.jani.run2;
 
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sticknology.jani.R;
 import com.sticknology.jani.data2.Distance;
+import com.sticknology.jani.data2.Interval2;
 import com.sticknology.jani.data2.MyTime;
 import com.sticknology.jani.ui.create.planCreation.PlanCreationActivity;
 
@@ -22,103 +19,7 @@ import java.util.Hashtable;
 
 import static com.sticknology.jani.run2.DispRun2Fragment.dispRun;
 
-public class DispRun2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-    //String identifiers to get textview from hashtable for IntervalHolder
-    private final String cardLabel = "cardLabel", intervalTime = "intervalTime",
-            intervalDistance = "intervalDistance", intervalPace = "intervalPace",
-            intervalEffort = "intervalEffort";
-
-    public class IntervalHolder extends RecyclerView.ViewHolder {
-
-        //public TextView cardLabel, intervalDistance, intervalTime, intervalEffort, intervalPace;
-        public Hashtable<String, TextView> textViewHTable;
-
-        public IntervalHolder(View v){
-            super(v);
-
-            //Create Hashtable to hold all textview objects for intervalholder
-            textViewHTable = new Hashtable<String, TextView>();
-            textViewHTable.put(cardLabel, v.findViewById(R.id.run2_interval_label));
-            textViewHTable.put(intervalTime, v.findViewById(R.id.run2_interval_time));
-            textViewHTable.put(intervalDistance, v.findViewById(R.id.run2_interval_distance));
-            textViewHTable.put(intervalPace, v.findViewById(R.id.run2_interval_pace));
-            textViewHTable.put(intervalEffort, v.findViewById(R.id.run2_interval_effort));
-        }
-        //Return hashtable for use later in adapter
-        public Hashtable<String, TextView> getTextMap(){
-            return textViewHTable;
-        }
-    }
-
-    public class ActionHolder extends RecyclerView.ViewHolder {
-
-        public Button addInterval, addRepeat;
-
-        public ActionHolder(View v){
-            super(v);
-            addInterval = v.findViewById(R.id.run2_button_addinterval);
-            addRepeat = v.findViewById(R.id.run2_button_addrepeats);
-        }
-        //Getters for button objects
-        public Button getAddInterval() {return addInterval;}
-        public Button getAddRepeat(){return addRepeat;}
-    }
-
-    public class HeaderHolder extends RecyclerView.ViewHolder {
-
-        //Needed ui component initialization
-        private TextView dispName, dispType, dispNotes, labelDist, labelTime, labelPace;
-        private CardView header;
-        private Context context;
-
-        public HeaderHolder(View v){
-            super(v);
-            //Find all ui components needed
-            //Text Fields
-            dispName = v.findViewById(R.id.run2_disp_name);
-            dispType = v.findViewById(R.id.run2_disp_type);
-            dispNotes = v.findViewById(R.id.run2_disp_notes);
-            labelDist = v.findViewById(R.id.run2_disp_distance);
-            labelTime = v.findViewById(R.id.run2_disp_time);
-            labelPace = v.findViewById(R.id.run2_disp_apace);
-            //Containers
-            header = v.findViewById(R.id.run2_disp_header);
-            //Activity
-            context = v.getContext();
-        }
-    }
-
-
-    @Override
-    public int getItemViewType(int position) {
-
-        if (position == 0) return 0;
-        else if (position <= dispRun.getIntervals().size()) return 1;
-        else return 2;
-    }
-
-    @NonNull
-    @NotNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-
-        RecyclerView.ViewHolder viewHolder;
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
-        if (viewType == 0){
-            View v = inflater.inflate(R.layout.run2_item_header, parent, false);
-            viewHolder = new HeaderHolder(v);
-        }
-        else if(viewType == 1){
-            View v = inflater.inflate(R.layout.run2_item_intervalcard, parent, false);
-            viewHolder = new IntervalHolder(v);
-        } else {
-            View v = inflater.inflate(R.layout.run2_item_buttoncard, parent, false);
-            viewHolder = new ActionHolder(v);
-        }
-        return viewHolder;
-    }
+public class DispRun2Adapter extends DispRun2ViewHolders {
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder holder, int position) {
@@ -174,7 +75,7 @@ public class DispRun2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         holder.header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditRun2Fragment newFrag = new EditRun2Fragment();
+                EditRun2Fragment newFrag = new EditRun2Fragment().newInstance("HEADER");
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.context;
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, newFrag, null)
@@ -201,6 +102,36 @@ public class DispRun2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         textViewMap.get(intervalTime).setText(cardInterval.getTime().getDispString());
         textViewMap.get(intervalPace).setText(cardInterval.getPace().getDispString());
         textViewMap.get(intervalEffort).setText(cardInterval.getEffort());
+
+        //Setting on click listener for opening edit fragment
+        holder.intervalCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditRun2Fragment newFrag = new EditRun2Fragment().newInstance("INTERVAL");
+                PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.context;
+                planCreationActivity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, newFrag, null)
+                        .addToBackStack("").commit();
+            }
+        });
+
+        //Setting up/down behavior for intervals
+        holder.moveUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(position > 1){
+                    //-1 and -2 bc header holds position 0
+                    exchangeIntervals(position-1, position-2);
+                    DispRun2Fragment.dispAdapter.notifyItemRangeChanged(position, 2);
+                }
+            }
+        });
+        holder.moveDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     //Action Card OBVH
@@ -226,10 +157,20 @@ public class DispRun2Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         });
     }
 
+    //Add blank interval to dispRun
+    //TODO: MOVE THIS METHOD TO RUN2 Class???
     public void addBlankInterval(){
         MyTime blankTime = new MyTime(0, 0, 0);
         Distance zeroDistance = new Distance(0, Distance.defaultUnit);
         dispRun.getIntervals().add(new Interval2(zeroDistance, "NA", blankTime, blankTime));
+    }
+
+    //Swap two intervals in the list
+    public void exchangeIntervals(int position1, int position2){
+        Interval2 firstInterval = dispRun.getIntervals().get(position1);
+        Interval2 secondInterval = (dispRun.getIntervals().get(position2));
+        dispRun.getIntervals().set(position1, secondInterval);
+        dispRun.getIntervals().set(position2, firstInterval);
     }
 
     //Update the text inside of the header for total run display
