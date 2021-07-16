@@ -39,7 +39,7 @@ public class TwoNumberPicker {
                     secondPosition = posArray[1];
                     pickerBounds[0] = 50;
                     pickerBounds[1] = 0;
-                    pickerBounds[2] = decimalValues.length;
+                    pickerBounds[2] = decimalValues.length-1;
                     pickerBounds[3] = 0;
                 }
 

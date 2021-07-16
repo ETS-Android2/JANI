@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -49,10 +52,31 @@ public class EditRun2Fragment extends Fragment {
         setHasOptionsMenu(true);
 
         if(mEditType.equals("INTERVAL")){
+            //This is for interval information setter
+
             //Set up distance picker
             Button distanceButton = getView().findViewById(R.id.run2_edit_distance);
             TwoNumberPicker twoNumberPicker = new TwoNumberPicker();
             twoNumberPicker.distanceDialog(distanceButton, getView(), getActivity(), getContext(), "Distance");
+        }
+        else {
+            //This is for run information setter
+            EditText runTitle = getView().findViewById(R.id.run2_edit_title);
+            if(DispRun2Fragment.dispRun.getTitle() != null) {
+                runTitle.setText(DispRun2Fragment.dispRun.getTitle());
+            }
+
+            EditText runNotes = getView().findViewById(R.id.run2_edit_notes);
+            if(DispRun2Fragment.dispRun.getNotes() != null) {
+                runNotes.setText(DispRun2Fragment.dispRun.getNotes());
+            }
+
+            //Set Run Type Spinner
+            Spinner typeSpinner = getView().findViewById(R.id.run2_edit_type);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                    R.array.runtype_array, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            typeSpinner.setAdapter(adapter);
         }
     }
 
