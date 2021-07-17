@@ -17,7 +17,7 @@ import com.sticknology.jani.R;
 import com.sticknology.jani.data.Run;
 import com.sticknology.jani.dataProcessing.InterpretRun;
 import com.sticknology.jani.dataProcessing.StandardReadWrite;
-import com.sticknology.jani.run2.DispRun2Fragment;
+import com.sticknology.jani.run2.EditRun2Fragment;
 
 import java.util.ArrayList;
 
@@ -61,7 +61,12 @@ public class RunTemplateFragment extends Fragment {
                         .replace(R.id.fragment_container_create, runCreationFragment, null)
                         .commit();*/
 
-                DispRun2Fragment newFrag = DispRun2Fragment.newInstance(true);
+                /*DispRun2Fragment newFrag = DispRun2Fragment.newInstance(true);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, newFrag, null).commit();*/
+
+                //Going to EditRun2Fragment first to set initial title information
+                EditRun2Fragment newFrag = EditRun2Fragment.newInstance("HEADER");
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, newFrag, null).commit();
             }

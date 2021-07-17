@@ -1,6 +1,7 @@
 package com.sticknology.jani.run2;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class DispRun2Fragment extends Fragment {
 
         //TODO: Update this with actual reference to real variable, potentially create empty object methods
         if(dispRun == null){
+            Log.d("RunCreation", "Creating new blank run object as acting object");
             dispRun = new Run2(null, null, null, null,
                     null, null, null);
             ArrayList<Interval2> intervalList = new ArrayList<>();
