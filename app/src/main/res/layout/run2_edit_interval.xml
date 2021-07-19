@@ -118,6 +118,65 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/theme5"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unspecified: "
+            android:textSize="15dp"
+            android:layout_gravity="center"/>
+
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="Distance"
+                android:id="@+id/run2_edit_radio1"
+                android:layout_gravity="center_horizontal"
+                android:checked="false"
+                android:textSize="15dp" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_height="wrap_content"
+                android:text="Pace"
+                android:id="@+id/run2_edit_radio2"
+                android:layout_gravity="center_horizontal"
+                android:checked="false"
+                android:textSize="15dp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="Time"
+                android:id="@+id/run2_edit_radio3"
+                android:layout_gravity="center_horizontal"
+                android:checked="false"
+                android:textSize="15dp" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
     <Space
         android:layout_width="wrap_content"
         android:layout_height="0dp"
