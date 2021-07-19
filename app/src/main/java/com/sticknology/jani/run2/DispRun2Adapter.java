@@ -27,45 +27,45 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
         //Runs proper obvh method based on what the item should be
         if(holder.getItemViewType() == 0){
             HeaderHolder headerHolder = (HeaderHolder) holder;
-            obvhHeaderHolder(headerHolder, position);
+            obvhHeader(headerHolder, position);
         }
         else if(holder.getItemViewType() == 1){
             IntervalHolder intervalHolder = (IntervalHolder) holder;
-            obvhIntervalHolder(intervalHolder, position);
+            obvhInterval(intervalHolder, position);
         } else {
             ActionHolder actionHolder = (ActionHolder) holder;
-            obvhActionHolder(actionHolder, position);
+            obvhAction(actionHolder, position);
         }
     }
 
     //Header Card OBVH
-    private void obvhHeaderHolder(HeaderHolder holder, int position){
+    private void obvhHeader(HeaderHolder holder, int position){
 
         //Create display for header
-        //Set name/title of run
-        if(dispRun.getTitle() != null){
-            holder.dispName.setText(dispRun.getTitle());
-        } else {
-            holder.dispName.setText("Tap to Set Title");
+        //Set name/title of run and whether or not to display type
+        if(dispRun.getTitle() != null && dispRun.getType() != null){
+            if(dispRun.getTitle().equals(dispRun.getType())){
+                holder.dispName.setText(dispRun.getType());
+                holder.dispType.setVisibility(View.GONE);
+            }
+            //If title and type are different
+            else {
+                holder.dispName.setText(dispRun.getTitle());
+                holder.dispType.setVisibility(View.VISIBLE);
+                holder.dispType.setText(dispRun.getType());
+            }
         }
-
-        //Set type text or make invisible if type is also title
-        String type = dispRun.getType();;
-        if(type != null && !type.equals(dispRun.getTitle())){
-            holder.dispType.setVisibility(View.VISIBLE);
-            holder.dispType.setText(type);
-        } else if (type == null){
-            holder.dispType.setVisibility(View.VISIBLE);
-            holder.dispType.setText("Tap to Set Type");
-        } else {
+        //This else should not occur, but still present
+        else {
+            holder.dispName.setText("Tap to Edit Run Details");
             holder.dispType.setVisibility(View.GONE);
         }
 
-        //Set text for notes
-        if(dispRun.getNotes() != null){
+        //Set text for notes if they exist
+        if(dispRun.getNotes() != null && !dispRun.getNotes().equals("")){
             holder.dispNotes.setText(dispRun.getNotes());
         } else {
-            holder.dispNotes.setText("Tap to Add Notes");
+            holder.dispNotes.setVisibility(View.GONE);
         }
 
         //Update run data for totals bar
@@ -75,7 +75,7 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
         holder.header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditRun2Fragment newFrag = new EditRun2Fragment().newInstance("HEADER");
+                EditRun2Fragment newFrag = new EditRun2Fragment().newInstance("HEADER", 0);
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.context;
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, newFrag, null)
@@ -85,7 +85,7 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
     }
 
     //Interval Card OBVH
-    private void obvhIntervalHolder(IntervalHolder holder, int position){
+    private void obvhInterval(IntervalHolder holder, int position){
 
         //Getting Hashtable with all of the textviews inside
         Hashtable<String, TextView> textViewMap = holder.getTextMap();
@@ -107,7 +107,7 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
         holder.intervalCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditRun2Fragment newFrag = new EditRun2Fragment().newInstance("INTERVAL");
+                EditRun2Fragment newFrag = new EditRun2Fragment().newInstance("INTERVAL", position);
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.context;
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, newFrag, null)
@@ -135,7 +135,7 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
     }
 
     //Action Card OBVH
-    private void obvhActionHolder(ActionHolder holder, int position){
+    private void obvhAction(ActionHolder holder, int position){
 
         //Set Behavior for Add Interval Button
         Button addInterval = holder.getAddInterval();

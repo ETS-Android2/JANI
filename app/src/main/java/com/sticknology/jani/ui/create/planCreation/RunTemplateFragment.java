@@ -66,7 +66,7 @@ public class RunTemplateFragment extends Fragment {
                         .replace(R.id.fragment_container_create, newFrag, null).commit();*/
 
                 //Going to EditRun2Fragment first to set initial title information
-                EditRun2Fragment newFrag = EditRun2Fragment.newInstance("HEADER");
+                EditRun2Fragment newFrag = EditRun2Fragment.newInstance("HEADER", 0);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, newFrag, null).commit();
             }
