@@ -21,8 +21,10 @@ public class MyTime {
 
         if(mMinutes >= 10){
             build += mMinutes + ":";
-        } else {
+        } else if (mHours != 0){
             build += "0" + mMinutes + ":";
+        } else {
+            build += mMinutes + ":";
         }
 
         if(mSeconds >= 10){

@@ -14,9 +14,10 @@ import com.sticknology.jani.R;
 
 public class TwoNumberPicker {
 
-    private String[] decimalValues = new String[]{".0", ".125", ".25", ".375", ".5", ".625", ".75", ".875"};
+    private final String[] decimalValues = new String[]{".0", "0.1", ".125", "0.2", ".25", "0.3",
+            ".375", "0.4", ".5", "0.6", ".625", "0.7", ".75", "0.8", ".875", "0.9"};
 
-    public void distanceDialog(Button buttonObject, View view, Activity activity, Context context, String type){
+    public void twoPickerDialog(Button buttonObject, View view, Activity activity, Context context, String type){
 
         buttonObject.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,13 +38,16 @@ public class TwoNumberPicker {
                     int[] posArray = getDistancePositions(buttonObject.getText().toString());
                     firstPosition = posArray[0];
                     secondPosition = posArray[1];
-                    pickerBounds[0] = 50;
-                    pickerBounds[1] = 0;
-                    pickerBounds[2] = decimalValues.length-1;
-                    pickerBounds[3] = 0;
+                    pickerBounds = new int[]{50, 0, decimalValues.length-1, 0};
+
+                } else if(type.equals("Pace")){
+                    int[] posArray = getPacePositions(buttonObject.getText().toString());
+                    firstPosition = posArray[0];
+                    secondPosition = posArray[1];
+                    pickerBounds = new int[]{30, 0, 59, 0};
                 }
 
-                //Set behavior for whole number picker
+                //Set behavior for first picker
                 final NumberPicker picker1 = (NumberPicker) dialogView.findViewById(R.id.d2number_picker1);
                 picker1.setMaxValue(pickerBounds[0]);
                 picker1.setMinValue(pickerBounds[1]);
@@ -58,11 +62,13 @@ public class TwoNumberPicker {
                     }
                 });
 
-                //Set behavior for decimal number picker
+                //Set behavior for second number picker
                 final NumberPicker picker2 = (NumberPicker) dialogView.findViewById(R.id.d2number_picker2);
                 picker2.setMaxValue(pickerBounds[2]);
                 picker2.setMinValue(pickerBounds[3]);
-                picker2.setDisplayedValues(decimalValues);
+                if(type.equals("Distance")) {
+                    picker2.setDisplayedValues(decimalValues);
+                }
                 picker2.setWrapSelectorWheel(true);
                 //Get current set value
                 if(secondPosition <= picker2.getMaxValue() && secondPosition >= picker2.getMinValue()){
@@ -83,6 +89,9 @@ public class TwoNumberPicker {
                         if(type.equals("Distance")) {
                             buttonObject.setText(String.valueOf(picker1.getValue()) +
                                     decimalValues[picker2.getValue()] + " mi");
+                        } else if (type.equals("Pace")) {
+                            buttonObject.setText(String.valueOf(picker1.getValue()) + ":" +
+                                    String.valueOf(picker2.getValue()) + " /mi");
                         }
                     }
                 });
@@ -114,6 +123,15 @@ public class TwoNumberPicker {
                 }
             }
         }
+        return posArray;
+    }
+
+    private int[] getPacePositions(String input){
+
+        int[] posArray = new int[2];
+        String[] prevPace = input.split(" ")[0].split(":");
+        posArray[0] = Integer.parseInt(prevPace[0]);
+        posArray[1] = Integer.parseInt(prevPace[1]);
         return posArray;
     }
 }

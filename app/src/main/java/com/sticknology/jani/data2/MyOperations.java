@@ -12,6 +12,24 @@ public class MyOperations {
         return new MyTime(hours, minutes, seconds);
     }
 
+    //Get MyTime object from string
+    public MyTime getTimeObjectString(String input){
+        //Gets time portion and then splits on colon
+        String[] colonSplit = input.split(" ")[0].split(":");
+        int hours = 0;
+        int minutes = 0;
+        int seconds = 0;
+        if(colonSplit.length == 2){
+            minutes = Integer.parseInt(colonSplit[0]);
+            seconds = Integer.parseInt(colonSplit[1]);
+        } else if(colonSplit.length == 3){
+            hours = Integer.parseInt(colonSplit[0]);
+            minutes = Integer.parseInt(colonSplit[1]);
+            seconds = Integer.parseInt(colonSplit[2]);
+        }
+        return new MyTime(hours, minutes, seconds);
+    }
+
     //Get missing item from trio of distance, pace, and time
     public Distance getMissingDistance(MyTime pace, MyTime time){
         int div = time.getTimeSeconds() / pace.getTimeSeconds();

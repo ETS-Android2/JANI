@@ -39,6 +39,11 @@ public class Distance {
         mDUnit = desiredUnit;
     }
 
+    public String getStringDistance(){
+
+        return String.valueOf(mDDouble) + " " + getDistanceUnitString(defaultUnit);
+    }
+
     //Getters and Setters only below here
     public double getDoubleDistance(){return mDDouble;}
 

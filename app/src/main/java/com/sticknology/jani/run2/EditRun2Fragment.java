@@ -20,9 +20,11 @@ import androidx.fragment.app.Fragment;
 import com.sticknology.jani.R;
 import com.sticknology.jani.data2.Distance;
 import com.sticknology.jani.data2.Interval2;
+import com.sticknology.jani.data2.MyOperations;
 import com.sticknology.jani.data2.MyTime;
 import com.sticknology.jani.data2.Run2;
 import com.sticknology.jani.ui.create.planCreation.PlanCreationActivity;
+import com.sticknology.jani.uiCommon.ThreeNumberPicker;
 import com.sticknology.jani.uiCommon.TwoNumberPicker;
 import com.sticknology.jani.uiMethodsCommon.SpinnerMethods;
 
@@ -81,7 +83,7 @@ public class EditRun2Fragment extends Fragment {
         setHasOptionsMenu(true);
 
         if(mEditType.equals("INTERVAL")) ovcInterval(view, savedInstanceState);
-        else ovcHeader(view, savedInstanceState);
+        else if(mEditType.equals("HEADER")) ovcHeader(view, savedInstanceState);
     }
 
     //This is for run information setter
@@ -121,8 +123,23 @@ public class EditRun2Fragment extends Fragment {
 
         //Set up distance picker
         Button distanceButton = getView().findViewById(R.id.run2_edit_distance);
-        TwoNumberPicker twoNumberPicker = new TwoNumberPicker();
-        twoNumberPicker.distanceDialog(distanceButton, getView(), getActivity(), getContext(), "Distance");
+        distanceButton.setText(dispRun.getIntervals().get(mIntervalIndex).getDistance().getStringDistance());
+        TwoNumberPicker distancePicker = new TwoNumberPicker();
+        distancePicker.twoPickerDialog(distanceButton, getView(), getActivity(), getContext(), "Distance");
+
+        //Set up pace picker
+        Button paceButton = getView().findViewById(R.id.run2_edit_pace);
+        String paceDisplay = dispRun.getIntervals().get(mIntervalIndex).getPace().getDispString() + " /mi";
+        paceButton.setText(paceDisplay);
+        TwoNumberPicker pacePicker = new TwoNumberPicker();
+        pacePicker.twoPickerDialog(paceButton, getView(), getActivity(), getContext(), "Pace");
+
+        //Set up time picker
+        Button timeButton = getView().findViewById(R.id.run2_edit_time);
+        String timeDisplay = dispRun.getIntervals().get(mIntervalIndex).getTime().getDispString();
+        timeButton.setText(timeDisplay);
+        ThreeNumberPicker timePicker = new ThreeNumberPicker();
+        timePicker.threePickerDialog(timeButton, getView(), getActivity(), getContext(), "Time");
 
         //Set up effort spinner
         Spinner effortSpinner = getView().findViewById(R.id.run2_edit_effort);
@@ -165,6 +182,8 @@ public class EditRun2Fragment extends Fragment {
 
         } else if(item.getItemId() == R.id.action_save){
 
+            System.err.println("THIS IS MEDITTYPE: " + mEditType);
+
             //For saving run header information
             if(mEditType.equals("HEADER")) {
                 //Set base objects
@@ -181,6 +200,38 @@ public class EditRun2Fragment extends Fragment {
                 }
                 EditText runNotes = getView().findViewById(R.id.run2_edit_notes);
                 dispRun.setNotes(runNotes.getText().toString());
+
+                //Update Display (Frag Transaction)
+                DispRun2Fragment newFrag = DispRun2Fragment.newInstance(true);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_create, newFrag, null).commit();
+                return true;
+
+            } else if(mEditType.equals("INTERVAL")){
+                //Set base objects
+                Button distanceButton = getView().findViewById(R.id.run2_edit_distance);
+                Button timeButton = getView().findViewById(R.id.run2_edit_time);
+                Button paceButton = getView().findViewById(R.id.run2_edit_pace);
+                Spinner effortSpinner = getView().findViewById(R.id.run2_edit_effort);
+
+                //Save data to object
+                String stringDistance = distanceButton.getText().toString().split(" ")[0];
+                Double doubleDistance = Double.valueOf(stringDistance);
+                Distance intervalDistance = new Distance(doubleDistance, Distance.defaultUnit);
+
+                MyOperations myOperations = new MyOperations();
+                MyTime paceTime = myOperations.getTimeObjectString(paceButton.getText().toString());
+                MyTime durationTime = myOperations.getTimeObjectString(timeButton.getText().toString());
+
+                Interval2 newInterval = new Interval2(intervalDistance,
+                        effortSpinner.getSelectedItem().toString(), paceTime, durationTime);
+
+                //Checks if should replace the interval or append it to the end of the list
+                if(mIntervalIndex < dispRun.getIntervals().size()){
+                    dispRun.getIntervals().set(mIntervalIndex, newInterval);
+                } else {
+                    dispRun.getIntervals().add(newInterval);
+                }
 
                 //Update Display (Frag Transaction)
                 DispRun2Fragment newFrag = DispRun2Fragment.newInstance(true);

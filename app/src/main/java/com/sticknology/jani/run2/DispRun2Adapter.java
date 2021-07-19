@@ -107,7 +107,7 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
         holder.intervalCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditRun2Fragment newFrag = new EditRun2Fragment().newInstance("INTERVAL", position);
+                EditRun2Fragment newFrag = new EditRun2Fragment().newInstance("INTERVAL", position-1);
                 PlanCreationActivity planCreationActivity = (PlanCreationActivity) holder.context;
                 planCreationActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_create, newFrag, null)
