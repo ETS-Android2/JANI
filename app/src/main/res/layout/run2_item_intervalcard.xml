@@ -165,8 +165,12 @@
 
         </LinearLayout>
 
-
-
     </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/run2_interval_frag"
+        android:layout_gravity="bottom"/>
 
 </androidx.cardview.widget.CardView>

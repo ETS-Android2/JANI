@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ import com.sticknology.jani.uiCommon.TwoNumberPicker;
 import com.sticknology.jani.uiMethodsCommon.SpinnerMethods;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.sticknology.jani.run2.DispRun2Fragment.dispRun;
 
@@ -122,24 +124,46 @@ public class EditRun2Fragment extends Fragment {
     public void ovcInterval(View view, Bundle savedInstanceState){
 
         //Set up distance picker
-        Button distanceButton = getView().findViewById(R.id.run2_edit_distance);
+        Button distanceButton = getView().findViewById(R.id.run2_edit_button1);
         distanceButton.setText(dispRun.getIntervals().get(mIntervalIndex).getDistance().getStringDistance());
         TwoNumberPicker distancePicker = new TwoNumberPicker();
         distancePicker.twoPickerDialog(distanceButton, getView(), getActivity(), getContext(), "Distance");
 
-        //Set up pace picker
-        Button paceButton = getView().findViewById(R.id.run2_edit_pace);
-        String paceDisplay = dispRun.getIntervals().get(mIntervalIndex).getPace().getDispString() + " /mi";
-        paceButton.setText(paceDisplay);
-        TwoNumberPicker pacePicker = new TwoNumberPicker();
-        pacePicker.twoPickerDialog(paceButton, getView(), getActivity(), getContext(), "Pace");
+        //Set up 2nd field spinner
+        List<String> fieldList = new ArrayList<String>();
+        fieldList.add("Pace");
+        fieldList.add("Time");
+        Spinner fieldSpinner = getView().findViewById(R.id.run2_edit_label1);
+        ArrayAdapter<String> fieldAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_item, fieldList);
+        fieldAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        fieldSpinner.setAdapter(fieldAdapter);
+        fieldSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-        //Set up time picker
-        Button timeButton = getView().findViewById(R.id.run2_edit_time);
-        String timeDisplay = dispRun.getIntervals().get(mIntervalIndex).getTime().getDispString();
-        timeButton.setText(timeDisplay);
-        ThreeNumberPicker timePicker = new ThreeNumberPicker();
-        timePicker.threePickerDialog(timeButton, getView(), getActivity(), getContext(), "Time");
+                Button fieldButton = getView().findViewById(R.id.run2_edit_button2);
+
+                if(fieldSpinner.getSelectedItem().toString().equals("Pace")){
+                    //Set up pace picker
+                    TwoNumberPicker twoNumberPicker = new TwoNumberPicker();
+                    String paceDisplay = dispRun.getIntervals().get(mIntervalIndex).getPace().getDispString() + " /mi";
+                    fieldButton.setText(paceDisplay);
+                    twoNumberPicker.twoPickerDialog(fieldButton, getView(), getActivity(), getContext(), "Pace");
+
+                } else {
+                    //Set up time picker
+                    ThreeNumberPicker threeNumberPicker = new ThreeNumberPicker();
+                    String timeDisplay = dispRun.getIntervals().get(mIntervalIndex).getTime().getDispString();
+                    fieldButton.setText(timeDisplay);
+                    threeNumberPicker.threePickerDialog(fieldButton, getView(), getActivity(), getContext(), "Time");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+        fieldSpinner.setSelection(0);
 
         //Set up effort spinner
         Spinner effortSpinner = getView().findViewById(R.id.run2_edit_effort);
@@ -209,9 +233,8 @@ public class EditRun2Fragment extends Fragment {
 
             } else if(mEditType.equals("INTERVAL")){
                 //Set base objects
-                Button distanceButton = getView().findViewById(R.id.run2_edit_distance);
-                Button timeButton = getView().findViewById(R.id.run2_edit_time);
-                Button paceButton = getView().findViewById(R.id.run2_edit_pace);
+                Button distanceButton = getView().findViewById(R.id.run2_edit_button1);
+                Button paceButton = getView().findViewById(R.id.run2_edit_button2);
                 Spinner effortSpinner = getView().findViewById(R.id.run2_edit_effort);
 
                 //Save data to object
@@ -221,10 +244,10 @@ public class EditRun2Fragment extends Fragment {
 
                 MyOperations myOperations = new MyOperations();
                 MyTime paceTime = myOperations.getTimeObjectString(paceButton.getText().toString());
-                MyTime durationTime = myOperations.getTimeObjectString(timeButton.getText().toString());
+                //MyTime durationTime = myOperations.getTimeObjectString(timeButton.getText().toString());
 
                 Interval2 newInterval = new Interval2(intervalDistance,
-                        effortSpinner.getSelectedItem().toString(), paceTime, durationTime);
+                        effortSpinner.getSelectedItem().toString(), paceTime, new MyTime(0, 0, 0));
 
                 //Checks if should replace the interval or append it to the end of the list
                 if(mIntervalIndex < dispRun.getIntervals().size()){

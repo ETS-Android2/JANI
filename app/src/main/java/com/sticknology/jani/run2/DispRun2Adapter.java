@@ -132,6 +132,9 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
 
             }
         });
+
+
+        textViewMap.get("intervalFrag");
     }
 
     //Action Card OBVH
