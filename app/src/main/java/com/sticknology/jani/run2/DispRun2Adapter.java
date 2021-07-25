@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.sticknology.jani.data2.Interval2;
 import com.sticknology.jani.data2.MyOperations;
 import com.sticknology.jani.data2.MyTime;
 import com.sticknology.jani.ui.create.planCreation.PlanCreationActivity;
+import com.sticknology.jani.uiCommon.OneTextField;
 import com.sticknology.jani.uiCommon.ThreeNumberPicker;
 import com.sticknology.jani.uiCommon.TwoNumberPicker;
 import com.sticknology.jani.uiMethodsCommon.SpinnerMethods;
@@ -174,6 +176,11 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
         });
         fieldSpinner.setSelection(0);
 
+        //Set Note Dialog
+        TextView notes = holder.viewNotes;
+        OneTextField oneTextField = new OneTextField();
+        oneTextField.OneTextField(notes, DispRun2Fragment.activity, holder.context);
+
         //Set up effort spinner
         Spinner effortSpinner = holder.effortSpinner;
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(holder.context,
@@ -213,6 +220,26 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
                 }
 
                 setDispInterval(holder, position);
+            }
+        });
+
+        //Set up listener for delete button
+        Button deleteButton = holder.deleteButton;
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(dispRun.getIntervals().size() != 1) {
+                    //Notify item removed at position +1 to be relative to recyclerview
+                    dispRun.getIntervals().remove(position);
+                    DispRun2Fragment.dispAdapter.notifyItemRemoved(position+1);
+                    //Double update to make sure that below cards reflect new titles
+                    DispRun2Fragment.dispAdapter.notifyItemRangeChanged(position+1,
+                            getItemCount()-position+1);
+                } else {
+                    Toast cantDoThat = Toast.makeText(holder.context,
+                            "Can't Delete Only Interval", Toast.LENGTH_SHORT);
+                    cantDoThat.show();
+                }
             }
         });
     }
@@ -260,7 +287,6 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
             totalDistance += dispRun.getDistance() + " " + "mi";
             totalTime += dispRun.getTotalTime().getDispString();
             averagePace += dispRun.getAveragePace().getDispString();
-
         }
         //If there is no filled run object
         else {

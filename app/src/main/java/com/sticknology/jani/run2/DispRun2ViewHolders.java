@@ -23,15 +23,15 @@ import static com.sticknology.jani.run2.DispRun2Fragment.dispRun;
 public class DispRun2ViewHolders extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //String identifiers to get textview from hashtable for IntervalHolder
-    public final String cardLabel = "cardLabel", intervalTime = "intervalTime",
-            intervalDistance = "intervalDistance", intervalPace = "intervalPace",
-            intervalEffort = "intervalEffort";
+    public final String cardLabel = "cardLabel", intervalDistance = "intervalDistance",
+            intervalPace = "intervalPace", intervalEffort = "intervalEffort";
 
     public class IntervalHolder extends RecyclerView.ViewHolder {
 
         //public TextView cardLabel, intervalDistance, intervalTime, intervalEffort, intervalPace;
         public Hashtable<String, TextView> textViewHTable;
         public CardView intervalDispCard, intervalEditCard;
+        public TextView viewNotes;
         public Button distanceButton, field2Button, doneButton, deleteButton;
         public Spinner fieldSpinner, effortSpinner;
         public Context context;
@@ -56,6 +56,7 @@ public class DispRun2ViewHolders extends RecyclerView.Adapter<RecyclerView.ViewH
             effortSpinner = v.findViewById(R.id.run2_edit_effort);
             intervalDispCard = v.findViewById(R.id.run2_disp_interval);
             intervalEditCard = v.findViewById(R.id.run2_edit_interval);
+            viewNotes = v.findViewById(R.id.run2_edit_inotes);
             view = v;
             context = v.getContext();
 

@@ -215,6 +215,12 @@ public class EditRun2Fragment extends Fragment {
                 EditText runTitle = getView().findViewById(R.id.run2_edit_title);
                 Spinner typeSpinner = getView().findViewById(R.id.run2_edit_type);
 
+                //Auto sets use type as title if no title was filled in
+                if(runTitle.getText().toString().equals("")){
+                    useTypeAsTitle.setChecked(true);
+                }
+
+                //Set Run Type and Title if RunTypeAsTitle
                 String runType = typeSpinner.getSelectedItem().toString();
                 dispRun.setTypes(runType);
                 if (useTypeAsTitle.isChecked()) {
