@@ -1,5 +1,6 @@
 package com.sticknology.jani.run2;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,10 +25,11 @@ public class DispRun2Fragment extends Fragment {
 
     //Fragment variables
     public static Run2 dispRun;
+    public static Activity activity;
 
     //Rev
     public static DispRun2Adapter dispAdapter;
-    private RecyclerView intervalRev;
+    public static RecyclerView intervalRev;
 
     public static DispRun2Fragment newInstance(Boolean isEditable) {
 
@@ -54,7 +56,7 @@ public class DispRun2Fragment extends Fragment {
             dispRun.setIntervals(intervalList);
             MyTime blankTime = new MyTime(0, 0, 0);
             Distance zeroDistance = new Distance(0, Distance.defaultUnit);
-            dispRun.getIntervals().add(new Interval2(zeroDistance, "NA", blankTime, blankTime));
+            dispRun.getIntervals().add(new Interval2(zeroDistance, "NA", blankTime, blankTime, ""));
         }
 
         //Inflate view with proper layout xml
@@ -64,6 +66,8 @@ public class DispRun2Fragment extends Fragment {
     @Override
     public void onViewCreated(@NotNull View v, Bundle savedInstanceState){
         super.onViewCreated(v, savedInstanceState);
+
+        activity = getActivity();
 
         //Create recyclerview
         intervalRev = getView().findViewById(R.id.run2_disp_rev);

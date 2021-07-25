@@ -8,6 +8,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:focusable="true"
     card_view:cardElevation="10dp"
+    android:layout_marginBottom="10dp"
     android:id="@+id/run2_disp_header">
 
     <LinearLayout

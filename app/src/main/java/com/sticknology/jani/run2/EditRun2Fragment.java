@@ -62,7 +62,7 @@ public class EditRun2Fragment extends Fragment {
             dispRun.setIntervals(intervalList);
             MyTime blankTime = new MyTime(0, 0, 0);
             Distance zeroDistance = new Distance(0, Distance.defaultUnit);
-            dispRun.getIntervals().add(new Interval2(zeroDistance, "NA", blankTime, blankTime));
+            dispRun.getIntervals().add(new Interval2(zeroDistance, "NA", blankTime, blankTime, ""));
         }
 
         //Returns correct view between editing the header or an interval
@@ -247,7 +247,7 @@ public class EditRun2Fragment extends Fragment {
                 //MyTime durationTime = myOperations.getTimeObjectString(timeButton.getText().toString());
 
                 Interval2 newInterval = new Interval2(intervalDistance,
-                        effortSpinner.getSelectedItem().toString(), paceTime, new MyTime(0, 0, 0));
+                        effortSpinner.getSelectedItem().toString(), paceTime, new MyTime(0, 0, 0), "");
 
                 //Checks if should replace the interval or append it to the end of the list
                 if(mIntervalIndex < dispRun.getIntervals().size()){

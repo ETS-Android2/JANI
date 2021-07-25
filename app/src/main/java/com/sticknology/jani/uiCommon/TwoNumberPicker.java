@@ -14,8 +14,8 @@ import com.sticknology.jani.R;
 
 public class TwoNumberPicker {
 
-    private final String[] decimalValues = new String[]{".0", "0.1", ".125", "0.2", ".25", "0.3",
-            ".375", "0.4", ".5", "0.6", ".625", "0.7", ".75", "0.8", ".875", "0.9"};
+    private final String[] decimalValues = new String[]{".0", ".1", ".125", ".2", ".25", ".3",
+            ".375", ".4", ".5", ".6", ".625", ".7", ".75", ".8", ".875", ".9"};
 
     public void twoPickerDialog(Button buttonObject, View view, Activity activity, Context context, String type){
 
@@ -90,8 +90,10 @@ public class TwoNumberPicker {
                             buttonObject.setText(String.valueOf(picker1.getValue()) +
                                     decimalValues[picker2.getValue()] + " mi");
                         } else if (type.equals("Pace")) {
+                            String seconds = String.valueOf(picker2.getValue());
+                            if(seconds.length() == 1) seconds = "0" + seconds;
                             buttonObject.setText(String.valueOf(picker1.getValue()) + ":" +
-                                    String.valueOf(picker2.getValue()) + " /mi");
+                                     seconds + " /mi");
                         }
                     }
                 });

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,15 +25,17 @@ public class DispRun2ViewHolders extends RecyclerView.Adapter<RecyclerView.ViewH
     //String identifiers to get textview from hashtable for IntervalHolder
     public final String cardLabel = "cardLabel", intervalTime = "intervalTime",
             intervalDistance = "intervalDistance", intervalPace = "intervalPace",
-            intervalEffort = "intervalEffort", intervalFrag = "intervalFrag";
+            intervalEffort = "intervalEffort";
 
     public class IntervalHolder extends RecyclerView.ViewHolder {
 
         //public TextView cardLabel, intervalDistance, intervalTime, intervalEffort, intervalPace;
         public Hashtable<String, TextView> textViewHTable;
-        public CardView intervalCard;
-        public Button moveUp, moveDown;
+        public CardView intervalDispCard, intervalEditCard;
+        public Button distanceButton, field2Button, doneButton, deleteButton;
+        public Spinner fieldSpinner, effortSpinner;
         public Context context;
+        public View view;
 
         public IntervalHolder(View v){
             super(v);
@@ -40,19 +43,23 @@ public class DispRun2ViewHolders extends RecyclerView.Adapter<RecyclerView.ViewH
             //Create Hashtable to hold all textview objects for intervalholder
             textViewHTable = new Hashtable<String, TextView>();
             textViewHTable.put(cardLabel, v.findViewById(R.id.run2_interval_label));
-            textViewHTable.put(intervalTime, v.findViewById(R.id.run2_interval_time));
             textViewHTable.put(intervalDistance, v.findViewById(R.id.run2_interval_distance));
             textViewHTable.put(intervalPace, v.findViewById(R.id.run2_interval_pace));
             textViewHTable.put(intervalEffort, v.findViewById(R.id.run2_interval_effort));
 
-            //TODO: THESE ARE A TEST
-            textViewHTable.put(intervalFrag, v.findViewById(R.id.run2_interval_frag));
-
             //Create other references needed
-            intervalCard = v.findViewById(R.id.run2_disp_interval);
-            moveUp = v.findViewById(R.id.run2_interval_up);
-            moveDown = v.findViewById(R.id.run2_interval_down);
+            doneButton = v.findViewById(R.id.run2_edit_done);
+            deleteButton = v.findViewById(R.id.run2_edit_delete);
+            distanceButton = v.findViewById(R.id.run2_edit_button1);
+            field2Button = v.findViewById(R.id.run2_edit_button2);
+            fieldSpinner = v.findViewById(R.id.run2_edit_label1);
+            effortSpinner = v.findViewById(R.id.run2_edit_effort);
+            intervalDispCard = v.findViewById(R.id.run2_disp_interval);
+            intervalEditCard = v.findViewById(R.id.run2_edit_interval);
+            view = v;
             context = v.getContext();
+
+
         }
         //Return hashtable for use later in adapter
         public Hashtable<String, TextView> getTextMap(){
