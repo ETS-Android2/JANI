@@ -102,21 +102,30 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pace"
-                        android:textAlignment="center"/>
+                        android:text="D Field"
+                        android:textAlignment="center"
+                        android:id="@+id/run2_interval_fieldlabel"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pace"
+                        android:text="D Field"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:textAlignment="center"
-                        android:id="@+id/run2_interval_pace"/>
+                        android:id="@+id/run2_interval_field"/>
 
                 </LinearLayout>
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="THIS IS FILER FOR NOTES"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginVertical="10dp"
+                android:id="@+id/run2_disp_inotes"/>
 
         </LinearLayout>
 

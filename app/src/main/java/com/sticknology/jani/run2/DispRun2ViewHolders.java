@@ -24,7 +24,8 @@ public class DispRun2ViewHolders extends RecyclerView.Adapter<RecyclerView.ViewH
 
     //String identifiers to get textview from hashtable for IntervalHolder
     public final String cardLabel = "cardLabel", intervalDistance = "intervalDistance",
-            intervalPace = "intervalPace", intervalEffort = "intervalEffort";
+            intervalField = "intervalPace", intervalEffort = "intervalEffort",
+            intervalNotes = "intervalNotes", fieldLabel = "fieldLabel";
 
     public class IntervalHolder extends RecyclerView.ViewHolder {
 
@@ -44,8 +45,10 @@ public class DispRun2ViewHolders extends RecyclerView.Adapter<RecyclerView.ViewH
             textViewHTable = new Hashtable<String, TextView>();
             textViewHTable.put(cardLabel, v.findViewById(R.id.run2_interval_label));
             textViewHTable.put(intervalDistance, v.findViewById(R.id.run2_interval_distance));
-            textViewHTable.put(intervalPace, v.findViewById(R.id.run2_interval_pace));
+            textViewHTable.put(intervalField, v.findViewById(R.id.run2_interval_field));
+            textViewHTable.put(fieldLabel, v.findViewById(R.id.run2_interval_fieldlabel));
             textViewHTable.put(intervalEffort, v.findViewById(R.id.run2_interval_effort));
+            textViewHTable.put(intervalNotes, v.findViewById(R.id.run2_disp_inotes));
 
             //Create other references needed
             doneButton = v.findViewById(R.id.run2_edit_done);

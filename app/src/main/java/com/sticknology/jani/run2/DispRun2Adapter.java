@@ -118,8 +118,22 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
 
         //Setting display data for the card
         textViewMap.get(intervalDistance).setText(String.valueOf(cardInterval.getDistance().getDoubleDistance()));
-        textViewMap.get(intervalPace).setText(cardInterval.getPace().getDispString());
         textViewMap.get(intervalEffort).setText(cardInterval.getEffort());
+
+        if(cardInterval.getDesc().equals("Pace")){
+            textViewMap.get(intervalField).setText(cardInterval.getPace().getDispString());
+            textViewMap.get(fieldLabel).setText("Pace");
+        } else if(cardInterval.getDesc().equals("Time")){
+            textViewMap.get(intervalField).setText(cardInterval.getTime().getDispString());
+            textViewMap.get(fieldLabel).setText("Time");
+        }
+
+        if(cardInterval.getNotes().equals("")){
+            textViewMap.get(intervalNotes).setVisibility(View.GONE);
+        } else {
+            textViewMap.get(intervalNotes).setVisibility(View.VISIBLE);
+            textViewMap.get(intervalNotes).setText(cardInterval.getNotes());
+        }
 
         //Setting on click listener for opening edit fragment
         holder.intervalDispCard.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +188,13 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
-        fieldSpinner.setSelection(0);
+        //Set Initial Selected Item
+        if(dispRun.getIntervals().get(position).getDesc().equals("Pace")){
+            fieldSpinner.setSelection(0);
+        } else if (dispRun.getIntervals().get(position).getDesc().equals("Time")){
+            fieldSpinner.setSelection(1);
+        }
+
 
         //Set Note Dialog
         TextView notes = holder.viewNotes;
@@ -202,15 +222,32 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
             public void onClick(View view) {
 
                 //Save data to object
+                MyOperations myOperations = new MyOperations();
+                MyTime paceTime = new MyTime(0, 0, 0);
+                MyTime timeTime = new MyTime(0, 0, 0);
+                String noteString = notes.getText().toString();
+                if(noteString.equals("Tap to Add Notes")){
+                    noteString = "";
+                }
+                String descString = fieldSpinner.getSelectedItem().toString();
                 String stringDistance = distanceButton.getText().toString().split(" ")[0];
                 Double doubleDistance = Double.valueOf(stringDistance);
                 Distance intervalDistance = new Distance(doubleDistance, Distance.defaultUnit);
 
-                MyOperations myOperations = new MyOperations();
-                MyTime paceTime = myOperations.getTimeObjectString(fieldButton.getText().toString());
+                //Find missing item and set display type info
+                if(descString.equals("Pace")){
+                    paceTime = myOperations.getTimeObjectString(fieldButton.getText().toString());
+                    timeTime = myOperations.getMissingTime(paceTime, intervalDistance);
 
+                } else if(descString.equals("Time")){
+                    timeTime = myOperations.getTimeObjectString(fieldButton.getText().toString());
+                    paceTime = myOperations.getMissingPace(timeTime, intervalDistance);
+                }
+
+                //Create new Interval
                 Interval2 newInterval = new Interval2(intervalDistance,
-                        effortSpinner.getSelectedItem().toString(), paceTime, new MyTime(0, 0, 0), "");
+                        effortSpinner.getSelectedItem().toString(), paceTime, timeTime,
+                        descString, noteString);
 
                 //Checks if should replace the interval or append it to the end of the list
                 if(position < dispRun.getIntervals().size()){
@@ -270,9 +307,10 @@ public class DispRun2Adapter extends DispRun2ViewHolders {
     //Add blank interval to dispRun
     //TODO: MOVE THIS METHOD TO RUN2 Class???
     public void addBlankInterval(){
-        MyTime blankTime = new MyTime(0, 0, 0);
-        Distance zeroDistance = new Distance(0, Distance.defaultUnit);
-        dispRun.getIntervals().add(new Interval2(zeroDistance, "NA", blankTime, blankTime, ""));
+        MyTime blankTime = new MyTime(0, 8, 0);
+        Distance zeroDistance = new Distance(1, Distance.defaultUnit);
+        dispRun.getIntervals().add(new Interval2(zeroDistance, "Endurance", blankTime,
+                blankTime, "Pace", ""));
     }
 
     //Update the text inside of the header for total run display

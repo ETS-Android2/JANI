@@ -48,7 +48,7 @@ public class DispIntervalFragment extends Fragment {
         //Setting display data for the card
         TextView intervalDistance = getView().findViewById(R.id.run2_interval_distance);
         intervalDistance.setText(String.valueOf(cardInterval.getDistance().getDoubleDistance()));
-        TextView intervalPace = getView().findViewById(R.id.run2_interval_pace);
+        TextView intervalPace = getView().findViewById(R.id.run2_interval_field);
         intervalPace.setText(cardInterval.getPace().getDispString());
         TextView intervalEffort = getView().findViewById(R.id.run2_interval_effort);
         intervalEffort.setText(cardInterval.getEffort());

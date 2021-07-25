@@ -54,9 +54,9 @@ public class DispRun2Fragment extends Fragment {
                     null, null, null);
             ArrayList<Interval2> intervalList = new ArrayList<>();
             dispRun.setIntervals(intervalList);
-            MyTime blankTime = new MyTime(0, 0, 0);
-            Distance zeroDistance = new Distance(0, Distance.defaultUnit);
-            dispRun.getIntervals().add(new Interval2(zeroDistance, "NA", blankTime, blankTime, ""));
+            MyTime blankTime = new MyTime(0, 8, 0);
+            Distance zeroDistance = new Distance(1, Distance.defaultUnit);
+            dispRun.getIntervals().add(new Interval2(zeroDistance, "Endurance", blankTime, blankTime, "Pace", ""));
         }
 
         //Inflate view with proper layout xml
